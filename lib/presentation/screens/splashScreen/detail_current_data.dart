@@ -4,7 +4,7 @@ import '../../widgets/gradient_scaffold.dart';
 
 class DetailCurrentData extends StatelessWidget {
   
-  static const name = 'detail_current_data_screen';
+  static const name = 'detail_current_data';
   
   const DetailCurrentData({super.key});
 

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/gradient_scaffold.dart';
 
-class DetailCurrentData extends StatelessWidget {
+class HistoricalScreen extends StatelessWidget {
   
-  static const name = 'detail_current_data_screen';
+  static const name = 'historical_screen';
   
-  const DetailCurrentData({super.key});
+  const HistoricalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BackgroundGradient(
       widget: Scaffold(
         appBar: AppBar(
-          title: const Text("Condiciones hoy"),
+          title: const Text("Historico de datos"),
         ),
       ),
     );

@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/my_flutter_app_icons.dart';
@@ -15,13 +14,12 @@ class SectionCurrentTime extends StatelessWidget {
   final double height;
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
 
     return Container(
       width: double.infinity,
       height: height,
       decoration: BoxDecoration(
-        color: theme.cardColor,
+        color: DarkTheme.ultradarkViolet,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
@@ -44,42 +42,48 @@ class _TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
       DefaultTabController(
-        length: 3, // length of tabs
+        length: 2, // length of tabs
         initialIndex: 0,
 
         child: Column(
           children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
                 height: totalheight * 0.15,
-                width: 300,
+                width: 200,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35), topLeft: Radius.circular(35)),
                 ),
                 child: TabBar(
                   onTap: (index) {
-                    if(index == 2){
+                    /*if(index == 2){
                       context.push('/detail-current-data');
-                    }
+                    }*/
                   },              
-                  tabs: [
+                  tabs: const [
                     Tab(text: 'Actual'),
                     Tab(text: 'Max/Min'),
-                    Tab(text: 'Ver más'),
+                    //Tab(text: 'Ver más'),
                   ],
                 ),
               ),
-
+              SizedBox(
+                height: totalheight * 0.2,
+                child: TextButton(
+                  onPressed: (){
+                    context.push('/detail-current-data');
+                  }, child: const Text('Ver más'))
+                ),
             ],
           ),
-          Container(
+          SizedBox(
             height: totalheight * 0.8, //height of TabBarView
-            child: TabBarView(children: <Widget>[
+            child: const TabBarView(children: <Widget>[
               PensarNombre(),
               PensarNombre(),
-              Container(),
+              //Container(),
             ])
           )
         ])
@@ -166,8 +170,8 @@ class CurrentDataUnit extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(title, style: TextStyle(height: 1),),
-            Text(subtitle, style: TextStyle(height: 1),),
+            Text(title, style: const TextStyle(height: 1),),
+            Text(subtitle, style: const TextStyle(height: 1),),
             ],
           ),
         )

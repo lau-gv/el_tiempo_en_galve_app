@@ -13,6 +13,11 @@ final appRouter = GoRouter(
       path: '/detail-current-data',
       name: DetailCurrentData.name,
       builder: (context, state) => const DetailCurrentData(),      
+    ),
+    GoRoute(
+      path: '/historical-data',
+      name: HistoricalScreen.name,
+      builder: (context, state) => const HistoricalScreen(),      
     )
   ]
 );

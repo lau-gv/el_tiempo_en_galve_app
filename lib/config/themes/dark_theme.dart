@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Este tema no tiene mucho sentido xD. PERO NO SE HACER TEMAS. Así pues mirar de arreglar :(
 class DarkTheme {
 
   static const Color ultraLightViolet = Color.fromRGBO(95, 2, 138, 1);
@@ -7,6 +8,7 @@ class DarkTheme {
   static const Color violet = Color.fromRGBO(138, 96, 226, 1);
   static const Color middleViolet =  Color.fromRGBO(110, 71, 193, 1);
   static const Color darkViolet =  Color.fromRGBO(46, 51, 90, 1);
+  static const Color secondDarkViolet =  Color.fromRGBO(53, 38, 97, 1);
   static const Color ultradarkViolet =  Color.fromRGBO(28, 27, 51, 1);
 
   static const Color dark = Color.fromRGBO(31, 34, 60, 1);
@@ -34,6 +36,7 @@ class DarkTheme {
       displayMedium: TextStyle(color: grey1, fontSize: 24),
       displaySmall: TextStyle(color: grey2, fontSize: 20),
       bodyMedium: TextStyle(color: grey2,),      
+      bodyLarge: TextStyle(color: Colors.white, fontSize: 20, height: 1),     
     ),
     fontFamily: 'Inter',
     brightness: Brightness.dark,

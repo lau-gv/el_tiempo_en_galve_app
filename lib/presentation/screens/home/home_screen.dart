@@ -1,4 +1,5 @@
 import 'package:el_tiempo_en_galve_app/presentation/screens/home/section_current_time.dart';
+import 'package:el_tiempo_en_galve_app/presentation/screens/home/weather_week.dart';
 import 'package:el_tiempo_en_galve_app/presentation/screens/home/widget_weather_impact.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +31,20 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text("Galve", style: theme.textTheme.headlineLarge),
                   Text("Lluvioso", style: theme.textTheme.headlineMedium),
-                  WidgetWeatherImpact(
-                    height: screenSize.height / 4.7,
+                  const WidgetWeatherImpact(
+                    //height: screenSize.height / 4.7,
+                    height: 180,
                   ),
                   const SizedBox(height: 10),
-                  SectionCurrentTime(height: screenSize.height / 4),
-                  const SizedBox(height: 40),
-                  const Text("ACUMULADO DE LA SEMANA")
+                  const SectionCurrentTime(
+                    //height: screenSize.height / 4
+                    height: 200
+                  ),
+                  const SizedBox(height: 30),
+                  const WeatherWeek(
+                    //maxHeigth: screenSize.height / 4,
+                    maxHeigth: 230,
+                  )
                 ],
               ),
             ),

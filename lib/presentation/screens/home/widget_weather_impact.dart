@@ -110,7 +110,7 @@ class CardTimeChildrens extends StatelessWidget {
           child: Transform.translate(
             offset: const Offset(9, -10),
             child: const Image(
-              image: AssetImage("assets/images2/moonwindraining.png"),
+              image: AssetImage("assets/images/sunwind.png"),
               fit: BoxFit.cover,
                           ),
           ))
