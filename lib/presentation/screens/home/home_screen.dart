@@ -38,12 +38,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     SectionCurrentTime(
-                      height: screenSize.height / 4
+                      height: screenSize.height / 3.8
                       //height: 200
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     WeatherWeek(
-                      maxHeigth: screenSize.height / 4,
+                      maxHeigth: screenSize.height / 4.5,
                       //maxHeigth: 230,
                     )
                   ],

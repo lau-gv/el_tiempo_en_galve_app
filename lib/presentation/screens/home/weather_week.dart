@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 class WeatherWeek extends StatelessWidget {
   
   final double maxHeigth;
+
   const WeatherWeek({super.key, required this.maxHeigth});
 
   
@@ -14,9 +15,12 @@ class WeatherWeek extends StatelessWidget {
     return Column(
       children: [
         const Text("ACUMULADO DE LA SEMANA"),
-        const SizedBox(height: 10),
-        SizedBox(
-          height: maxHeigth - 30,
+        const SizedBox(height: 5,),
+        Container(
+          height: maxHeigth - 20,
+          constraints: const BoxConstraints(
+            minHeight: 180
+          ),
           child: ListView(
               scrollDirection: Axis.horizontal,
               children: const [

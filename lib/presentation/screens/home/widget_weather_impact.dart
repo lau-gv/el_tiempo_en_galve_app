@@ -17,6 +17,10 @@ class WidgetWeatherImpact extends StatelessWidget {
       children: [
         Container(     
           height: rectangleSize,
+          constraints: const BoxConstraints(
+            minHeight: 170,
+            maxHeight: 200
+          ),
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
@@ -87,7 +91,7 @@ class CardTimeChildrens extends StatelessWidget {
     return Row(              
       children: [
         Expanded(
-          flex: 16,
+          flex: 13,
           child: Container(
             padding: const EdgeInsets.only(left: 12, top: 15),
             child: Column(
@@ -105,13 +109,13 @@ class CardTimeChildrens extends StatelessWidget {
         ),
         
         Expanded(
-          flex: 14,
+          flex: 12,
           child: Transform.translate(
-            offset: const Offset(9, -10),
+            offset: const Offset(9, -25),
             child: const Image(
               image: AssetImage("assets/images/sunwind.png"),
-              fit: BoxFit.cover,
-                          ),
+              fit: BoxFit.contain,
+            ),
           ))
       ],
     );

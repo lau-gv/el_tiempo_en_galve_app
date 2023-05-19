@@ -19,6 +19,9 @@ class SectionCurrentTime extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: height,
+      constraints: BoxConstraints(
+        minHeight: 207,
+      ),
       decoration: BoxDecoration(
         color: DarkTheme.ultradarkViolet,
         borderRadius: BorderRadius.circular(25),
@@ -102,9 +105,7 @@ class PensarNombre extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 3,
       childAspectRatio: 3,
-      crossAxisSpacing: 3,
-      mainAxisSpacing: 6,
-      padding: const EdgeInsets.only(left: 4, right: 4, top: 15),
+      padding: const EdgeInsets.only(left: 5, right: 4, top: 15),
       children: const [
         CurrentDataUnit(
           icon: MyFlutterApp.rain,
@@ -178,6 +179,7 @@ class CurrentDataUnit extends StatelessWidget {
                 style: const TextStyle(fontSize: 14),
                 minFontSize: 10,
                 maxFontSize: 14,
+                
               ),
               Text(
                 subtitle,

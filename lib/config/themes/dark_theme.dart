@@ -30,11 +30,9 @@ class DarkTheme {
     useMaterial3: true,
     primaryColorDark:  darkViolet,
     textTheme: const TextTheme(
-      headlineLarge: TextStyle(color: Colors.white, fontSize: 38, height: 1),
-      headlineMedium: TextStyle(color: grey1, fontSize: 24, height: 1),
+      headlineLarge: TextStyle(color: Colors.white, fontSize: 35, height: 1),
+      headlineMedium: TextStyle(color: grey1, fontSize: 20, height: 1),
       displayLarge: TextStyle(color: Colors.white, fontSize: 68, fontWeight: FontWeight.bold, height: 1, ),
-      displayMedium: TextStyle(color: grey1, fontSize: 24),
-      displaySmall: TextStyle(color: grey2, fontSize: 20),
       bodyMedium: TextStyle(color: grey2,),      
       bodyLarge: TextStyle(color: Colors.white, fontSize: 20, height: 1),     
     ),
