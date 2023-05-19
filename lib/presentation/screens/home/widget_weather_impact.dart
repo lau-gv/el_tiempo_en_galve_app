@@ -13,7 +13,6 @@ class WidgetWeatherImpact extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final rectangleSize = height;
-
     return Stack(
       children: [
         Container(     

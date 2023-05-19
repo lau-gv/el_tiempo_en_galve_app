@@ -2,8 +2,6 @@ import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../historicalData/historial_screen.dart';
-
 class WeatherWeek extends StatelessWidget {
   
   final double maxHeigth;

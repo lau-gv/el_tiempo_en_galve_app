@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -79,7 +80,7 @@ class _TabBarWidget extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: totalheight * 0.8, //height of TabBarView
+            height: totalheight * 0.8,//height of TabBarView
             child: const TabBarView(children: <Widget>[
               PensarNombre(),
               PensarNombre(),
@@ -165,16 +166,26 @@ class CurrentDataUnit extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(icon),
-        Padding(
-          padding: const EdgeInsets.only(left: 3),
+        const SizedBox(width: 3),
+        Flexible(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(title, style: const TextStyle(height: 1),),
-            Text(subtitle, style: const TextStyle(height: 1),),
+              AutoSizeText(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.visible,
+                style: const TextStyle(fontSize: 14),
+                minFontSize: 10,
+                maxFontSize: 14,
+              ),
+              Text(
+                subtitle,
+                style: const TextStyle(height: 1),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

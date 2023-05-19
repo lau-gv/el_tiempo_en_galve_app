@@ -24,31 +24,33 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
         ),
-        body: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 2, top: 2),
-              child: Column(
-                children: [
-                  Text("Galve", style: theme.textTheme.headlineLarge),
-                  Text("Lluvioso", style: theme.textTheme.headlineMedium),
-                  const WidgetWeatherImpact(
-                    //height: screenSize.height / 4.7,
-                    height: 180,
-                  ),
-                  const SizedBox(height: 10),
-                  const SectionCurrentTime(
-                    //height: screenSize.height / 4
-                    height: 200
-                  ),
-                  const SizedBox(height: 30),
-                  const WeatherWeek(
-                    //maxHeigth: screenSize.height / 4,
-                    maxHeigth: 230,
-                  )
-                ],
+        body: SingleChildScrollView(
+          child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 2),
+                child: Column(
+                  children: [
+                    Text("Galve", style: theme.textTheme.headlineLarge),
+                    Text("Lluvioso", style: theme.textTheme.headlineMedium),
+                    WidgetWeatherImpact(
+                      height: screenSize.height / 4.7,
+                      //height: 180,
+                    ),
+                    const SizedBox(height: 10),
+                    SectionCurrentTime(
+                      height: screenSize.height / 4
+                      //height: 200
+                    ),
+                    const SizedBox(height: 30),
+                    WeatherWeek(
+                      maxHeigth: screenSize.height / 4,
+                      //maxHeigth: 230,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
+        ),
       ),
     );
   }
