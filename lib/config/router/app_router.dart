@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../../presentation/screens/screens.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/login',
   routes: [
     GoRoute(
       path: '/',
@@ -18,6 +18,16 @@ final appRouter = GoRouter(
       path: '/historical-data',
       name: HistoricalScreen.name,
       builder: (context, state) => const HistoricalScreen(),      
-    )
+    ),
+    GoRoute(
+      path: '/login',
+      name: LoginScreen.name,
+      builder: (context, state) => const LoginScreen(),      
+    ),
+    GoRoute(
+      path: '/register',
+      name: RegisterScreen.name,
+      builder: (context, state) => const RegisterScreen(),      
+    ),    
   ]
 );

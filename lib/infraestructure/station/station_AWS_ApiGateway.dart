@@ -1,0 +1,16 @@
+import 'package:el_tiempo_en_galve_app/domain/datasources/station_datasource.dart';
+import 'package:el_tiempo_en_galve_app/domain/entities/station.dart';
+
+class StationAWSApiGateway extends StationDatasource {
+  @override
+  void deleteStation({required String stationId}) {
+    // TODO: implement deleteStation
+  }
+
+  @override
+  Future<List<Station>> getStations({required String userId}) {
+    // TODO: implement getStations
+    throw UnimplementedError();
+  }
+
+}

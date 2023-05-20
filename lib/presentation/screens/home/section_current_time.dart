@@ -19,7 +19,7 @@ class SectionCurrentTime extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: height,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 207,
       ),
       decoration: BoxDecoration(

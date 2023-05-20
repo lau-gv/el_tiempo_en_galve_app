@@ -14,7 +14,7 @@ class DarkTheme {
   static const Color dark = Color.fromRGBO(31, 34, 60, 1);
     
   static const  Color grey1 = Color.fromRGBO(193, 193, 193, 1);
-  static const  Color grey2 = Color.fromRGBO(255, 255, 255, 1);
+  static const  Color grey2 = Color.fromRGBO(231, 231, 231, 1);
 
     
     static Color gradientBackgroundColorTop = darkViolet;
@@ -33,6 +33,7 @@ class DarkTheme {
       headlineLarge: TextStyle(color: Colors.white, fontSize: 35, height: 1),
       headlineMedium: TextStyle(color: grey1, fontSize: 20, height: 1),
       displayLarge: TextStyle(color: Colors.white, fontSize: 68, fontWeight: FontWeight.bold, height: 1, ),
+      displayMedium: TextStyle(color: grey1, fontSize: 30, height: 1),
       bodyMedium: TextStyle(color: grey2,),      
       bodyLarge: TextStyle(color: Colors.white, fontSize: 20, height: 1),     
     ),
@@ -42,7 +43,35 @@ class DarkTheme {
       color: grey1,
     ),
     scaffoldBackgroundColor: Colors.transparent,
-    cardColor: ultradarkViolet,
+    
+    
+    inputDecorationTheme: InputDecorationTheme(
+
+      constraints: BoxConstraints(
+        maxHeight: 45
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(35),
+        borderSide: const BorderSide(
+          width: 1,
+          color: grey1
+        ),
+      ),
+      fillColor: secondDarkViolet,
+      filled: true,
+      iconColor: grey1,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      labelStyle: const TextStyle(
+        color: grey1,
+        fontSize: 22
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red
+        )
+      )
+    )
+    
   );
 
   ThemeData getTheme() {

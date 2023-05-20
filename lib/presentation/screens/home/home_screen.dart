@@ -3,7 +3,7 @@ import 'package:el_tiempo_en_galve_app/presentation/screens/home/weather_week.da
 import 'package:el_tiempo_en_galve_app/presentation/screens/home/widget_weather_impact.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/gradient_scaffold.dart';
+import '../../widgets/background_gradient.dart';
 
 class HomeScreen extends StatelessWidget {
   

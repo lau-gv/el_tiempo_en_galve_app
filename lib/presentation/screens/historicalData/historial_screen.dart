@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/gradient_scaffold.dart';
+import '../../widgets/background_gradient.dart';
 
 class HistoricalScreen extends StatelessWidget {
   

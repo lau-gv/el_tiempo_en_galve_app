@@ -8,10 +8,58 @@ class WeatherWeek extends StatelessWidget {
 
   const WeatherWeek({super.key, required this.maxHeigth});
 
-  
+ 
 
   @override
   Widget build(BuildContext context) {
+
+
+    const hola = [
+      CardWeekDay(
+        dayName: "LUN",
+        dateNumber: "08/05",
+        imageUrl: "assets/images/sun.png",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "MAR",
+        dateNumber: "09/05",
+        imageUrl: "assets/images/sunwind.png",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "MIE",
+        dateNumber: "10/05",
+        imageUrl: "assets/images/suncloud.png",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "JUE",
+        dateNumber: "11/05",
+        imageUrl: "assets/images/suncloudrain.png",
+        totalRain: "5L",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "VIE",
+        dateNumber: "12/05",
+        imageUrl: "assets/images/sun.png",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "SAB",
+        dateNumber: "13/05",
+        imageUrl: "assets/images/sun.png",
+        minmaxT: "18/25",
+      ),                  
+      CardWeekDay(
+        dayName: "DOM",
+        dateNumber: "14/05",
+        imageUrl: "assets/images/sun.png",
+        minmaxT: "18/25",
+      ),                  
+  ];  
+
     return Column(
       children: [
         const Text("ACUMULADO DE LA SEMANA"),
@@ -21,55 +69,15 @@ class WeatherWeek extends StatelessWidget {
           constraints: const BoxConstraints(
             minHeight: 180
           ),
-          child: ListView(
+          child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: const [
-                CardWeekDay(
-                  dayName: "LUN",
-                  dateNumber: "08/05",
-                  imageUrl: "assets/images/sun.png",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "MAR",
-                  dateNumber: "09/05",
-                  imageUrl: "assets/images/sunwind.png",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "MIE",
-                  dateNumber: "10/05",
-                  imageUrl: "assets/images/suncloud.png",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "JUE",
-                  dateNumber: "11/05",
-                  imageUrl: "assets/images/suncloudrain.png",
-                  totalRain: "5L",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "VIE",
-                  dateNumber: "12/05",
-                  imageUrl: "assets/images/sun.png",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "SAB",
-                  dateNumber: "13/05",
-                  imageUrl: "assets/images/sun.png",
-                  minmaxT: "18/25",
-                ),                  
-                CardWeekDay(
-                  dayName: "DOM",
-                  dateNumber: "14/05",
-                  imageUrl: "assets/images/sun.png",
-                  minmaxT: "18/25",
-                ),                  
-              ],
+              itemCount: 7,
+              itemBuilder: (context, index) {
+                return hola[index];
+              },                      
             ),
         ),
+        
         const SizedBox(height: 5,),
         FilledButton(onPressed: () {
           context.push('/historical-data');
