@@ -46,8 +46,8 @@ class DarkTheme {
     
     
     inputDecorationTheme: InputDecorationTheme(
-
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
+        minHeight: 45,
         maxHeight: 45
       ),
       border: OutlineInputBorder(
@@ -65,10 +65,21 @@ class DarkTheme {
         color: grey1,
         fontSize: 22
       ),
-      errorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(35),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1
         )
+      ),
+      errorStyle: const TextStyle(
+        color: Colors.red,
+        height: 1
+      ),
+      errorMaxLines: 2,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 40,
+        vertical: 3
       )
     )
     

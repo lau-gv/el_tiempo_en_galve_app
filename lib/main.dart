@@ -1,8 +1,9 @@
 import 'package:el_tiempo_en_galve_app/config/router/app_router.dart';
 import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const ProviderScope(child: MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

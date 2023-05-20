@@ -1,15 +1,22 @@
-import 'package:el_tiempo_en_galve_app/presentation/widgets/background_gradient.dart';
-import 'package:el_tiempo_en_galve_app/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-class LoginScreen extends StatelessWidget {
+
+import '../../providers/providers.dart';
+import '../../widgets/widgets.dart';
+
+class LoginScreen extends ConsumerWidget {
   static const name = 'login_screen';
 
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //Esto me da acceso al state
+    final loginForm = ref.watch(loginFormProvider);
+
     final theme = Theme.of(context);
+    final Size screenSize = MediaQuery.of(context).size;
 
     return BackgroundGradient(
       widget: Scaffold(
@@ -20,7 +27,9 @@ class LoginScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
-              child:  Column(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -35,14 +44,22 @@ class LoginScreen extends StatelessWidget {
                     Text(
                       "Login",
                       style: theme.textTheme.displayMedium,
-                    ),                    
-                    const SizedBox(height: 30),
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(labelText: "Email"),
                     ),
                     const SizedBox(height: 30),
-                    const InputPassword(textLabel: "Contraseña"),
+                    //ref.read(loginFormProvider.notifier).onEmailChange,
+                    //loginForm.email.errorMessage,
+                    CustomInputText(
+                      textLabel: "Email",
+                      keyboardType: TextInputType.emailAddress,
+                      errorMessage: loginForm.email.errorMessage,
+                      onChanged: ref.read(loginFormProvider.notifier).onEmailChange,
+                    ),
+                    const SizedBox(height: 10),
+                    InputPassword(
+                      textLabel: "Contraseña",
+                      errorMessage: loginForm.password.errorMessage,
+                      onChanged: ref.read(loginFormProvider.notifier).onPasswordChanged,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -62,18 +79,24 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     FilledButton(
-                      onPressed: () {},
                       child: const Text(
-                        'Login',
+                        'Ingresar',
                         style: TextStyle(fontSize: 25),
                       ),
+                      onPressed: () {
+                        ref.read(loginFormProvider.notifier).onFormSubmit();  
+                      },
                     ),
+                    const SizedBox(height: 20),
+                    LineFigure(size: screenSize)
                   ],
                 ),
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }
+

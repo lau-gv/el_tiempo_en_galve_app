@@ -1,15 +1,21 @@
-import 'package:el_tiempo_en_galve_app/presentation/widgets/background_gradient.dart';
-import 'package:el_tiempo_en_galve_app/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterScreen extends StatelessWidget {
+import '../../widgets/widgets.dart';
+import '../../providers/providers.dart';
+class RegisterScreen extends ConsumerWidget {
   static const name = 'register_screen';
 
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final registerForm = ref.watch(registerFormProvider);
+
+
     final theme = Theme.of(context);
+    final Size screenSize = MediaQuery.of(context).size;
 
     return BackgroundGradient(
       widget: Scaffold(
@@ -20,47 +26,63 @@ class RegisterScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    height: 150,
-                    child: Image.asset(
-                      'assets/images/logo/white_logo_app.png',
-                      fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      height: 150,
+                      child: Image.asset(
+                        'assets/images/logo/white_logo_app.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Registro",
-                    style: theme.textTheme.displayMedium,
-                  ),
-                  const SizedBox(height: 45),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: "Nombre"),
-                  ),
-                  const SizedBox(height: 15),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(labelText: "Email"),
-                  ),
-                  const SizedBox(height: 15),
-                  const InputPassword(textLabel: "contraseña"),
-                  const SizedBox(height: 15),
-                  const InputPassword(textLabel: "Confirmar contraseña"),
-                  
-                  const SizedBox(height: 20),
-                 
-                  FilledButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Registrar',
-                      style: TextStyle(fontSize: 25),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Registro",
+                      style: theme.textTheme.displayMedium,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 45),
+                    CustomInputText(
+                      textLabel: "Usuario",
+                      errorMessage: registerForm.username.errorMessage,
+                      onChanged: ref.read(registerFormProvider.notifier).onUsernameChange,
+                    ),
+                    CustomInputText(
+                      textLabel: "Email", 
+                      keyboardType: TextInputType.emailAddress,
+                      errorMessage: registerForm.email.errorMessage,  
+                      onChanged: ref.read(registerFormProvider.notifier).onEmailChange,
+                    ),
+                    const SizedBox(height: 5),
+                    InputPassword(
+                      textLabel: "Contraseña",
+                      errorMessage: registerForm.password.errorMessage,
+                      onChanged: ref.read(registerFormProvider.notifier).onPasswordChanged,
+                    ),
+                    InputPassword(
+                      textLabel: "confirmar contraseña",
+                      errorMessage: registerForm.repeatedPassword.errorMessage,
+                      onChanged: ref.read(registerFormProvider.notifier).onRepeatedPasswordChanged,
+                    ),
+              
+                   
+                    FilledButton(
+                      onPressed: () {
+                        ref.read(registerFormProvider.notifier).onFormSubmit();
+                      },
+                      child: const Text(
+                        'Registrar',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    LineFigure(size: screenSize)
+                  ],
+                ),
               ),
             ),
           ),
