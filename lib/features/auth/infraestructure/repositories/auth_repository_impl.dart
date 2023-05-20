@@ -1,0 +1,25 @@
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/datasources/auth_datasource_cognitoimpl.dart';
+
+import '../../domain/domain.dart';
+
+class AuthRespositoryImpl  extends AuthDataSource {
+
+  final AuthDataSource dataSource;
+
+  AuthRespositoryImpl(AuthDataSource? dataSource) : dataSource = dataSource ?? AuthDataSourceCognitoImpl() ;
+  
+  @override
+  Future<User> checkAuthStatus(String token) {
+    return dataSource.checkAuthStatus(token);
+  }
+
+  @override
+  Future<User> login(String email, String password) {
+    return dataSource.login(email, password);
+  }
+
+  @override
+  Future<User> register(String username, String email, String password) {
+    return dataSource.register(username, email, password);
+  }
+}
