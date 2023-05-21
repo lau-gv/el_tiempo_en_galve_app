@@ -19,13 +19,13 @@ class CustomInputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 75,
       child: TextFormField(
         keyboardType: keyboardType,
         //No es buena práctica poner watch en eventos
         onChanged: onChanged,
-
         decoration:
             InputDecoration(
               labelText: textLabel,

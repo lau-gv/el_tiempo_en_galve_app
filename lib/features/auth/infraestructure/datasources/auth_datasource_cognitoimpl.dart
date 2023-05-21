@@ -1,6 +1,8 @@
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/mappers/userSession_mapper.dart';
 
 class AuthDataSourceCognitoImpl  extends AuthDataSource {
   //Coger del entorno que falta por "iniciar"
@@ -23,14 +25,16 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
     password: password,
   );
 
+  
+  final CognitoUserSession? session;
   try {
-    final session = await cognitoUser.authenticateUser(authDetails);
-    // Obtener el token JWT de la sesión
-    final token = session!.getIdToken().getJwtToken();
-    
+     session= await cognitoUser.authenticateUser(authDetails);
+    return UserSessionMapper.cognitoSessionToEntity(session!);
+
+ 
     //Perdí un día por esto, son unas pocas líneas no más, así que, aunque el código se enguarre, aquí se queda
-    /*TE AMO STACK OVERFLOW. La enseñanza es que hay que validar las cosas también probándolas desde el código, 
-    a veces, escribir más, no es malo, también que no hay que obcecarse en una única forma de resolver y buscar antes en interné
+    /*TE AMO STACKOVERFLOW. La enseñanza es que hay que validar las cosas también probándolas desde el código, 
+    a veces, escribir más, no es malo, también que no hay que obcecarse en una única forma de abordar algo que no sale y buscar antes en interné
     * https://stackoverflow.com/questions/65178391/flutter-aws-cognito-token-showing-invalid-signature*/
     //final first500Chars = token?.substring(0, 500);
     //final remainingChars = token?.substring(500);
@@ -39,26 +43,33 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
     //print('Token JWT: $token'); // Imprimir el token por pantalla
 
   } on CognitoUserNewPasswordRequiredException catch (e) {
-    print('CognitoUserNewPasswordRequiredException: $e');
+    //print('CognitoUserNewPasswordRequiredException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserMfaRequiredException catch (e) {
-    print('CognitoUserMfaRequiredException: $e');
+    //print('CognitoUserMfaRequiredException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserSelectMfaTypeException catch (e) {
-    print('CognitoUserSelectMfaTypeException: $e');
+    //print('CognitoUserSelectMfaTypeException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserMfaSetupException catch (e) {
-    print('CognitoUserMfaSetupException: $e');
+    //print('CognitoUserMfaSetupException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserTotpRequiredException catch (e) {
-    print('CognitoUserTotpRequiredException: $e');
+    //print('CognitoUserTotpRequiredException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserCustomChallengeException catch (e) {
-    print('CognitoUserCustomChallengeException: $e');
+    //print('CognitoUserCustomChallengeException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoUserConfirmationNecessaryException catch (e) {
-    print('CognitoUserConfirmationNecessaryException: $e');
+    //print('CognitoUserConfirmationNecessaryException: $e');
+    throw CustomError(message: e.message ?? "");
   } on CognitoClientException catch (e) {
-    print('CognitoClientException: $e');
+    //print('CognitoClientException: $e');
+    throw CustomError(message: e.message ?? "", errorCode: e.statusCode);
   } catch (e) {
-    print(e);
+    //print(e);
+    throw Exception();
   }
-  //TODO
-  return User(id: "id", email: "email", username: "username", token: "token");
 }
 
   @override

@@ -34,7 +34,7 @@ class DarkTheme {
       headlineMedium: TextStyle(color: grey1, fontSize: 20, height: 1),
       displayLarge: TextStyle(color: Colors.white, fontSize: 68, fontWeight: FontWeight.bold, height: 1, ),
       displayMedium: TextStyle(color: grey1, fontSize: 30, height: 1),
-      bodyMedium: TextStyle(color: grey2,),      
+      bodyMedium: TextStyle(color: grey2),      
       bodyLarge: TextStyle(color: Colors.white, fontSize: 20, height: 1),     
     ),
     fontFamily: 'Inter',
@@ -80,9 +80,8 @@ class DarkTheme {
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 40,
         vertical: 3
-      )
+      )      
     )
-    
   );
 
   ThemeData getTheme() {

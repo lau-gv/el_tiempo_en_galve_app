@@ -1,3 +1,4 @@
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import '../../../shared/infraestructure/inputs/inputs.dart';
@@ -7,14 +8,23 @@ import '../../../shared/infraestructure/inputs/inputs.dart';
 // 3 - StatenotifierProvider - consume afuera.
 //Autodispose es para que cuando ya no se use este churro, se elimine.
 final loginFormProvider = StateNotifierProvider.autoDispose<LoginFormNotifier, LoginFormState>((ref) {
-  return LoginFormNotifier();
+
+  //Documentación de Riverpod recomienda que en los providers lo manejemos con un watch. 
+  //¿Por qué hacemos esto aquí? porque tenemos una dependencia para con el otro provider, también es un Callback porque
+  //no queremos traernos tooodo el otro provider, queremos traernos la parte que necesitamos.
+  //En teoría, este es el caso de uso al que necesitamos llamar para realizar la utenticación.
+  final loginUserCallback = ref.watch(authProvider.notifier).loginUser;
+
+  return LoginFormNotifier(loginUserCallback: loginUserCallback);
 });
 
 
 // 2 - Como implementanmos un notifier
 class LoginFormNotifier extends StateNotifier<LoginFormState> {
+
+  final Function(String, String) loginUserCallback;
   //La creación del estado inicial debe ser síncrona.
-  LoginFormNotifier() : super(LoginFormState());
+  LoginFormNotifier({required this.loginUserCallback}) : super(LoginFormState());
 
   onEmailChange(String value) {
     final newEmail = Email.dirty(value);
@@ -28,11 +38,10 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
         password: newPassword, isValid: Formz.validate([newPassword, state.email]));
   }
 
-  onFormSubmit(){
+  onFormSubmit() async {
     _touchEveryField();
     if( !state.isValid ) return;
-
-    print(state);
+    await loginUserCallback(state.email.value, state.password.value);
   }
 
   _touchEveryField(){

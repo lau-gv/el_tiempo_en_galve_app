@@ -1,3 +1,4 @@
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,13 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //Esto me da acceso al state
     final loginForm = ref.watch(loginFormProvider);
+    //Para mostrar el error, debemos escuchar los cambios!!!
+    //A quien escuchamos, estado anterior, estado siguiente.
+    //Cuando el refWidget se destruya también limpia el listener ^^ Esa es una cosa maja de Riverpod.
+    ref.listen(authProvider, (previous, next) {
+      if(next.errorMessage.isEmpty) return;
+      showSnackbar(context, next.errorMessage);
+    });
 
     final theme = Theme.of(context);
     final Size screenSize = MediaQuery.of(context).size;
@@ -70,7 +78,7 @@ class LoginScreen extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            context.replace('/register');
+                            context.push('/register');
                           },
                           child: const Text(
                             "Regístrate",
@@ -97,6 +105,13 @@ class LoginScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+  
+  void showSnackbar(BuildContext context, String errorMessage) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(errorMessage))
     );
   }
 }

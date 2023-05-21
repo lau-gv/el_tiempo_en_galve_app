@@ -2,11 +2,11 @@ import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/datasources
 
 import '../../domain/domain.dart';
 
-class AuthRespositoryImpl  extends AuthDataSource {
+class AuthRespositoryImpl  extends AuthRespository {
 
   final AuthDataSource dataSource;
 
-  AuthRespositoryImpl(AuthDataSource? dataSource) : dataSource = dataSource ?? AuthDataSourceCognitoImpl() ;
+  AuthRespositoryImpl([AuthDataSource? dataSource]) : dataSource = dataSource ?? AuthDataSourceCognitoImpl() ;
   
   @override
   Future<User> checkAuthStatus(String token) {
@@ -22,4 +22,5 @@ class AuthRespositoryImpl  extends AuthDataSource {
   Future<User> register(String username, String email, String password) {
     return dataSource.register(username, email, password);
   }
+  
 }
