@@ -27,21 +27,28 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
   
   final CognitoUserSession? session;
+  List<CognitoUserAttribute>? attributes;
   try {
-     session= await cognitoUser.authenticateUser(authDetails);
-    return UserSessionMapper.cognitoSessionToEntity(session!);
+     session = await cognitoUser.authenticateUser(authDetails);
+
+     //print(jwt);
+     User user = UserSessionMapper.cognitoSessionToEntity(session!, email, password);
+      print(user.password);
+     return user;
 
  
     //Perdí un día por esto, son unas pocas líneas no más, así que, aunque el código se enguarre, aquí se queda
     /*TE AMO STACKOVERFLOW. La enseñanza es que hay que validar las cosas también probándolas desde el código, 
     a veces, escribir más, no es malo, también que no hay que obcecarse en una única forma de abordar algo que no sale y buscar antes en interné
-    * https://stackoverflow.com/questions/65178391/flutter-aws-cognito-token-showing-invalid-signature*/
+    * https://stackoverflow.com/questions/65178391/flutter-aws-cognito-token-showing-invalid-signature */
     //final first500Chars = token?.substring(0, 500);
     //final remainingChars = token?.substring(500);
     //print(first500Chars);
     //print(remainingChars);
     //print('Token JWT: $token'); // Imprimir el token por pantalla
 
+
+   
   } on CognitoUserNewPasswordRequiredException catch (e) {
     //print('CognitoUserNewPasswordRequiredException: $e');
     throw CustomError(message: e.message ?? "");
@@ -71,6 +78,8 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
     throw Exception();
   }
 }
+
+
 
   @override
   Future<User> register(String username, String email, String password) {

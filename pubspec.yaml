@@ -36,8 +36,10 @@ dependencies:
     sdk: flutter
   flutter_dotenv: ^5.0.2
   flutter_riverpod: ^2.3.6
+  flutter_secure_storage: ^8.0.0
   formz: ^0.6.0
   go_router: ^7.0.1
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

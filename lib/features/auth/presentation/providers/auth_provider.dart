@@ -1,20 +1,24 @@
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/repositories/auth_repository_impl.dart';
+import 'package:el_tiempo_en_galve_app/features/shared/infraestructure/services/key_value_storage_service.dart';
+import 'package:el_tiempo_en_galve_app/features/shared/infraestructure/services/key_value_storage_service_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 final authProvider = StateNotifierProvider<AuthNotifier,AuthState>((ref) {
   final AuthRespository authRespository = AuthRespositoryImpl();
+  final KeyValueStorageService keyValueStorageService = KeyValueStorageServiceImpl();
   
-  return AuthNotifier(authRespository : authRespository);
+  return AuthNotifier(authRespository : authRespository, keyValueStorageService: keyValueStorageService);
 });
 
 class AuthNotifier extends StateNotifier<AuthState>{
 
   final AuthRespository authRespository;
+  final KeyValueStorageService keyValueStorageService;
 
-  AuthNotifier({required this.authRespository}) : super(AuthState());
+  AuthNotifier({required this.authRespository, required this.keyValueStorageService}) : super(AuthState());
 
   Future<void> loginUser(String email, String password) async {
     try{
@@ -43,7 +47,13 @@ class AuthNotifier extends StateNotifier<AuthState>{
     );
   }
 
-  void _setLoggedUser(User user){
+  void _setLoggedUser(User user) async{
+
+    await keyValueStorageService.setKeyValue('token', user.id);
+    await keyValueStorageService.setKeyValue('useremail', user.email);
+    await keyValueStorageService.setKeyValue('password', user.password);
+    await keyValueStorageService.setKeyValue('username', user.username);
+
     state = state.copyWith(
       user: user,
       errorMessage: '',
@@ -71,6 +81,4 @@ class AuthState {
     user: user ?? this.user,
     errorMessage: errorMessage ?? this.errorMessage
   );
-
-
 }
