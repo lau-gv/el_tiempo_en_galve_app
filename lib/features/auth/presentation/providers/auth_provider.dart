@@ -53,6 +53,15 @@ class AuthNotifier extends StateNotifier<AuthState>{
   }
 
   void _setLoggedUser(User user) async{
+    //La priemra vez que un  usuario se loguea, se guardan sus credenciales de forma automática aunque no quiera XD.
+    //Entonces, la próxima vez que abra la aplicación, ya autoiniciaremos sesión, PERO SÍ QUE HABRÁ QUE refrescar el token. Porque caduca, a la hora? XD
+    //Pero lo voy a configurar al día porque es que joer es que joer. Debería cambiar y utilizar la sesión que me proporciona Cognito? Está bien que haya 
+    //datasources que se comunican con otros, se guarda eso en flutteR?. !!!!!!AAAHHHHH!!!!!!  
+    //Quiero esto así para ahorrarme trabajo
+    //También, es muy muy mala práctica que estoy utilizando shared preferences para guardar UNA CONTRASEÑA Y UN TOKEN!!! AAAAH AAAAH.
+    //aaah!!! pero estoy siguiendo el ejemplo y en el futuro, la cambiaré a el de cifrado. 
+    //Laura casi que olvidó como programar y perdió su soltura. Lau triste :(
+    //También, 
     //Esto debería tener su propia cosa. Aquí, lo vamos a usar aquí solo? No creo.
     await keyValueStorageService.setKeyValue('token', user.id);
     await keyValueStorageService.setKeyValue('useremail', user.email);
