@@ -66,6 +66,7 @@ class LoginScreen extends ConsumerWidget {
                     const SizedBox(height: 10),
                     InputPassword(
                       textLabel: "Contraseña",
+                      onFieldSubmitted: (_) => ref.read(loginFormProvider.notifier).onFormSubmit(),
                       errorMessage: loginForm.password.errorMessage,
                       onChanged: ref.read(loginFormProvider.notifier).onPasswordChanged,
                     ),
@@ -88,13 +89,12 @@ class LoginScreen extends ConsumerWidget {
                       ],
                     ),
                     FilledButton(
-                      child: const Text(
-                        'Ingresar',
-                        style: TextStyle(fontSize: 25),
+                      onPressed: loginForm.isPosting 
+                        ? null
+                        :  ref.read(loginFormProvider.notifier).onFormSubmit
+                      ,
+                      child: const Text('Ingresar', style: TextStyle(fontSize: 25),
                       ),
-                      onPressed: () {
-                        ref.read(loginFormProvider.notifier).onFormSubmit();  
-                      },
                     ),
                     const SizedBox(height: 20),
                     LineFigure(size: screenSize)

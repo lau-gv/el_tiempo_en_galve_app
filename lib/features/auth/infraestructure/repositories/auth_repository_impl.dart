@@ -6,12 +6,7 @@ class AuthRespositoryImpl  extends AuthRespository {
 
   final AuthDataSource dataSource;
 
-  AuthRespositoryImpl([AuthDataSource? dataSource]) : dataSource = dataSource ?? AuthDataSourceCognitoImpl() ;
-  
-  @override
-  Future<User> checkAuthStatus(String token) {
-    return dataSource.checkAuthStatus(token);
-  }
+  AuthRespositoryImpl([AuthDataSource? dataSource]) : dataSource = dataSource ?? AuthDataSourceCognitoImpl();
 
   @override
   Future<User> login(String email, String password) {

@@ -1,6 +1,7 @@
 import 'package:el_tiempo_en_galve_app/features/home/section_current_time.dart';
 import 'package:el_tiempo_en_galve_app/features/home/weather_week.dart';
 import 'package:el_tiempo_en_galve_app/features/home/widget_weather_impact.dart';
+import 'package:el_tiempo_en_galve_app/features/shared/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/widgets/background_gradient.dart';
@@ -15,12 +16,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     final Size screenSize = MediaQuery.of(context).size;
     final theme = Theme.of(context);
 
     return BackgroundGradient(
       
       widget: Scaffold (
+        drawer: SideMenu(scaffoldKey: scaffoldKey),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
         ),

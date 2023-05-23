@@ -18,7 +18,12 @@ class AuthNotifier extends StateNotifier<AuthState>{
   final AuthRespository authRespository;
   final KeyValueStorageService keyValueStorageService;
 
-  AuthNotifier({required this.authRespository, required this.keyValueStorageService}) : super(AuthState());
+  AuthNotifier({
+    required this.authRespository, 
+    required this.keyValueStorageService}) 
+  : super(AuthState()){
+    checkAuthStatus();
+  }
 
   Future<void> loginUser(String email, String password) async {
     try{
@@ -35,8 +40,18 @@ class AuthNotifier extends StateNotifier<AuthState>{
 
   }
 
-  void checkAuthStatus(String email, String password) async {
+  //Autologin
+  void checkAuthStatus() async {
+    final usermail = await keyValueStorageService.getValue<String>("useremail");
+    final password = await keyValueStorageService.getValue<String>("password");
+    //await keyValueStorageService.removeKey('username');
+    if(usermail == null || password == null ) return logout();
 
+    try{
+      loginUser(usermail, password);
+    } catch (e){
+      logout();
+    }
   }
 
   Future<void> logout([ String? errorMessage ]) async {

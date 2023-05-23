@@ -4,11 +4,17 @@ class InputPassword extends StatefulWidget {
   final String textLabel;
   final String? errorMessage;
   final Function(String)? onChanged;
-  
-  const InputPassword({super.key, required this.textLabel, this.errorMessage, this.onChanged});
-  
+  final Function(String)? onFieldSubmitted;
+
+  const InputPassword({
+    super.key, 
+    required this.textLabel, 
+    this.errorMessage, 
+    this.onChanged,
+    this.onFieldSubmitted});
+
   @override
-   State<InputPassword> createState() => _InputPasswordState();
+  State<InputPassword> createState() => _InputPasswordState();
 }
 
 class _InputPasswordState extends State<InputPassword> {
@@ -21,6 +27,7 @@ class _InputPasswordState extends State<InputPassword> {
       child: TextFormField(
         obscureText: !_showPassword,
         onChanged: widget.onChanged,
+        onFieldSubmitted: widget.onFieldSubmitted,
         decoration: InputDecoration(
           errorText: widget.errorMessage,
           labelText: widget.textLabel,
