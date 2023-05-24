@@ -2,6 +2,6 @@ import '../entities/station.dart';
 
 abstract class StationRepository {
 
-  Future<List<Station>> getStations({required String userId});
+  Future<List<WeatherStation>> getStationsByUser();
   void deleteStation({required String stationId});
 }

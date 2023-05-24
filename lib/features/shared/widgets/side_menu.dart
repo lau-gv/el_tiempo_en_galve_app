@@ -1,6 +1,9 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../config/menu/menu_items.dart';
 
 class SideMenu extends ConsumerStatefulWidget {
 
@@ -25,7 +28,6 @@ class SideMenuState extends ConsumerState<SideMenu> {
     final hasNotch = MediaQuery.of(context).viewPadding.top > 35;
     final textStyles = Theme.of(context).textTheme;
     
-
     return NavigationDrawer(
       elevation: 1,
       selectedIndex: navDrawerIndex,
@@ -35,8 +37,8 @@ class SideMenuState extends ConsumerState<SideMenu> {
           navDrawerIndex = value;
         });
 
-        // final menuItem = appMenuItems[value];
-        // context.push( menuItem.link );
+        final menuItem = appMenuItems[value];
+        context.push( menuItem.link );
         widget.scaffoldKey.currentState?.closeDrawer();
 
       },
@@ -51,13 +53,13 @@ class SideMenuState extends ConsumerState<SideMenu> {
           padding: const EdgeInsets.fromLTRB(20, 0, 16, 10),
           child: Text('Lauliett', style: textStyles.titleSmall ),
         ),
-
-        const NavigationDrawerDestination(
-            icon: Icon( Icons.home_outlined ), 
-            label: Text( 'Estaciones' ),
+        
+        ...appMenuItems.map((menuItem) => 
+          NavigationDrawerDestination(          
+            icon: Icon(menuItem.icon), 
+            label: Text(menuItem.title),                      
+          ),          
         ),
-
-
         const Padding(
           padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
           child: Divider(),

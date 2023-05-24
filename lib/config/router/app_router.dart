@@ -1,4 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/my_stations_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:el_tiempo_en_galve_app/config/router/app_router_notifier.dart';
@@ -46,7 +47,12 @@ final goRouterProvider = Provider((ref) {
         path: '/register',
         name: RegisterScreen.name,
         builder: (context, state) => const RegisterScreen(),      
-      ),    
+      ),  
+      GoRoute(
+        path: '/stations',
+        name: MyStationsScreen.name,
+        builder: (context, state) => const MyStationsScreen(),      
+      ),   
     ],
 
     redirect: (context, state) {

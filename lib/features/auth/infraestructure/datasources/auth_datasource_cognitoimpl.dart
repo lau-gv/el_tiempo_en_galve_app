@@ -28,7 +28,7 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
      //print(jwt);
      User user = UserSessionMapper.cognitoSessionToEntity(session!, email, password);
-      print(user.password);
+     //print(user.password);
      return user;
 
  

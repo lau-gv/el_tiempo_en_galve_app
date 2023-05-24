@@ -8,5 +8,5 @@ class Enviroment {
   static String poolIdCognito = dotenv.env['POOL_ID'] ?? 'Cognito Pool ID not configured' ;
   static String clientIdCognito = dotenv.env['CLIENT_ID'] ?? 'Cognito clientID not configure';
   static String region = dotenv.env['REGION'] ?? 'Cognito Region not configure';
-
+  static String stationApi = dotenv.env['STATION_API'] ?? 'stationApiNotConfigure';
 }
