@@ -1,9 +1,11 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/repositories/auth_repository_impl.dart';
 import 'package:el_tiempo_en_galve_app/features/shared/infraestructure/services/key_value_storage_service.dart';
 import 'package:el_tiempo_en_galve_app/features/shared/infraestructure/services/key_value_storage_service_impl.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 
 
 final authProvider = StateNotifierProvider<AuthNotifier,AuthState>((ref) {
@@ -32,13 +34,21 @@ class AuthNotifier extends StateNotifier<AuthState>{
     } on CustomError catch (e){
       logout( e.message);
     } catch (e) {
-      logout('Erro no controlado ');
+      logout('Error no controlado');
     }   
   }
 
-  Future<void> registerUser(String email, String password) async {
-
+    Future<void> registerUser(String username, String email, String password) async {
+    try{
+      await authRespository.register(username, email, password);
+      //await loginUser(email, password);
+    } on CustomError catch (e){
+      logout( e.message);
+    } catch (e) {
+      logout('Error no controlado');
+    }   
   }
+
 
   //Autologin
   void checkAuthStatus() async {

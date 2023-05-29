@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
@@ -22,13 +24,17 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
   
   final CognitoUserSession? session;
-  List<CognitoUserAttribute>? attributes;
   try {
      session = await cognitoUser.authenticateUser(authDetails);
 
      //print(jwt);
      User user = UserSessionMapper.cognitoSessionToEntity(session!, email, password);
      //print(user.password);
+    final token = session.idToken.jwtToken;
+    final first500Chars = token?.substring(0, 500);
+    final remainingChars = token?.substring(500);
+    print(first500Chars);
+    print(remainingChars);
      return user;
 
  
@@ -77,8 +83,21 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
 
   @override
-  Future<User> register(String username, String email, String password) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<void> register(String username, String email, String password) async{
+    
+    var data;
+ print("hola!!");
+    try{
+      final userAttributes = [
+          AttributeArg(name: 'email', value: email),
+      ];
+      data = await userPool.signUp(username, password, userAttributes: userAttributes);
+      print(data);
+    } on CognitoClientException catch(e){
+      throw CustomError(message: e.message ?? "", errorCode: e.statusCode);
+    } catch (e){
+       throw CustomError(message: '$e');
+    }
+
   }
 }

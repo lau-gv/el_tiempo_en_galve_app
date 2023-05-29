@@ -1,8 +1,11 @@
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/showSnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/widgets.dart';
 import '../providers/authProviders.dart';
+import '../providers/auth_provider.dart';
 
 class RegisterScreen extends ConsumerWidget {
   static const name = 'register_screen';
@@ -12,8 +15,13 @@ class RegisterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+
     final registerForm = ref.watch(registerFormProvider);
 
+    ref.listen(authProvider, (previous, next) {
+      if(next.errorMessage.isEmpty) return;
+      showSnackbar(context, next.errorMessage);
+    });
 
     final theme = Theme.of(context);
     final Size screenSize = MediaQuery.of(context).size;
@@ -73,7 +81,9 @@ class RegisterScreen extends ConsumerWidget {
                    
                     FilledButton(
                       onPressed: () {
+                        
                         ref.read(registerFormProvider.notifier).onFormSubmit();
+                        ref.read(registerFormProvider).isValidUser ? context.push("/confirmScreen") : null;
                       },
                       child: const Text(
                         'Registrar',

@@ -5,7 +5,7 @@ class StationMapper {
 
   static jsonToEntity(Map<String, dynamic> json) => WeatherStation(
     id: json['id'],
-    auth: "json['authStation']",
+    auth: json['authStation'],
     key: json['key'],
     location: json['location'],
     name: json['name'],

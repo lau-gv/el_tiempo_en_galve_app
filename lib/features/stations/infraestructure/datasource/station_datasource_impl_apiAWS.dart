@@ -10,32 +10,35 @@ class StationDatasourceImplApiAWS implements StationDatasource {
   final String accessToken;
   final String userId;
 
+  final String apiEndpoint = "/stations";
+
   StationDatasourceImplApiAWS({required this.accessToken, required this.userId})
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.stationApi,
     headers: {
-      'Authorization' : '$accessToken'
+      'Authorization' : accessToken
     }
   ));
 
+  @override
   Future<List<WeatherStation>> getStationsByUser() async {
-    print(accessToken);
-    print(accessToken.length);
-    print(userId);
     try {
-      final response = await dio.get('/station?userId=$userId');
+      final response = await dio.get('$apiEndpoint?userId=$userId');
       final List<WeatherStation> stations = [];
       (response.data ?? []).forEach((station) => stations.add(StationMapper.jsonToEntity(station)));
 
       return stations;
     }on DioError catch (e) {
-      print(e.message);
-      print(e.response!.statusCode);
-      print(e.response!.statusMessage);
       throw Exception();
     } catch (e){
-      print(e);
       throw Exception();
     }
   }
+  
+  @override
+  Future<WeatherStation> deleteStation() {
+    // TODO: implement deleteStation
+    throw UnimplementedError();
+  }
+  
 }

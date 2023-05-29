@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/background_gradient.dart';
+import '../../domain/entities/station.dart';
 
 class MyStationsScreen extends ConsumerWidget {
   
@@ -18,10 +19,10 @@ class MyStationsScreen extends ConsumerWidget {
         appBar: AppBar(
           title: const Text("Mis estaciones"),
         ),
-        body: _MyStationsWidget(),
+        body: const _MyStationsWidget(),
         floatingActionButton: FloatingActionButton(
           onPressed: (){},
-          child: const Text("Añadir estacion"),
+          child: const Icon(Icons.add),
         ),
       ),
     );
@@ -41,8 +42,137 @@ class _MyStationsWidget extends ConsumerWidget {
       itemCount: stationsrovider.stations.length,
       itemBuilder: (context, index) => GestureDetector(
         onTap: (){},
-        child: Text(stationsrovider.stations[index].name),
+        child: _StationCard(station: stationsrovider.stations[index],),
       ),
     );
   }
 }
+
+class _StationCard extends StatelessWidget {
+  
+  final WeatherStation station;
+
+  const _StationCard({
+    required this.station
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    //final colors = Theme.of(context);
+    return Column(
+      children: [
+        _SuperiorCardStation(station: station),
+        _InferiorcardStation(station: station)
+      ],
+    );
+  }
+}
+
+
+class _SuperiorCardStation extends StatelessWidget {
+  const _SuperiorCardStation({
+    required this.station,
+  });
+
+  final WeatherStation station;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 4, top: 0.5, left: 10, right: 10),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+          side: BorderSide(
+            width: 0.2
+          )
+        ),            
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(station.name, style: theme.textTheme.headlineSmall),
+            ButtonBar(
+              alignment: MainAxisAlignment.end,
+              buttonPadding: const EdgeInsets.all(0),
+              
+                children: [
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),                      
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.remove_circle_outline_outlined)),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _InferiorcardStation extends StatelessWidget {
+  const _InferiorcardStation({
+    super.key,
+    required this.station,
+  });
+
+  final WeatherStation station;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 20, top: 0.5, left: 10, right: 10),
+        shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(25),
+        bottomRight: Radius.circular(25),
+        ),
+        side: BorderSide(
+          width: 0.2
+        )
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("LOCALIZACION: ${station.location}"),
+            Text("TIPO: ${station.stationType.name}"),
+            ...textByStation(station)
+          ],
+        ),
+      ),
+      
+      ),
+    );
+  }
+}
+
+//CON Poo esto es altamente un switch refactor //Otra cosa.... Pero aquí se queda
+//No estoy muy suelta yo con flutter.
+List<Widget> textByStation(WeatherStation station){
+  List<Widget> stationInformation = [];
+
+  if(station.stationType == StationType.ecowitt){
+    stationInformation.add(Text("MAC: ${station.auth}"));
+  }
+  if(station.stationType == StationType.wunderground){
+    stationInformation.add(Text("ID: ${station.auth}"));
+    stationInformation.add(Text("KEY: ${station.key}"));
+  }
+
+  return stationInformation;
+}
+

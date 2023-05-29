@@ -1,4 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/confirm_email_screen.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/my_stations_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -53,6 +54,11 @@ final goRouterProvider = Provider((ref) {
         name: MyStationsScreen.name,
         builder: (context, state) => const MyStationsScreen(),      
       ),   
+      GoRoute(
+        path: '/confirmScreen',
+        name: ConfirmEmailScreen.name,
+        builder: (context, state) => const ConfirmEmailScreen(),
+      ) 
     ],
 
     redirect: (context, state) {
@@ -63,7 +69,7 @@ final goRouterProvider = Provider((ref) {
 
       if(authStatus == AuthStatus.notAuthenticated){
         //Rutas publicas, POR EJEMPLO
-        if (isGoingTo == '/login' || isGoingTo == '/register') return null;
+        if (isGoingTo == '/login' || isGoingTo == '/register' || isGoingTo == '/confirmScreen') return null;
 
         return '/login';
       }

@@ -1,19 +1,25 @@
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import '../../../shared/infraestructure/inputs/inputs.dart';
+import 'auth_provider.dart';
 
 
 // 3 - StatenotifierProvider - consume afuera.
 //Autodispose es para que cuando ya no se use este churro, se elimine.
 final registerFormProvider = StateNotifierProvider.autoDispose<RegisterFormNotifier, RegisterFormState>((ref) {
-  return RegisterFormNotifier();
+
+  final registerUserCallback = ref.watch(authProvider.notifier).registerUser;
+  return RegisterFormNotifier(registerUserCallback: registerUserCallback);
 });
 
 
 // 2 - Como implementanmos un notifier
 class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
+  
+  final Function(String, String, String) registerUserCallback;
   //La creación del estado inicial debe ser síncrona.
-  RegisterFormNotifier() : super(RegisterFormState());
+  RegisterFormNotifier({required this.registerUserCallback}) : super(RegisterFormState());
 
   onUsernameChange(String value) {
     final newUsername = Username.dirty(value);
@@ -38,12 +44,20 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
         repeatedPassword: newPassword, isValid: Formz.validate([newPassword, state.username, state.email, state.password]));
   }
 
-  onFormSubmit(){
+  onFormSubmit() async{
     _touchEveryField();
+    state = state.copyWith(isPosting: true);
     if( !state.isValid ) return;
     if(!_areEqualsPasswords()) return;
+     //Future<void> register(String username, String email, String password) async{
 
-    print(state);
+    try{
+      await registerUserCallback(state.username.value, state.email.value, state.password.value);
+    } catch (e){
+      state = state.copyWith(isValidUser: false, isPosting: false);
+      throw CustomError(message: "$e");
+    }
+    state = state.copyWith(isPosting: false, isValidUser: true);
   }
 
   _touchEveryField(){
@@ -75,6 +89,7 @@ class RegisterFormState {
   final bool isPosting;
   final bool isFormPosted;
   final bool isValid;
+  final bool isValidUser;
   final Username username;
   final Email email;
   final Password password;
@@ -84,6 +99,7 @@ class RegisterFormState {
     this.isPosting = false,
     this.isFormPosted = false,
     this.isValid = false,
+    this.isValidUser = false,
     this.username = const Username.pure(),
     this.email = const Email.pure(),
     this.password = const Password.pure(),
@@ -94,6 +110,7 @@ class RegisterFormState {
     bool? isPosting,
     bool? isFormPosted,
     bool? isValid,
+    bool? isValidUser,
     Username? username,
     Email? email,
     Password? password,
@@ -102,6 +119,7 @@ class RegisterFormState {
     isPosting: isPosting ?? this.isPosting,
     isFormPosted: isFormPosted ?? this.isFormPosted,
     isValid: isValid ?? this.isValid,
+    isValidUser: isValidUser ?? this.isValidUser,
     username: username ?? this.username,
     email: email ?? this.email,
     password: password ?? this.password,
