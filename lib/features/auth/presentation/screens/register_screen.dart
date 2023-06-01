@@ -1,11 +1,12 @@
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/showSnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/widgets.dart';
-import '../providers/authProviders.dart';
-import '../providers/auth_provider.dart';
+import '../providers/register_form_provider.dart';
+
 
 class RegisterScreen extends ConsumerWidget {
   static const name = 'register_screen';
@@ -18,7 +19,10 @@ class RegisterScreen extends ConsumerWidget {
 
     final registerForm = ref.watch(registerFormProvider);
 
-    ref.listen(authProvider, (previous, next) {
+    //Para mostrar el error, debemos escuchar los cambios!!!
+    //A quien escuchamos, estado anterior, estado siguiente.
+    //Cuando el refWidget se destruya también limpia el listener ^^ Esa es una cosa maja de Riverpod.
+    ref.listen(registerProvider, (previous, next) {
       if(next.errorMessage.isEmpty) return;
       showSnackbar(context, next.errorMessage);
     });
@@ -80,10 +84,18 @@ class RegisterScreen extends ConsumerWidget {
               
                    
                     FilledButton(
-                      onPressed: () {
-                        
-                        ref.read(registerFormProvider.notifier).onFormSubmit();
-                        ref.read(registerFormProvider).isValidUser ? context.push("/confirmScreen") : null;
+                      onPressed: () {           
+                        bool shouldNavigate = false;
+                        // aah!!! que feo queda esto aquí así :(
+                        ref.read(registerFormProvider.notifier).onFormSubmit().then((_) {
+                          if (ref.read(registerFormProvider).isValidUser) {
+                            shouldNavigate = true;
+                          }
+                        }).whenComplete(() {
+                          if (shouldNavigate) {
+                            context.push("/confirmScreen");
+                          }                      
+                        });
                       },
                       child: const Text(
                         'Registrar',

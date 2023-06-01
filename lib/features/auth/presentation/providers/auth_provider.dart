@@ -38,18 +38,6 @@ class AuthNotifier extends StateNotifier<AuthState>{
     }   
   }
 
-    Future<void> registerUser(String username, String email, String password) async {
-    try{
-      await authRespository.register(username, email, password);
-      //await loginUser(email, password);
-    } on CustomError catch (e){
-      logout( e.message);
-    } catch (e) {
-      logout('Error no controlado');
-    }   
-  }
-
-
   //Autologin
   void checkAuthStatus() async {
     final usermail = await keyValueStorageService.getValue<String>("useremail");
@@ -98,7 +86,6 @@ class AuthNotifier extends StateNotifier<AuthState>{
       errorMessage: '',
       authStatus: AuthStatus.authenticated,
     );
-    //TODO: necesito guardar el token físicamente para que sea persistente.
   }
 
 }

@@ -18,4 +18,9 @@ class AuthRespositoryImpl  extends AuthRespository {
     return dataSource.register(username, email, password);
   }
   
+  @override
+  Future<bool> confirmEmail(String username, String numberConfirm) {
+    return dataSource.confirmEmail(username, numberConfirm);
+  }
+  
 }

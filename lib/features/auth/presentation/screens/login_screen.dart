@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/showSnackbar.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../providers/authProviders.dart';

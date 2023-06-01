@@ -1,15 +1,15 @@
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import '../../../shared/infraestructure/inputs/inputs.dart';
-import 'auth_provider.dart';
 
 
 // 3 - StatenotifierProvider - consume afuera.
 //Autodispose es para que cuando ya no se use este churro, se elimine.
-final registerFormProvider = StateNotifierProvider.autoDispose<RegisterFormNotifier, RegisterFormState>((ref) {
+final registerFormProvider = StateNotifierProvider<RegisterFormNotifier, RegisterFormState>((ref) {
 
-  final registerUserCallback = ref.watch(authProvider.notifier).registerUser;
+  final registerUserCallback = ref.watch(registerProvider.notifier).registerUser;
   return RegisterFormNotifier(registerUserCallback: registerUserCallback);
 });
 
@@ -49,15 +49,13 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
     state = state.copyWith(isPosting: true);
     if( !state.isValid ) return;
     if(!_areEqualsPasswords()) return;
-     //Future<void> register(String username, String email, String password) async{
-
     try{
-      await registerUserCallback(state.username.value, state.email.value, state.password.value);
+      final successFullRegister = await registerUserCallback(state.username.value, state.email.value, state.password.value);     
+      if(successFullRegister) state = state.copyWith(isValidUser: true);
     } catch (e){
       state = state.copyWith(isValidUser: false, isPosting: false);
-      throw CustomError(message: "$e");
     }
-    state = state.copyWith(isPosting: false, isValidUser: true);
+    state = state.copyWith(isPosting: false);
   }
 
   _touchEveryField(){

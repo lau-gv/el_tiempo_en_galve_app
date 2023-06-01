@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
@@ -84,20 +82,35 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
   @override
   Future<void> register(String username, String email, String password) async{
-    
+          print('hola!!!');
     var data;
- print("hola!!");
     try{
       final userAttributes = [
           AttributeArg(name: 'email', value: email),
       ];
       data = await userPool.signUp(username, password, userAttributes: userAttributes);
-      print(data);
     } on CognitoClientException catch(e){
+      print('$e');
       throw CustomError(message: e.message ?? "", errorCode: e.statusCode);
     } catch (e){
+      print('$e');
        throw CustomError(message: '$e');
     }
 
+  }
+  
+  @override
+  Future<bool> confirmEmail(String username, String numberConfirm) async{
+    final cognitoUser = CognitoUser(username, userPool);
+    bool registrationConfirmed = false;
+    try {
+      registrationConfirmed = await cognitoUser.confirmRegistration(numberConfirm);
+      registrationConfirmed = true;
+    } catch (e) {
+       print('$e');
+      throw CustomError(message: '$e');
+    }
+     print(registrationConfirmed);
+    return registrationConfirmed;
   }
 }
