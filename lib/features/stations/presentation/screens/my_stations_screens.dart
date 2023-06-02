@@ -154,7 +154,6 @@ class _InferiorcardStation extends StatelessWidget {
           ],
         ),
       ),
-      
       ),
     );
   }

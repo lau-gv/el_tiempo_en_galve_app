@@ -7,9 +7,7 @@ import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/regi
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 
-import '../../../shared/infraestructure/inputs/inputs.dart';
-import '../../infraestructure/errors/auth_errors.dart';
-
+import 'inputs/inputs.dart';
 
 final confirmationCodeProvider = StateNotifierProvider.autoDispose<ConfirmationCodeFormNotifier, ConfirmFormState>((ref) {
 

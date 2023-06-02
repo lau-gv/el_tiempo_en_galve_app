@@ -21,9 +21,9 @@ class GoRouterNotifier extends ChangeNotifier {
   }
 
   AuthStatus get authStatus => _authStatus;
-
   //Así, cuando nuestro authStatus notifique, automáticamente va a notificar al router.
   set authStatus (AuthStatus value){
+    print("authstatus $value");
     _authStatus = value;
     notifyListeners();
   }

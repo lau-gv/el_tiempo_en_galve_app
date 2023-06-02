@@ -36,7 +36,6 @@ class StationsNotifier extends StateNotifier<StationsState> {
         isLoading: false
       );
     }
-
     state = state.copyWith(
       isLoading: false,
       stations: stations

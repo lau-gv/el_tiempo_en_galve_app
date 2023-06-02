@@ -64,12 +64,9 @@ class ConfirmEmailScreen extends ConsumerWidget {
                       const SizedBox(height: 10),
               
                       FilledButton(
-                        onPressed: () {
-                          bool shouldNavigate = false;
-                          ref.read(confirmationCodeProvider.notifier).onFormSubmit().then((_){
-                            if(ref.read(confirmationCodeProvider).isUserConfirmed) shouldNavigate = true;
-                          }).whenComplete((){
-                            if(shouldNavigate) context.push("/");
+                        onPressed: () {              
+                          ref.read(confirmationCodeProvider.notifier).onFormSubmit().whenComplete((){
+                            if(ref.read(confirmationCodeProvider).isUserConfirmed) context.go("/");
                           });
                         },
                         child: const Text('Confirmar', style: TextStyle(fontSize: 25),

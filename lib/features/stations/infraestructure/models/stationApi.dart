@@ -5,21 +5,21 @@ enum StationType {
 
 //String ecowitt = StationType.ecowitt.name; // Ecowit.
 
-class WeatherStation {
+class StationApi {
   final String _userId;
   final String _id;
   final String _name;
   final String _location;
-  final StationType _stationType;
+  final String _stationType;
   final String _auth;
   final String? _key;
 
-  WeatherStation({
+  StationApi({
     required String userId,
     required String id, 
     required String name, 
     required String location, 
-    required StationType stationType, 
+    required String stationType, 
     required String auth, 
     String? key,
   }) : 
@@ -35,7 +35,7 @@ class WeatherStation {
   String get id => _id;
   String get name => _name;
   String get location => _location;
-  StationType get stationType => _stationType;
+  String get stationType => _stationType;
   String get auth => _auth;
   String? get key => _key;
 
@@ -44,7 +44,7 @@ class WeatherStation {
       "id": id,
       "name": name,
       "location": location,
-      "stationType": stationType.name,
-      "auth": stationType.name,
+      "stationType": stationType,
+      "auth": auth,
   };
 }

@@ -38,13 +38,14 @@ class AuthNotifier extends StateNotifier<AuthState>{
     }   
   }
 
-  //Autologin
+  // Hemos configurado el autologin.
   void checkAuthStatus() async {
     final usermail = await keyValueStorageService.getValue<String>("useremail");
     final password = await keyValueStorageService.getValue<String>("password");
     //await keyValueStorageService.removeKey('username');
     if(usermail == null || password == null ) return logout();
 
+    //Y renovamos el JWT. ^^.
     try{
       loginUser(usermail, password);
     } catch (e){
@@ -87,7 +88,6 @@ class AuthNotifier extends StateNotifier<AuthState>{
       authStatus: AuthStatus.authenticated,
     );
   }
-
 }
 
 enum AuthStatus { checking, authenticated, notAuthenticated }

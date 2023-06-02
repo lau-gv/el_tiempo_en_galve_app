@@ -45,9 +45,6 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
     //print(first500Chars);
     //print(remainingChars);
     //print('Token JWT: $token'); // Imprimir el token por pantalla
-
-
-   
   } on CognitoUserNewPasswordRequiredException catch (e) {
     //print('CognitoUserNewPasswordRequiredException: $e');
     throw CustomError(message: e.message ?? "");
@@ -82,7 +79,6 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
   @override
   Future<void> register(String username, String email, String password) async{
-          print('hola!!!');
     var data;
     try{
       final userAttributes = [
@@ -90,13 +86,12 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
       ];
       data = await userPool.signUp(username, password, userAttributes: userAttributes);
     } on CognitoClientException catch(e){
-      print('$e');
+      //print('$e');
       throw CustomError(message: e.message ?? "", errorCode: e.statusCode);
     } catch (e){
-      print('$e');
+      //print('$e');
        throw CustomError(message: '$e');
     }
-
   }
   
   @override
@@ -110,7 +105,6 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
        print('$e');
       throw CustomError(message: '$e');
     }
-     print(registrationConfirmed);
     return registrationConfirmed;
   }
 }

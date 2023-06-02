@@ -1,8 +1,7 @@
-import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
-import '../../../shared/infraestructure/inputs/inputs.dart';
+import 'inputs/inputs.dart';
 
 
 // 3 - StatenotifierProvider - consume afuera.
@@ -46,7 +45,7 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
 
   onFormSubmit() async{
     _touchEveryField();
-    state = state.copyWith(isPosting: true);
+    state = state.copyWith(isPosting: true, isValidUser: false);
     if( !state.isValid ) return;
     if(!_areEqualsPasswords()) return;
     try{
