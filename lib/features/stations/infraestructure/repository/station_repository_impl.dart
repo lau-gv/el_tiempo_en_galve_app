@@ -8,14 +8,18 @@ class StationRepositoryImpl extends StationRepository {
 
   StationRepositoryImpl(this.datasource);
 
-  @override
-  void deleteStation({required String stationId}) {
-    // TODO: implement deleteStation
-  }
 
   @override
-  Future<List<WeatherStation>> getStationsByUser() {
-    return datasource.getStationsByUser();
+  Future<List<WeatherStation>> getStationsByUser() async {
+    return await datasource.getStationsByUser();
   }
-
+  
+  @override
+  Future<bool> deleteStation(WeatherStation weatherStation) async {
+    return await datasource.deleteStation(weatherStation);
+  }
+    @override
+  Future<WeatherStation> createStation(Map<String, dynamic> stationLike) async {
+    return await datasource.createStation(stationLike);
+  }
 }

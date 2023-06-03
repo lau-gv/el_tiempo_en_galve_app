@@ -45,6 +45,7 @@ class WeatherStation {
       "name": name,
       "location": location,
       "stationType": stationType.name,
-      "auth": stationType.name,
+      "auth": auth,
+      if(key != null) "key" : key,
   };
 }

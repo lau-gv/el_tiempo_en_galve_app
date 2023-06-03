@@ -1,6 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/confirm_email_screen.dart';
-import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/showSnackbar.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

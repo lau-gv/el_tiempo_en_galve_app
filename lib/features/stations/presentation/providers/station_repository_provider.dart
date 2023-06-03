@@ -1,6 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/repositories/station_repository.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/datasource/station_datasource_impl_apiAWS.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/datasource/station_datasource_impl_api_AWS.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/repository/station_repository_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

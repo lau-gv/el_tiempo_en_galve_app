@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/showSnackbar.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/show_snackbar.dart';
 import '../../../shared/widgets/widgets.dart';
-import '../providers/authProviders.dart';
+import '../providers/auth_providers.dart';
 
 
 class LoginScreen extends ConsumerWidget {
@@ -40,7 +40,7 @@ class LoginScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
                         const SizedBox(height: 30),

@@ -1,11 +1,6 @@
-enum StationType {
-   ecowitt,
-   wunderground,
-}
-
 //String ecowitt = StationType.ecowitt.name; // Ecowit.
 
-class StationApi {
+class StationLikeApi {
   final String _userId;
   final String _id;
   final String _name;
@@ -14,7 +9,7 @@ class StationApi {
   final String _auth;
   final String? _key;
 
-  StationApi({
+  StationLikeApi({
     required String userId,
     required String id, 
     required String name, 

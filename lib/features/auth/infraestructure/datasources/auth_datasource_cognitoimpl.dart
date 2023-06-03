@@ -2,7 +2,7 @@ import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
-import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/mappers/userSession_mapper.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/mappers/user_session_mapper.dart';
 
 class AuthDataSourceCognitoImpl  extends AuthDataSource {
   //Coger del entorno que falta por "iniciar"
@@ -79,12 +79,11 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
 
   @override
   Future<void> register(String username, String email, String password) async{
-    var data;
     try{
       final userAttributes = [
           AttributeArg(name: 'email', value: email),
       ];
-      data = await userPool.signUp(username, password, userAttributes: userAttributes);
+      await userPool.signUp(username, password, userAttributes: userAttributes);
     } on CognitoClientException catch(e){
       //print('$e');
       throw CustomError(message: e.message ?? "", errorCode: e.statusCode);
@@ -102,7 +101,7 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
       registrationConfirmed = await cognitoUser.confirmRegistration(numberConfirm);
       registrationConfirmed = true;
     } catch (e) {
-       print('$e');
+
       throw CustomError(message: '$e');
     }
     return registrationConfirmed;

@@ -3,5 +3,6 @@ import '../entities/station.dart';
 abstract class StationRepository {
 
   Future<List<WeatherStation>> getStationsByUser();
-  void deleteStation({required String stationId});
+  Future<bool> deleteStation(WeatherStation weatherStation);
+  Future<WeatherStation> createStation(Map<String, dynamic> stationLike);
 }

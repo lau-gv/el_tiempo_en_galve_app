@@ -77,7 +77,7 @@ class SideMenuState extends ConsumerState<SideMenu> {
             onPressed: () {
               ref.read(authProvider.notifier).logout();
             },
-            child: Text('Cerrar sesión')
+            child: const Text('Cerrar sesión')
           ),
         ),
 

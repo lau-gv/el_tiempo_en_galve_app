@@ -1,4 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/stations_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/crete_station_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -18,10 +19,12 @@ class MyStationsScreen extends ConsumerWidget {
       widget: Scaffold(
         appBar: AppBar(
           title: const Text("Mis estaciones"),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
         ),
         body: const _MyStationsWidget(),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: () => context.pushNamed(CreateStationScreen.name),
           child: const Icon(Icons.add),
         ),
       ),
@@ -70,7 +73,7 @@ class _StationCard extends StatelessWidget {
 }
 
 
-class _SuperiorCardStation extends StatelessWidget {
+class _SuperiorCardStation extends ConsumerWidget {
   const _SuperiorCardStation({
     required this.station,
   });
@@ -78,7 +81,7 @@ class _SuperiorCardStation extends StatelessWidget {
   final WeatherStation station;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
 
     final theme = Theme.of(context);
 
@@ -108,8 +111,12 @@ class _SuperiorCardStation extends StatelessWidget {
               buttonPadding: const EdgeInsets.all(0),
               
                 children: [
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),                      
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.remove_circle_outline_outlined)),
+                  IconButton(onPressed: (){
+                    print(station.name);
+                  }, icon: const Icon(Icons.edit)),                      
+                  IconButton(onPressed: () async {
+                    await ref.read(stationsProvider.notifier).deleteStation(station);
+                  }, icon: const Icon(Icons.remove_circle_outline_outlined)),
                 ],
               )
             ],
@@ -119,10 +126,8 @@ class _SuperiorCardStation extends StatelessWidget {
     );
   }
 }
-
 class _InferiorcardStation extends StatelessWidget {
   const _InferiorcardStation({
-    super.key,
     required this.station,
   });
 

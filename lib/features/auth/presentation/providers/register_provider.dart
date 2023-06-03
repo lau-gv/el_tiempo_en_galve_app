@@ -1,4 +1,4 @@
-import 'package:el_tiempo_en_galve_app/features/auth/domain/entities/unauthenticateUser.dart';
+import 'package:el_tiempo_en_galve_app/features/auth/domain/entities/unauthenticate_user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
