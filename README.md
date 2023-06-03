@@ -1,16 +1,11 @@
 # el_tiempo_en_galve_app
 
-A new Flutter project.
+Esta es la aplicación del tiempo en Galve. 
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**PARA PODER UTILIZAR LA APLICACION ES NECESARIO:**
+* `1` - Copiar .env.template y renombrarlo como .env
+* `2` - Rellenar los datos relativos de POOL_ID CLIENT_ID REGION y STATION_API con los FACILITADOS POR MI.
+* `3` - Los datos son FACILITADOS en el README del repositorio del proyecto de CLASE, y no aquí porque este es un repo público. 
