@@ -1,6 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/shared/widgets/custom_dropdown_button_field.dart';
 import 'package:el_tiempo_en_galve_app/features/shared/widgets/widgets.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/station.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

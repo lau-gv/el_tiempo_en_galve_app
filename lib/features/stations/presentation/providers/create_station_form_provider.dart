@@ -1,6 +1,7 @@
+import 'package:el_tiempo_en_galve_app/features/stations/domain/useCases/create_station_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/station.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/inputs/base_input.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/stations_provider.dart';
 
@@ -9,14 +10,16 @@ import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/
 final createStationFormProvider = StateNotifierProvider.autoDispose<StationsNotifier, CreateStationFormState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
   final createStation = ref.watch(stationsProvider.notifier).createStation;
-  return StationsNotifier(onSubmitCallback: createStation);
+  return StationsNotifier(onSubmitCallback: createStation, createStationManager: CreateStationManager());
 });
 
 class StationsNotifier extends StateNotifier<CreateStationFormState> {
-  final Future<bool> Function(Map<String,dynamic> stationLike) onSubmitCallback;
+  final Future<bool> Function(WeatherStation) onSubmitCallback;
+  final CreateStationManager createStationManager;
 
   StationsNotifier({
-    required this.onSubmitCallback
+    required this.onSubmitCallback,
+    required this.createStationManager
   }): super( CreateStationFormState());
 
   changeStationTypeSelected(StationType stationType){
@@ -59,18 +62,18 @@ class StationsNotifier extends StateNotifier<CreateStationFormState> {
   Future<bool> onFormSubmit() async {
     _touchEveryField();
     if(!state.isValid) return false;
-    return await onSubmitCallback(_toStationLike());
+    return await onSubmitCallback(_createStationtype());
   }
   //En realidad, HAY DOS TIPOS DE CREACIONES.
   //Ecowit. Hay que cifrar la MAC
   //Wunderground. Que es así xD.
-  _toStationLike(){
-    return {   
-      "name": state.stationName.value,
-      "type": state.stationType.name,
-      "location" : state.stationLocalization.value,
-      if(state.stationMac != null)"authStation": state.stationMac!.value,
-    };
+  WeatherStation _createStationtype(){
+    return createStationManager.createNewStation(
+      state.stationType,
+      state.stationName.value,
+      state.stationLocalization.value,
+      state.stationMac != null ? state.stationMac!.value : null
+    );
   }
   
   _touchEveryField(){

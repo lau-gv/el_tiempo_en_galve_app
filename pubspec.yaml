@@ -30,6 +30,7 @@ environment:
 dependencies:
   amazon_cognito_identity_dart_2: ^3.3.0
   auto_size_text: ^3.0.0
+  crypto: ^3.0.3
   cupertino_icons: ^1.0.2
   dio: ^5.1.2
   flutter:

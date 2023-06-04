@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/background_gradient.dart';
-import '../../domain/entities/station.dart';
+import '../../domain/entities/weather_station.dart';
 
 class MyStationsScreen extends ConsumerWidget {
   
@@ -170,7 +170,8 @@ List<Widget> textByStation(WeatherStation station){
   List<Widget> stationInformation = [];
 
   if(station.stationType == StationType.ecowitt){
-    stationInformation.add(Text("MAC: ${station.auth}"));
+    stationInformation.add(Text("MAC: ${station.key}"));
+    stationInformation.add(Text("AUTH : ${station.auth}"));
   }
   if(station.stationType == StationType.wunderground){
     stationInformation.add(Text("ID: ${station.auth}"));

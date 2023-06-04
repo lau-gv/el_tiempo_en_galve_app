@@ -1,5 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/stations/domain/datasources/station_datasource.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/station.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/repositories/station_repository.dart';
 
 class StationRepositoryImpl extends StationRepository {
@@ -19,7 +19,7 @@ class StationRepositoryImpl extends StationRepository {
     return await datasource.deleteStation(weatherStation);
   }
     @override
-  Future<WeatherStation> createStation(Map<String, dynamic> stationLike) async {
-    return await datasource.createStation(stationLike);
+  Future<WeatherStation> createStation(WeatherStation weatherStation) async {
+    return await datasource.createStation(weatherStation);
   }
 }

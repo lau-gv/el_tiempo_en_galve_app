@@ -1,5 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/station.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/repositories/station_repository.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/station_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,10 +28,11 @@ class StationsNotifier extends StateNotifier<StationsState> {
     getAllStation();
   }
 
-  Future<bool> createStation(Map<String, dynamic> stationLike) async{
+  Future<bool> createStation(WeatherStation weatherStation) async{
     bool succesfullCreation = false;
+    print("¿llego?");
     try{
-      final station = await stationRepository.createStation(stationLike);
+      final station = await stationRepository.createStation(weatherStation);
       print(station.name);
       _addStation(station);
       succesfullCreation = true;

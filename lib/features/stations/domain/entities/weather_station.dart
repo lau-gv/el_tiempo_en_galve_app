@@ -4,15 +4,15 @@ enum StationType {
 }
 
 //String ecowitt = StationType.ecowitt.name; // Ecowit.
-
-class WeatherStation {
+//No termina de gustarme esto, pero tampoco creo necesario que esto se convierta en una interfaz.
+abstract class WeatherStation {
   final String _userId;
   final String _id;
   final String _name;
   final String _location;
   final StationType _stationType;
   final String _auth;
-  final String? _key;
+  final String _key;
 
   WeatherStation({
     required String userId,
@@ -21,7 +21,7 @@ class WeatherStation {
     required String location, 
     required StationType stationType, 
     required String auth, 
-    String? key,
+    required String key,
   }) : 
     _userId = userId,
     _id = id,
@@ -37,15 +37,5 @@ class WeatherStation {
   String get location => _location;
   StationType get stationType => _stationType;
   String get auth => _auth;
-  String? get key => _key;
-
-  Map<String, dynamic> toJson() => {
-      "userId": userId,
-      "id": id,
-      "name": name,
-      "location": location,
-      "stationType": stationType.name,
-      "auth": auth,
-      if(key != null) "key" : key,
-  };
+  String get key => _key;
 }
