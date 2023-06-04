@@ -8,12 +8,15 @@ import '../entities/weather_station.dart';
 
 class CreateEcowittNewStation implements CreateNewStation{
   @override
-  WeatherStation createnewStation(String name, String location, String? key) {
+  WeatherStation createnewStation(String name, String location, String? key, String? id, String? auth, String? userId) {
     if(key == null) throw CustomError(message: "required auth parameter");
     return EcowittStation(
       name: name,
       location: location,
-      key: key
+      key: key,
+      id: id,
+      auth: auth,
+      userId: userId,
     );
   }
 

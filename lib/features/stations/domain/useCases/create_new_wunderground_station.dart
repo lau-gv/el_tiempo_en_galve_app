@@ -5,12 +5,15 @@ import '../entities/weather_station.dart';
 
 class CreateWundergroundNewStation implements CreateNewStation{
   @override
-  WeatherStation createnewStation(String name, String location, String? key) {
+  WeatherStation createnewStation(String name, String location, String? key, String? id, String? auth, String? userId) {
     return WundergroundStation(
       name: name,
-      location: location
+      location: location,
+      auth: auth,
+      id: id,
+      key: key,
+      userId: userId,
     );
-    throw UnimplementedError();
   }
 
 } 

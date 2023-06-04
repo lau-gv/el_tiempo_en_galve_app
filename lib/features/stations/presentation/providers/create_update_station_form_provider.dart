@@ -1,34 +1,58 @@
-import 'package:el_tiempo_en_galve_app/features/stations/domain/useCases/create_station_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/domain/useCases/create_station_manager.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/inputs/base_input.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/stations_provider.dart';
 
 
 
-final createStationFormProvider = StateNotifierProvider.autoDispose<StationsNotifier, CreateStationFormState>((ref) {
+final createStationFormProvider = StateNotifierProvider.autoDispose<StationFormNotifier, CreateOrEditStationFormState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
   final createStation = ref.watch(stationsProvider.notifier).createStation;
-  return StationsNotifier(onSubmitCallback: createStation, createStationManager: CreateStationManager());
+  return StationFormNotifier(onSubmitCallback: createStation, createStationManager: CreateStationManager());
 });
 
-class StationsNotifier extends StateNotifier<CreateStationFormState> {
+final updateStationFormProvider = StateNotifierProvider.autoDispose.family<StationFormNotifier, CreateOrEditStationFormState, String>((ref, stationId) {
+  //Recordar a nuestro provider que está escucharndo al token!!!
+  final editStation = ref.watch(stationsProvider.notifier).editStation;
+  final station = ref.read(stationsProvider.notifier).getStationByIdInMemory(stationId);
+
+  return StationFormNotifier(
+    station: station,
+    onSubmitCallback: editStation, 
+    createStationManager: CreateStationManager());
+});
+
+class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
   final Future<bool> Function(WeatherStation) onSubmitCallback;
   final CreateStationManager createStationManager;
 
-  StationsNotifier({
+  StationFormNotifier({
+    WeatherStation? station,
     required this.onSubmitCallback,
     required this.createStationManager
-  }): super( CreateStationFormState());
+  }): super(
+    station == null 
+    ? CreateOrEditStationFormState()
+    : CreateOrEditStationFormState(
+      station: station,
+      stationType: station.stationType,
+      stationMac: station.stationType == StationType.ecowitt ? BaseInput.dirty(station.key) : null,
+      stationName: BaseInput.dirty(station.name),
+      stationLocalization: BaseInput.dirty(station.location),
+    )       
+  );
 
-  changeStationTypeSelected(StationType stationType){
-    stationType == StationType.ecowitt 
-    ? state = state.copyWith(stationType: stationType, stationMac: state.stationMac ?? const BaseInput.pure())
-    : state = state.copyWith(stationType: stationType, stationMac: null);
+  changeStationTypeSelected(StationType stationTypeChange){
+    
+    stationTypeChange == StationType.ecowitt 
+    ? state = state.copyWith(stationType: stationTypeChange, stationMac: state.stationMac ?? const BaseInput.pure())
+    : state = state.copyWith(stationType: stationTypeChange, stationMac: null);
   }
   
   onNameChange(String value){
+    
     final newName = BaseInput.dirty(value);
     state = state.copyWith(
       stationName: newName, isValid: Formz.validate([
@@ -62,19 +86,40 @@ class StationsNotifier extends StateNotifier<CreateStationFormState> {
   Future<bool> onFormSubmit() async {
     _touchEveryField();
     if(!state.isValid) return false;
-    return await onSubmitCallback(_createStationtype());
+    return await onSubmitCallback(_createOrUpdate());
   }
-  //En realidad, HAY DOS TIPOS DE CREACIONES.
-  //Ecowit. Hay que cifrar la MAC
-  //Wunderground. Que es así xD.
+
+  WeatherStation _createOrUpdate(){
+    return state.station == null
+      ? _createStationtype()
+      : _updateStation();
+  }
+
+
   WeatherStation _createStationtype(){
     return createStationManager.createNewStation(
       state.stationType,
       state.stationName.value,
       state.stationLocalization.value,
-      state.stationMac != null ? state.stationMac!.value : null
+      state.stationMac != null ? state.stationMac!.value : null,
+      null,
+      null,
+      null,
     );
   }
+  WeatherStation _updateStation(){
+    return createStationManager.createNewStation(
+      state.stationType,
+      state.stationName.value,
+      state.stationLocalization.value,
+      state.stationMac != null ? state.stationMac!.value : state.station!.key,
+      state.station!.id,
+      state.station!.auth,
+      state.station!.userId,
+    );
+  }
+  
+
   
   _touchEveryField(){
     final name = BaseInput.dirty(state.stationName.value);
@@ -94,15 +139,17 @@ class StationsNotifier extends StateNotifier<CreateStationFormState> {
   }
 }
 
-class CreateStationFormState{
+class CreateOrEditStationFormState{
+  final WeatherStation? station;
   final BaseInput stationName;
   final BaseInput stationLocalization;
   final StationType stationType;
   final BaseInput? stationMac;
-   final bool isValid;
+  final bool isValid;
   final bool isLoading;
 
-  CreateStationFormState({
+  CreateOrEditStationFormState({
+    this.station,
     this.stationName = const BaseInput.pure(), 
     this.stationLocalization = const BaseInput.pure(), 
     this.stationType = StationType.ecowitt, 
@@ -111,14 +158,17 @@ class CreateStationFormState{
     this.isLoading = false});
 
   //Y creamos el método para "actualizar el estado"
-  CreateStationFormState copyWith({
+  CreateOrEditStationFormState copyWith({
+    WeatherStation? station,
     BaseInput? stationName,
     BaseInput? stationLocalization,
     StationType? stationType,
     BaseInput? stationMac,
+    WeatherStation? weatherStation,
     bool? isValid,
     bool? isLoading,
-  }) => CreateStationFormState(
+  }) => CreateOrEditStationFormState(
+    station:  station ?? this.station,
     stationName:  stationName ?? this.stationName,
     stationLocalization:  stationLocalization ?? this.stationLocalization,
     stationType:  stationType ?? this.stationType,

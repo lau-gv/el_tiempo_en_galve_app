@@ -4,8 +4,10 @@ class CustomInputText extends StatelessWidget {
 
   final String textLabel;
   final String? errorMessage;
+  final String? initialValue;
   final Function(String)? onChanged;
   TextInputType? keyboardType;
+  final bool? isOnlyRead;
 
   
   CustomInputText({
@@ -13,7 +15,9 @@ class CustomInputText extends StatelessWidget {
     required this.textLabel, 
     this.errorMessage, 
     this.onChanged, 
-    this.keyboardType
+    this.keyboardType,
+    this.initialValue,
+    this.isOnlyRead,
   });
 
 
@@ -24,6 +28,8 @@ class CustomInputText extends StatelessWidget {
       height: 75,
       child: TextFormField(
         keyboardType: keyboardType,
+        initialValue: initialValue,
+        readOnly: isOnlyRead ?? false,
         //No es buena práctica poner watch en eventos
         onChanged: onChanged,
         decoration:

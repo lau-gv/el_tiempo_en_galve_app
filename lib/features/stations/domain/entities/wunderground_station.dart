@@ -21,7 +21,7 @@ class WundergroundStation implements WeatherStation{
     _id = id ?? "",
     _name = name,
     _location = location,
-    _stationType = StationType.ecowitt,
+    _stationType = StationType.wunderground,
     _auth = auth ?? "",
     _key = key ?? "";
 

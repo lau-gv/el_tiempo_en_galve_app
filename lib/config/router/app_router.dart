@@ -1,6 +1,7 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/screens/confirm_email_screen.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/crete_station_screen.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/edit_station_screen.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/my_stations_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -64,6 +65,13 @@ final goRouterProvider = Provider((ref) {
         path: '/stationCreate',
         name: CreateStationScreen.name,
         builder: (context, state) => const CreateStationScreen(),      
+      ),   
+      GoRoute(
+        path: '/stationEdit/:id',
+        name: EditStationScreen.name,
+        builder: (context, state) => EditStationScreen(
+          stationId: state.pathParameters['id'] ?? 'no-id'
+        ),      
       ),   
     ],
 

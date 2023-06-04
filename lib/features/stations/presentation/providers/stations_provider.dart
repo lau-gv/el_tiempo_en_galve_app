@@ -30,19 +30,30 @@ class StationsNotifier extends StateNotifier<StationsState> {
 
   Future<bool> createStation(WeatherStation weatherStation) async{
     bool succesfullCreation = false;
-    print("¿llego?");
     try{
       final station = await stationRepository.createStation(weatherStation);
-      print(station.name);
       _addStation(station);
       succesfullCreation = true;
     } on CustomError catch (e){
-      print(e.message);
       state = state.copyWith(errorMessage: e.message);
     } catch (e){
       state = state.copyWith(errorMessage: '$e');
     }
     return succesfullCreation;   
+  }
+
+  Future<bool> editStation(WeatherStation weatherStation) async{
+    bool succesfullEdited = false;
+    try{
+      final stationUpdated = await stationRepository.editStation(weatherStation);
+      _editStation(stationUpdated);
+      succesfullEdited = true;
+    } on CustomError catch (e){
+      state = state.copyWith(errorMessage: e.message);
+    } catch (e){
+      state = state.copyWith(errorMessage: '$e');
+    }
+    return succesfullEdited;   
   }
 
   Future getAllStation() async {
@@ -69,18 +80,28 @@ class StationsNotifier extends StateNotifier<StationsState> {
     bool succesfullElimination= false;
     try{
        await stationRepository.deleteStation(station);
- 
       _removeStation(station);
       succesfullElimination = true;
     } on CustomError catch (e){
-      print(e.message);
       state = state.copyWith(errorMessage: e.message);
     } catch (e){
       state = state.copyWith(errorMessage: '$e');
     }
     return succesfullElimination;   
   }
+
+  WeatherStation getStationByIdInMemory(String id){
+    return state.stations.where((element) => element.id == id).toList().first;
+  }
   
+  //No es el mismo objeto, hemos creado uno nuevo.
+  _editStation(WeatherStation station){
+    state = state.copyWith(
+        stations: state.stations.map(
+          (element) => ( element.id == station.id ) ? station : element,
+        ).toList()
+    );
+  }
 
   _addStation(WeatherStation station){
     final List<WeatherStation> stations = state.stations;

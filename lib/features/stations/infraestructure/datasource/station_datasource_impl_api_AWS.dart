@@ -36,10 +36,8 @@ class StationDatasourceImplApiAWS implements StationDatasource {
       
       return stations;
     }on DioError catch (e) {
-      print(e.response);
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
-      print('$e');
       throw Exception();
     }
   }
@@ -56,19 +54,15 @@ class StationDatasourceImplApiAWS implements StationDatasource {
       ));
       succesfullElimination = true;
     }on DioError catch (e) {
-      print(e.response);
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
-      print('$e');
       throw CustomError(message: '$e');
     }
     return succesfullElimination;
   }
   
   @override
-  Future<WeatherStation> createStation(WeatherStation weatherStation) async{
-    print("Quiero crear una estacion, pero no hago na");
-    
+  Future<WeatherStation> createStation(WeatherStation weatherStation) async{    
     try{
       final dtoEs = StationCreateMapper.stationToStationCreateDTO(weatherStation, userId);
       final response = await dio.post(
@@ -81,11 +75,34 @@ class StationDatasourceImplApiAWS implements StationDatasource {
       final weatherStationDTO = WeatherStationDTO.fromJson(response.data);
       return StationMapper.weatherStationDTOToEntity(weatherStationDTO);
     }on DioError catch (e) {
+      throw CustomError(message: e.message != null ? e.message! : "");
+    } catch (e){
+      throw CustomError(message: '$e');
+    }
+  }
+  
+  @override
+  Future<WeatherStation> editStation(WeatherStation weatherStation) async{
+    
+    try{
+      final dtoEs = StationMapper.weatherStationToDTO(weatherStation);
+      final response = await dio.put(
+        apiEndpoint,
+        data: dtoEs.toJson(),
+        options: Options(
+        headers: {'Content-Type': 'application/json'},
+      ));
+      
+      final weatherStationDTO = WeatherStationDTO.fromJson(response.data);
+      return StationMapper.weatherStationDTOToEntity(weatherStationDTO);
+    }on DioError catch (e) {
+      print(e.message);
       print(e.response);
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
-      print('$e');
+      print(e);
       throw CustomError(message: '$e');
     }
+    
   }  
 }

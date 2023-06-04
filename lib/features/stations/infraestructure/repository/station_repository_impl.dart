@@ -22,4 +22,9 @@ class StationRepositoryImpl extends StationRepository {
   Future<WeatherStation> createStation(WeatherStation weatherStation) async {
     return await datasource.createStation(weatherStation);
   }
+  
+  @override
+  Future<WeatherStation> editStation(WeatherStation weatherStation) async {
+    return await datasource.editStation(weatherStation);
+  }
 }

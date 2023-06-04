@@ -1,5 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/stations_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/crete_station_screen.dart';
+import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/edit_station_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -112,7 +113,10 @@ class _SuperiorCardStation extends ConsumerWidget {
               
                 children: [
                   IconButton(onPressed: (){
-                    print(station.name);
+                    context.pushNamed(
+                      EditStationScreen.name,
+                      pathParameters: {"id" : station.id}
+                      );
                   }, icon: const Icon(Icons.edit)),                      
                   IconButton(onPressed: () async {
                     await ref.read(stationsProvider.notifier).deleteStation(station);

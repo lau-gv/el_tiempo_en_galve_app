@@ -33,6 +33,7 @@ class WeatherStationDTO {
       'stationId': stationId,
       'userId': userId,
       'authStation': authStation,
+      'name': name,
       'key': key,
       'location': location,
       'type': type,

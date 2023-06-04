@@ -15,8 +15,8 @@ class CreateStationManager {
   
   //Esto de aqúi no me termina de gustar
   WeatherStation createNewStation(StationType stationType,
-  String name, String location, String? key
+  String name, String location, String? key, String? id, String? auth, String? userId
   ){
-    return _creationOptions[stationType]!.createnewStation(name, location, key);
+    return _creationOptions[stationType]!.createnewStation(name, location, key, id, auth, userId);
   }
 }
