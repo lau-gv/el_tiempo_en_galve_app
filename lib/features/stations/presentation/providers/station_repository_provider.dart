@@ -1,8 +1,9 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/repositories/station_repository.dart';
-import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/datasource/station_datasource_impl_api_AWS.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/repository/station_repository_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../infraestructure/datasource/station_datasource_impl_api_AWS.dart';
 
 
 //Esta es una de las formas que tenemos de comunicar dos estados. Además, estamos 
@@ -16,7 +17,7 @@ final stationRepositoryProvider = Provider<StationRepository>((ref){
   final userId = ref.watch(authProvider).user?.id ?? '';
 
   final stationRepository = StationRepositoryImpl(
-    StationDatasourceImplApiAWS(accessToken: accessToken, userId: userId)
+    StationDatasourceImplApiAws(accessToken: accessToken, userId: userId)
   );
 
   return stationRepository;

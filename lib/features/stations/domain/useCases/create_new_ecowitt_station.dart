@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/ecowitt_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/useCases/create_new_station.dart';
 

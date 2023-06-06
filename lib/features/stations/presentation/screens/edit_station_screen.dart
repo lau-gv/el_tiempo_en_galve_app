@@ -1,4 +1,3 @@
-import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/screens/edit_or_create_station_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

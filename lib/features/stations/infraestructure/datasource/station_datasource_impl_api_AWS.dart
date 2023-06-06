@@ -7,7 +7,7 @@ import 'package:el_tiempo_en_galve_app/features/stations/infraestructure/mappers
 import 'package:el_tiempo_en_galve_app/features/stations/domain/datasources/station_datasource.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 
-class StationDatasourceImplApiAWS implements StationDatasource {
+class StationDatasourceImplApiAws implements StationDatasource {
   
   late final Dio dio;
   final String accessToken;
@@ -16,7 +16,7 @@ class StationDatasourceImplApiAWS implements StationDatasource {
   final String apiEndpointAll = "/stations";
   final String apiEndpoint = "/station";
 
-  StationDatasourceImplApiAWS({required this.accessToken, required this.userId})
+  StationDatasourceImplApiAws({required this.accessToken, required this.userId})
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.stationApi,
     headers: {
@@ -96,11 +96,8 @@ class StationDatasourceImplApiAWS implements StationDatasource {
       final weatherStationDTO = WeatherStationDTO.fromJson(response.data);
       return StationMapper.weatherStationDTOToEntity(weatherStationDTO);
     }on DioError catch (e) {
-      print(e.message);
-      print(e.response);
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
-      print(e);
       throw CustomError(message: '$e');
     }
     

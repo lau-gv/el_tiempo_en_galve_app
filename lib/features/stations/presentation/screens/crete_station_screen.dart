@@ -19,6 +19,14 @@ class CreateStationScreen extends ConsumerWidget {
   }
 
   Future<void> onFormSubmit(WidgetRef ref, BuildContext context) async{
-    await ref.read(createStationFormProvider.notifier).onFormSubmit();
+    
+    var result = await ref.read(createStationFormProvider.notifier).onFormSubmit();
+    if(result){
+      
+    }else{
+
+    }
+
+ 
   }
 }

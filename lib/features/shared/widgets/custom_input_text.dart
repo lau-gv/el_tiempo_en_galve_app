@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-
 class CustomInputText extends StatelessWidget {
 
   final String textLabel;
   final String? errorMessage;
   final String? initialValue;
   final Function(String)? onChanged;
-  TextInputType? keyboardType;
+  final TextInputType? keyboardType;
   final bool? isOnlyRead;
 
   
-  CustomInputText({
+  const CustomInputText({
     super.key, 
     required this.textLabel, 
     this.errorMessage, 
@@ -41,4 +40,5 @@ class CustomInputText extends StatelessWidget {
     );
   }
 }
+
 
