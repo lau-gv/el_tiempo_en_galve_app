@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../config/my_flutter_app_icons.dart';
+import '../../../../config/my_flutter_app_icons.dart';
 
 
 //https://blogmarch.com/create-tab-inside-body-widget/

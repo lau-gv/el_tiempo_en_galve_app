@@ -9,4 +9,5 @@ class Enviroment {
   static String clientIdCognito = dotenv.env['CLIENT_ID'] ?? 'Cognito clientID not configure';
   static String region = dotenv.env['REGION'] ?? 'Cognito Region not configure';
   static String stationApi = dotenv.env['STATION_API'] ?? 'stationApiNotConfigure';
+  static String historicalDataApi = dotenv.env['STATION_API'] ?? 'stationApiNotConfigure';
 }

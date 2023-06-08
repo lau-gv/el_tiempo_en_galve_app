@@ -1,10 +1,10 @@
-import 'package:el_tiempo_en_galve_app/features/home/section_current_time.dart';
-import 'package:el_tiempo_en_galve_app/features/home/weather_week.dart';
-import 'package:el_tiempo_en_galve_app/features/home/widget_weather_impact.dart';
+import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/section_current_time.dart';
+import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/weather_week.dart';
+import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/widget_weather_impact.dart';
 import 'package:el_tiempo_en_galve_app/features/shared/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/widgets/background_gradient.dart';
+import '../../../shared/widgets/background_gradient.dart';
 
 class HomeScreen extends StatelessWidget {
   

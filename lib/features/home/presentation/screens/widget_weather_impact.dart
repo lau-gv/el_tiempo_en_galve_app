@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../config/themes/dark_theme.dart';
+import '../../../../config/themes/dark_theme.dart';
 
 class WidgetWeatherImpact extends StatelessWidget {
   const WidgetWeatherImpact({super.key, 
