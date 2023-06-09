@@ -1,4 +1,4 @@
-class HistoricalDataDay{
+class HistoricalDataMonth{
     //DatosDeFuera.
     final int _datadate; 
     final String _stationId; 
@@ -27,33 +27,58 @@ class HistoricalDataDay{
     final int _maxIndoorhumidity; //Humedad relativa interior en porcentaje (%).
     final int _minIndoorhumidity;
     
-    HistoricalDataDay(
-      this._datadate,
-      this._stationId,
-      this._year,
-      this._month,
-      this._day,
-      this._maxTemperature,
-      this._minTemperature,
-      this._maxHumidity,
-      this._minHumidity,
-      this._maxBaromrelhpa,
-      this._minBaromrelhpa,
-      this._maxBaromabshpa,
-      this._minBaromabshpa,
-      this._maxRainrateinmm,
-      this._minRainrateinmm,
-      this._acumulateDailyraininmm,
-      this._maxdailygust,
-      this._maxSolarradiation,
-      this._minSolarradiation,
-      this._maxUv,
-      this._minUv,
-      this._maxIndoortemp,
-      this._minIndoortemp,
-      this._maxIndoorhumidity,
-      this._minIndoorhumidity,
-  );
+    HistoricalDataMonth({
+      datadate,
+      stationId,
+      year,
+      month,
+      day,
+      maxTemperature,
+      minTemperature,
+      maxHumidity,
+      minHumidity,
+      maxBaromrelhpa,
+      minBaromrelhpa,
+      maxBaromabshpa,
+      minBaromabshpa,
+      maxRainrateinmm,
+      minRainrateinmm,
+      acumulateDailyraininmm,
+      maxdailygust,
+      maxSolarradiation,
+      minSolarradiation,
+      maxUv,
+      minUv,
+      maxIndoortemp,
+      minIndoortemp,
+      maxIndoorhumidity,
+      minIndoorhumidity,
+    }):
+      _datadate = datadate,
+      _stationId = stationId,
+      _year = year,
+      _month = month,
+      _day = day,
+      _maxTemperature = maxTemperature,
+      _minTemperature = minTemperature,
+      _maxHumidity = maxHumidity,
+      _minHumidity = minHumidity,
+      _maxBaromrelhpa = maxBaromrelhpa,
+      _minBaromrelhpa = minBaromrelhpa,
+      _maxBaromabshpa = maxBaromabshpa,
+      _minBaromabshpa = minBaromabshpa,
+      _maxRainrateinmm = maxRainrateinmm,
+      _minRainrateinmm = minRainrateinmm,
+      _acumulateDailyraininmm = acumulateDailyraininmm,
+      _maxdailygust = maxdailygust,
+      _maxSolarradiation = maxSolarradiation,
+      _minSolarradiation = minSolarradiation,
+      _maxUv = maxUv,
+      _minUv = minUv,
+      _maxIndoortemp = maxIndoortemp,
+      _minIndoortemp = minIndoortemp,
+      _maxIndoorhumidity = maxIndoorhumidity,
+      _minIndoorhumidity = minIndoorhumidity;
 
   int get datadate => _datadate;
   String get stationId => _stationId;

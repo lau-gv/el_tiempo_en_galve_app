@@ -34,7 +34,7 @@ class DarkTheme {
       headlineLarge: TextStyle(color: Colors.white, fontSize: 35, height: 1),
       headlineMedium: TextStyle(color: grey1, fontSize: 20, height: 1),
       headlineSmall: TextStyle(color: lightViolet, fontSize: 20, height: 1),
-      displayLarge: TextStyle(color: Colors.white, fontSize: 68, fontWeight: FontWeight.bold, height: 1, ),
+      displayLarge: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold, height: 1, ),
       displayMedium: TextStyle(color: grey1, fontSize: 30, height: 1),
       bodyMedium: TextStyle(color: grey2),      
       bodyLarge: TextStyle(color: Colors.white, fontSize: 20, height: 1),     

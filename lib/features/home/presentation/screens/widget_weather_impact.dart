@@ -1,5 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../config/themes/dark_theme.dart';
+import '../../../historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
+import '../../../historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
 
 class WidgetWeatherImpact extends StatelessWidget {
   const WidgetWeatherImpact({super.key, 
@@ -78,30 +83,49 @@ class TrapezoidPainter extends CustomPainter {
 
 
 
-class CardTimeChildrens extends StatelessWidget {
+class CardTimeChildrens extends ConsumerWidget {
   const CardTimeChildrens({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-     final theme = Theme.of(context);
+  Widget build(BuildContext context, WidgetRef  ref) {
+
+    final stationCurrentData = ref.watch(currentStationDataProvider);
+    final getHistoricalDataDay = ref.watch(todayHistoricalDataDayProvider);
+    final theme = Theme.of(context);
+
+    final actualTemp = stationCurrentData.currentStationData != null 
+                      ? stationCurrentData.currentStationData!.temperature.toString() : "";
+    final date = stationCurrentData.currentDate;
+    final maxTemp = getHistoricalDataDay.historicalDataDay != null
+                    ? getHistoricalDataDay.historicalDataDay!.maxTemperature
+                    : "";
+    final minTemp = getHistoricalDataDay.historicalDataDay != null
+                    ? getHistoricalDataDay.historicalDataDay!.minTemperature
+                    : "";
+    final totalRain = getHistoricalDataDay.historicalDataDay != null
+                    ? getHistoricalDataDay.historicalDataDay!.acumulateDailyraininmm : "";
 
     return Row(              
       children: [
         Expanded(
           flex: 13,
           child: Container(
-            padding: const EdgeInsets.only(left: 12, top: 15),
+            padding: const EdgeInsets.only(left: 12, top: 19),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text("17º", style: theme.textTheme.displayLarge, textScaleFactor: 1),
-                Text("Hoy: 06/05/2023 23:40", style: theme.textTheme.bodyMedium),
-                Text("Sensacion térmica: 25º C", style: theme.textTheme.bodyMedium),
-                Text("Max 32º Min: 12º", style: theme.textTheme.bodyMedium),
-                Text("Total lluvia: 2L", style: theme.textTheme.bodyMedium)
+                AutoSizeText(
+                  "$actualTempºC",
+                  style: theme.textTheme.displayLarge, textScaleFactor: 1,
+                  maxLines: 1,),
+                const SizedBox(height: 2,),
+                AutoSizeText("Hoy: $date",
+                  style: theme.textTheme.bodyMedium, maxLines: 1,),
+                AutoSizeText("Max $maxTempºC Min: $minTempºC", style: theme.textTheme.bodyMedium, maxLines: 1,),
+                AutoSizeText("Total lluvia: ${totalRain}L", style: theme.textTheme.bodyMedium, maxLines: 1,)
               ],
             ),
           ),

@@ -1,12 +1,14 @@
-import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/section_current_time.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/current_time_section/section_current_historical_time.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/weather_week.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/widget_weather_impact.dart';
 import 'package:el_tiempo_en_galve_app/features/shared/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/widgets/background_gradient.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   
 
   static const name = 'home-screen';
@@ -14,8 +16,9 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
+    final stationCurrentData = ref.watch(currentStationDataProvider);
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     final Size screenSize = MediaQuery.of(context).size;
@@ -41,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       //height: 180,
                     ),
                     const SizedBox(height: 10),
-                    SectionCurrentTime(
+                    SectionCurrentHistoricalTime(
                       height: screenSize.height / 3.8
                       //height: 200
                     ),

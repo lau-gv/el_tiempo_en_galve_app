@@ -9,11 +9,11 @@ class MonthHistoricalDatasourceAwsImpl implements MonthHistoricalDataSource {
   
   late final Dio dio;
   final String accessToken;
-  final String userId;
+
 
   final String apiEndpoint = "/monthHistorical";
 
-  MonthHistoricalDatasourceAwsImpl({required this.accessToken, required this.userId})
+  MonthHistoricalDatasourceAwsImpl({required this.accessToken})
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.historicalDataApi,
     headers: {
