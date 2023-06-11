@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/useCases/weather_conditions_calculador.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../config/themes/dark_theme.dart';
@@ -97,7 +97,7 @@ class CardTimeChildrens extends ConsumerWidget {
 
     final actualTemp = stationCurrentData.currentStationData != null 
                       ? stationCurrentData.currentStationData!.temperature.toString() : "";
-    final date = stationCurrentData.currentDate;
+    final date = stationCurrentData.currentDateString;
     final maxTemp = getHistoricalDataDay.historicalDataDay != null
                     ? getHistoricalDataDay.historicalDataDay!.maxTemperature
                     : "";
@@ -135,12 +135,33 @@ class CardTimeChildrens extends ConsumerWidget {
           flex: 12,
           child: Transform.translate(
             offset: const Offset(9, -25),
-            child: const Image(
-              image: AssetImage("assets/images/sunwind.png"),
+            child: Image(
+              image: AssetImage(getIconFromConditions(stationCurrentData)),
               fit: BoxFit.contain,
             ),
           ))
       ],
     );
   }
+}
+
+String getIconFromConditions(CurrentStationDataState? currentStationData){
+  
+  if(currentStationData == null 
+  || currentStationData.currentStationData == null
+  || currentStationData.currentDate == null) return "assets/images/sun.png";
+
+  Map<WeatherCondition, String> weatherconditionText = {
+    WeatherCondition.sunny : "assets/images/sun.png",
+    WeatherCondition.dayRainy : "assets/images/suncloudrain.png",
+    WeatherCondition.dayRainyWithWind : "assets/images/suncloudrainwind.png",
+    WeatherCondition.sunnyWithWind : "assets/images/sunwind.png",
+    WeatherCondition.sunnyCloudyWithWind : "assets/images/suncloudwind.png",
+    WeatherCondition.sunnyCloudy : "assets/images/suncloud.png",
+    WeatherCondition.nigthRainy : "assets/images/moonraining.png",
+    WeatherCondition.moonlit : "assets/images/moon.png",
+    WeatherCondition.moonlitWithWind : "assets/images/moonwind.png",
+  };
+  var weatherConditionCalculator = WeatherConditionCalculator(currentStationData.currentStationData!);
+  return weatherconditionText[weatherConditionCalculator.getWeatherCondition(currentStationData.currentDate!)] ?? "";
 }

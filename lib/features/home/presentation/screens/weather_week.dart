@@ -1,64 +1,26 @@
 import 'package:el_tiempo_en_galve_app/config/themes/dark_theme.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/week_historical_data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class WeatherWeek extends StatelessWidget {
+import '../../../historicalData/domain/entities/historical_data_day.dart';
+
+class WeatherWeek extends ConsumerWidget {
   
   final double maxHeigth;
 
   const WeatherWeek({super.key, required this.maxHeigth});
 
- 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todayHistoricalDataday = ref.watch(todayHistoricalDataDayProvider).historicalDataDay;
+    final lastWeekHistoricalDataDay = ref.watch(weekHistoricalDataProvider).weekHistoricalDataDay;
 
+    final List<CardWeekDay> cardWeekDay = returnCardWeekDayList(lastWeekHistoricalDataDay, todayHistoricalDataday);
 
-    const hola = [
-      CardWeekDay(
-        dayName: "LUN",
-        dateNumber: "08/05",
-        imageUrl: "assets/images/sun.png",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "MAR",
-        dateNumber: "09/05",
-        imageUrl: "assets/images/sunwind.png",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "MIE",
-        dateNumber: "10/05",
-        imageUrl: "assets/images/suncloud.png",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "JUE",
-        dateNumber: "11/05",
-        imageUrl: "assets/images/suncloudrain.png",
-        totalRain: "5L",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "VIE",
-        dateNumber: "12/05",
-        imageUrl: "assets/images/sun.png",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "SAB",
-        dateNumber: "13/05",
-        imageUrl: "assets/images/sun.png",
-        minmaxT: "18/25",
-      ),                  
-      CardWeekDay(
-        dayName: "DOM",
-        dateNumber: "14/05",
-        imageUrl: "assets/images/sun.png",
-        minmaxT: "18/25",
-      ),                  
-  ];  
 
     return Column(
       children: [
@@ -71,9 +33,9 @@ class WeatherWeek extends StatelessWidget {
           ),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 7,
+              itemCount: cardWeekDay.length,
               itemBuilder: (context, index) {
-                return hola[index];
+                return cardWeekDay[index];
               },                      
             ),
         ),
@@ -92,10 +54,16 @@ class CardWeekDay extends StatelessWidget {
   final String dateNumber;
   final String? totalRain;
   final String imageUrl;
-  final String minmaxT;
+  final String maxT;
+  final String minT;
   
   const CardWeekDay({
-    super.key, required this.dayName, required this.dateNumber, this.totalRain = "", required this.imageUrl, required this.minmaxT,
+    super.key, required this.dayName, 
+    required this.dateNumber, 
+    this.totalRain = "", 
+    required this.imageUrl, 
+    required this.maxT,
+    required this.minT,
   });
 
   @override
@@ -112,7 +80,7 @@ class CardWeekDay extends StatelessWidget {
           border: Border.all(color:  DarkTheme.grey2),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 20),
+          padding: const EdgeInsets.only(top: 12, bottom: 12),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,7 +103,8 @@ class CardWeekDay extends StatelessWidget {
                     Text(totalRain!, style: const TextStyle(color: Colors.blueAccent),),                    
                   ],
                 ),
-                Text(minmaxT),
+                Text(maxT, style: const TextStyle(height: 1)),
+                Text(minT, style: const TextStyle(height: 1)),
               ],
             ),
         ),
@@ -143,3 +112,66 @@ class CardWeekDay extends StatelessWidget {
     );
   }
 }
+List<CardWeekDay> returnCardWeekDayList(
+  List<HistoricalDataDay>? lastWeekHistoricalDataDay, 
+  HistoricalDataDay? todayHistoricalDataday){
+    List<CardWeekDay> cardWeekDay = [];
+    
+    
+    if(lastWeekHistoricalDataDay!=null) addOrUpdatecurrentDay(lastWeekHistoricalDataDay, todayHistoricalDataday);
+
+    lastWeekHistoricalDataDay?.forEach((element) { 
+      cardWeekDay.add(
+      CardWeekDay(
+        dayName: getDayOfWeek(element.year, element.month, element.day),
+        dateNumber: "${element.month}/${element.day}",
+        imageUrl: determineIcon(element),
+        totalRain: "${element.acumulateDailyraininmm > 0 ? element.acumulateDailyraininmm : ""}",
+        maxT: "${element.maxTemperature}º",
+        minT: "${element.minTemperature}º",
+      ),   
+    );});
+    return cardWeekDay;
+}
+
+//¿Esto debería llevarmelo al estado?
+void addOrUpdatecurrentDay(List<HistoricalDataDay> lastWeekHistoricalDataDay, HistoricalDataDay? todayHistoricalDataday){
+  if(todayHistoricalDataday == null) return;
+  print(lastWeekHistoricalDataDay.length);
+  if(lastWeekHistoricalDataDay.length > 6) {
+    lastWeekHistoricalDataDay.removeLast();
+    lastWeekHistoricalDataDay.add(todayHistoricalDataday);
+  }else{
+    lastWeekHistoricalDataDay.add(todayHistoricalDataday);
+  }
+}
+
+String determineIcon(HistoricalDataDay historicalDataDay){
+
+  String icon = "";
+  if(historicalDataDay.acumulateDailyraininmm > 0){
+    icon = "assets/images/suncloudrain.png";
+  }else{
+    icon = "assets/images/sun.png";
+  }
+
+  return icon;
+}
+
+
+String getDayOfWeek(int year, int month, int day) {
+  DateTime date = DateTime(year, month, day);
+  const List<String> daysOfWeek = [
+    'LUN',
+    'MAR',
+    'MIE',
+    'JUE',
+    'VIE',
+    'SAB',
+    'DOM',
+  ];
+
+  return daysOfWeek[date.weekday - 1];
+}
+
+

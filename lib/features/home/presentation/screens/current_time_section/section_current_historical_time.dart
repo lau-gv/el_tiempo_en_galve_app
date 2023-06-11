@@ -43,7 +43,7 @@ class _TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
       DefaultTabController(
-        length: 2, // length of tabs
+        length: 3, // length of tabs
         initialIndex: 0,
 
         child: Column(
@@ -53,7 +53,7 @@ class _TabBarWidget extends StatelessWidget {
             children: [
               Container(
                 height: totalheight * 0.15,
-                width: 200,
+                width: 250,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35), topLeft: Radius.circular(35)),
                 ),
@@ -65,7 +65,8 @@ class _TabBarWidget extends StatelessWidget {
                   },              
                   tabs: const [
                     Tab(text: 'Actual'),
-                    Tab(text: 'Max/Min'),
+                    Tab(text: 'Max'),
+                    Tab(text: 'Min'),
                     //Tab(text: 'Ver más'),
                   ],
                 ),
@@ -83,7 +84,8 @@ class _TabBarWidget extends StatelessWidget {
             height: totalheight * 0.8,//height of TabBarView
             child: const TabBarView(children: <Widget>[
               ActualCurrentData(),
-              HistoricalTodayData(),
+              MaxHistoricalTodayData(),
+              MinHistoricalTodayData(),
               //Container(),
             ])
           )

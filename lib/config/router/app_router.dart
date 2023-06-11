@@ -10,7 +10,7 @@ import 'package:el_tiempo_en_galve_app/features/splashScreen/splash_screen.dart'
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/historicalData/presentation/screens/detailCurrentData/detail_current_data.dart';
-import '../../features/historicalData/presentation/screens/historial_screen.dart';
+import '../../features/historicalData/presentation/screens/historicalScreen/historical_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 
 final goRouterProvider = Provider((ref) {

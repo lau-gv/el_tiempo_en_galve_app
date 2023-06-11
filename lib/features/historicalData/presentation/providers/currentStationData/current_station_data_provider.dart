@@ -23,25 +23,39 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
   }): super( CurrentStationDataState()){
     //Así ejecutamos na mas instanciarse esto.
     _getCurrentStationData();
-    startRepeatingFunction();
+    _startRepeatingGetStationData();
+    _startRepeatingUpdateTime();
   }
 
-  void startRepeatingFunction() async {
+  void _startRepeatingGetStationData() async {
     const Duration interval = Duration(minutes: 5);
      Timer.periodic(interval, (Timer timer) {
     // Llama a tu función aquí
       _getCurrentStationData();
     });
   }
+  void _startRepeatingUpdateTime() {
+    const Duration interval = Duration(minutes: 1);
+     Timer.periodic(interval, (Timer timer) {
+    // Llama a tu función aquí
+      state = state.copyWith(currentDate: DateTime.now(), currentDateString: _getDateTime());
+    });
+  }
 
   Future _getCurrentStationData() async{
     try{
+      state = state.copyWith(isLoading: true);
       CurrentStationData currentStationData = await currentStationDataRepository.getCurrentStationData(Enviroment.stationId);  
-      state = state.copyWith(currentStationData: currentStationData, currentDate: _getDateTime());
+      state = state.copyWith(
+        currentStationData: currentStationData, 
+        currentDate: DateTime.now(), 
+        currentDateString: _getDateTime(),
+        isLoading: false,
+      );
     } on CustomError catch (e){
-      state = state.copyWith(errorMessage: e.message);
+      state = state.copyWith(errorMessage: e.message, isLoading: false);
     } catch (e){
-      state = state.copyWith(errorMessage: '$e');
+      state = state.copyWith(errorMessage: '$e', isLoading: false);
     }
   }
 
@@ -49,7 +63,9 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
     DateTime now = DateTime.now();
     String day = now.day < 10 ? "0${now.day}" : "${now.day}";
     String month = now.month < 10 ? "0${now.month}" : "${now.month}";
-    return "$day/$month/${now.year} ${now.hour}:${now.minute} h";
+    String hour = now.hour < 10 ? "0${now.hour}" : "${now.hour}";
+    String minute = now.minute < 10 ? "0${now.minute}" : "${now.minute}";
+    return "$day/$month/${now.year}  $hour:$minute h";
   }
 }
 
@@ -57,21 +73,30 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
 class CurrentStationDataState{
   final CurrentStationData? currentStationData;
   final String errorMessage;
-  final String currentDate;
+  final String currentDateString;
+  final DateTime? currentDate;
+  final bool isLoading;
+  
 
   CurrentStationDataState({
     this.currentStationData ,
     this.errorMessage = "",
-    this.currentDate = "",
+    this.currentDateString = "",
+    this.currentDate,
+    this.isLoading = false,
   });
 
   CurrentStationDataState copyWith({
     CurrentStationData? currentStationData,
     String? errorMessage,
-    String? currentDate,
+    String? currentDateString,
+    DateTime? currentDate,
+    bool? isLoading,
   }) => CurrentStationDataState(
     currentStationData : currentStationData ?? this.currentStationData,
     errorMessage: errorMessage ?? this.errorMessage,
+    currentDateString: currentDateString ?? this.currentDateString,
     currentDate: currentDate ?? this.currentDate,
+    isLoading: isLoading ?? this.isLoading,
   );
 }

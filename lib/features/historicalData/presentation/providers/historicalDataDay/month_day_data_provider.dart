@@ -1,40 +1,43 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_month.dart';
 import 'package:el_tiempo_en_galve_app/config/constants/enviroment.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/day_historical_repository.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/day_historical_repository_aws_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/day_historical_repository_provider.dart';
 
 
-import '../../../../auth/infraestructure/errors/auth_errors.dart';
 
 
 //Y ahora el provider
-final currentStationDataProvider = StateNotifierProvider<HistoricalDataDayNotifier, TodayHistoricalDataState>((ref) {
+final monthHistoricalDataProvider = StateNotifierProvider<MonthHistoricalDataDayNotifier, MonthHistoricalDataState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
   final historicalDataDayRepository = ref.watch(dayHistoricalRepositoryProvider);
-  return HistoricalDataDayNotifier(historicalDataDayRepository: historicalDataDayRepository);
+  return MonthHistoricalDataDayNotifier(historicalDataDayRepository: historicalDataDayRepository);
 });
 
 //eL notifier
-class HistoricalDataDayNotifier extends StateNotifier<TodayHistoricalDataState> {
+class MonthHistoricalDataDayNotifier extends StateNotifier<MonthHistoricalDataState> {
   final DayHistoricalRepository historicalDataDayRepository;
 
-  HistoricalDataDayNotifier({
+  MonthHistoricalDataDayNotifier({
     required this.historicalDataDayRepository
-  }): super( TodayHistoricalDataState()){
+  }): super( MonthHistoricalDataState()){
     //Así ejecutamos na mas instanciarse esto.
     _getHistoricalDataDay(_getCurrentMonth());
   }
 
   Future _getHistoricalDataDay(int yyyymm) async{
     try{
-      Map<int, HistoricalDataDay>? monthHistoricalDataDay = await historicalDataDayRepository.getHistoricalDataDayOfAMonth(Enviroment.stationId, yyyymm); 
-      state = state.copyWith(monthHistoricalDataDay: monthHistoricalDataDay);
+      state = state.copyWith(isLoading: true);
+      HistoricalMonth monthHistoricalDataDay = await historicalDataDayRepository.getHistoricalDataDayOfAMonth(Enviroment.stationId, yyyymm); 
+      state = state.copyWith(monthHistoricalDataDay: monthHistoricalDataDay, isLoading: false);
     } on CustomError catch (e){
-      state = state.copyWith(errorMessage: e.message);
+      print(e.message);
+      state = state.copyWith(errorMessage: e.message, isLoading: false);
     } catch (e){
-      state = state.copyWith(errorMessage: '$e');
+      print(e);
+      state = state.copyWith(errorMessage: '$e', isLoading: false);
     }
   }
 
@@ -47,20 +50,24 @@ class HistoricalDataDayNotifier extends StateNotifier<TodayHistoricalDataState> 
 }
 
 //El estado.
-class TodayHistoricalDataState{
-  final Map<int, HistoricalDataDay>? monthHistoricalDataDay;
+class MonthHistoricalDataState{
+  final HistoricalMonth? monthHistoricalDataDay;
   final String errorMessage;
+  final bool isLoading;
 
-  TodayHistoricalDataState({
+  MonthHistoricalDataState({
     this.monthHistoricalDataDay ,
-    this.errorMessage = ""
+    this.errorMessage = "",
+    this.isLoading = false,
   });
 
-  TodayHistoricalDataState copyWith({
-    Map<int, HistoricalDataDay>? monthHistoricalDataDay,
+  MonthHistoricalDataState copyWith({
+    HistoricalMonth? monthHistoricalDataDay,
     String? errorMessage,
-  }) => TodayHistoricalDataState(
+    bool? isLoading,
+  }) => MonthHistoricalDataState(
     monthHistoricalDataDay : monthHistoricalDataDay ?? this.monthHistoricalDataDay,
     errorMessage: errorMessage ?? this.errorMessage,
+    isLoading: isLoading ?? this.isLoading,
   );
 }

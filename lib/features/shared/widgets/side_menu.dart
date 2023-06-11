@@ -45,13 +45,8 @@ class SideMenuState extends ConsumerState<SideMenu> {
       children: [
 
         Padding(
-          padding: EdgeInsets.fromLTRB(20, hasNotch ? 0 : 20, 16, 0),
-          child: Text('Saludos', style: textStyles.titleMedium ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 16, 10),
-          child: Text('Lauliett', style: textStyles.titleSmall ),
+          padding: EdgeInsets.fromLTRB(20, hasNotch ? 20 : 20, 16, 20),
+          child: Text('Menú', style: textStyles.bodyLarge ),
         ),
         
         ...appMenuItems.map((menuItem) => 

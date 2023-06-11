@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/datasources/day_historical_datasource.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_month.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/infraestructure/mappers/historical_data_day_mapper.dart';
 
 import '../../../../config/constants/enviroment.dart';
@@ -23,15 +24,38 @@ class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
   ));
 
   @override
-  Future<Map<int, HistoricalDataDay>> getHistoricalDataDayOfAMonth(String stationId, int yyyymm) {
-    // TODO: implement getHistoricalDataDayOfAMonth
-    throw UnimplementedError();
+  Future<HistoricalMonth> getHistoricalDataDayOfAMonth(String stationId, int yyyymm) async {
+    try {
+      HistoricalMonth historicalMonth = HistoricalMonth();
+      final response = await dio.get('$apiEndpoint/month?stationId=$stationId&datadate=$yyyymm');
+    
+      (response.data ?? []).forEach((historicalDataDay) => historicalMonth.addHistoricalDataDay(
+        HistoricalDataDayAWSMapper.fromJson(historicalDataDay)));
+
+      return historicalMonth;
+
+    }on DioError catch (e) {
+      throw CustomError(message: e.response != null ? e.response!.data : "");
+    } catch (e){
+      throw Exception();
+    }        
   }
 
   @override
-  Future<List<HistoricalDataDay>> getLast7HistoricalDataDays(String stationId, int yyyymmddStart, int yyyymmddEnd) {
-    // TODO: implement getLast7HistoricalDataDays
-    throw UnimplementedError();
+  Future<List<HistoricalDataDay>> getLastDataBetween(String stationId, int yyyymmddStart, int yyyymmddEnd) async{
+    try {
+      final response = await dio.get('$apiEndpoint/between?stationId=$stationId&startDay=$yyyymmddStart&endDay=$yyyymmddEnd');
+      final List<HistoricalDataDay> historicalDataDays = [];
+
+      (response.data ?? []).forEach((historicalDataDay) => historicalDataDays.add(
+        HistoricalDataDayAWSMapper.fromJson(historicalDataDay)));
+
+      return historicalDataDays;
+    }on DioError catch (e) {
+      throw CustomError(message: e.response != null ? e.response!.data : "");
+    } catch (e){
+      throw Exception();
+    }    
   }
 
   @override

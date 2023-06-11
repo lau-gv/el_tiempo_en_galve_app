@@ -26,14 +26,17 @@ class DataItemUnit extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.visible,
                 style: const TextStyle(fontSize: 14),
-                minFontSize: 10,
-                maxFontSize: 14,
-                
+                minFontSize: 9,
+                maxFontSize: 14,                
               ),
-              Text(
+              Flexible(child: 
+                AutoSizeText(
                 subtitle,
-                style: const TextStyle(height: 1),
+                style: const TextStyle(height: 1, fontSize: 14),
+                overflow: TextOverflow.visible,
+                minFontSize: 2,
               ),
+              )
             ],
           ),
         ),

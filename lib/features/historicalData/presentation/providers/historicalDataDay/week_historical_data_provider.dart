@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:el_tiempo_en_galve_app/config/constants/enviroment.dart';
@@ -12,71 +10,72 @@ import '../../../../auth/infraestructure/errors/auth_errors.dart';
 
 
 //Y ahora el provider
-final todayHistoricalDataDayProvider = StateNotifierProvider<HistoricalDataDayNotifier, TodayHistoricalDataState>((ref) {
+final weekHistoricalDataProvider = StateNotifierProvider<WeekHistoricalDataDayNotifier, WeekHistoricalDataState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
   final historicalDataDayRepository = ref.watch(dayHistoricalRepositoryProvider);
-  return HistoricalDataDayNotifier(historicalDataDayRepository: historicalDataDayRepository);
+  return WeekHistoricalDataDayNotifier(historicalDataDayRepository: historicalDataDayRepository);
 });
 
 //eL notifier
-class HistoricalDataDayNotifier extends StateNotifier<TodayHistoricalDataState> {
+class WeekHistoricalDataDayNotifier extends StateNotifier<WeekHistoricalDataState> {
   final DayHistoricalRepository historicalDataDayRepository;
 
-  HistoricalDataDayNotifier({
+  WeekHistoricalDataDayNotifier({
     required this.historicalDataDayRepository
-  }): super( TodayHistoricalDataState()){
+  }): super( WeekHistoricalDataState()){
     //Así ejecutamos na mas instanciarse esto.
     _getHistoricalDataDay();
-    startRepeatingFunction();
   }
 
-  void startRepeatingFunction() async {
-    const Duration interval = Duration(minutes: 5);
-     Timer.periodic(interval, (Timer timer) {
-    // Llama a tu función aquí
-      _getHistoricalDataDay();
-    });
-  }
-
+  //int yyyymmddStart,
+  //int yyyymmddEnd,
   Future _getHistoricalDataDay() async{
     try{
-      state = state.copyWith(isLoading: true);
-      HistoricalDataDay historicalDataDay = await historicalDataDayRepository.getTodayHistorical(Enviroment.stationId, _getToday());  
-      state = state.copyWith(historicalDataDay: historicalDataDay, isLoading: false);
+      state = state.copyWith(isLoading: false);
+      List<HistoricalDataDay>? weekHistoricalDataDay = await historicalDataDayRepository.getLastDataBetween(Enviroment.stationId, _getStartDay(), _getEndDay()); 
+      state = state.copyWith(weekHistoricalDataDay: weekHistoricalDataDay, isLoading: false);
     } on CustomError catch (e){
       state = state.copyWith(errorMessage: e.message, isLoading: false);
     } catch (e){
-      state = state.copyWith(errorMessage: '$e' ,isLoading: false);
+      state = state.copyWith(errorMessage: '$e', isLoading: false);
     }
   }
 
-  int _getToday(){
-    DateTime now = DateTime.now();
+  int _getEndDay(){
+    DateTime now = DateTime.now().subtract(const Duration(days: 1));
+    //Restamos un día a hoy porque hoy lo vamos a pasar para que se actualice.
     String day = now.day < 10 ? "0${now.day}" : "${now.day}";
     String month = now.month < 10 ? "0${now.month}" : "${now.month}";
     return int.parse("${now.year}$month$day");
   }
+    int _getStartDay(){
+    DateTime now = DateTime.now().subtract(const Duration(days: 7));
+    String day = now.day < 10 ? "0${now.day}" : "${now.day}";
+    String month = now.month < 10 ? "0${now.month}" : "${now.month}";
+    return int.parse("${now.year}$month$day");
+  }
+  
+
 }
 
 //El estado.
-class TodayHistoricalDataState{
-  final HistoricalDataDay? historicalDataDay;
+class WeekHistoricalDataState{
+  final List<HistoricalDataDay>? weekHistoricalDataDay;
   final String errorMessage;
   final bool isLoading;
 
-
-  TodayHistoricalDataState({
-    this.historicalDataDay ,
+  WeekHistoricalDataState({
+    this.weekHistoricalDataDay ,
     this.errorMessage = "",
     this.isLoading = false,
   });
 
-  TodayHistoricalDataState copyWith({
-    HistoricalDataDay? historicalDataDay,
+  WeekHistoricalDataState copyWith({
+    List<HistoricalDataDay>? weekHistoricalDataDay,
     String? errorMessage,
     bool? isLoading,
-  }) => TodayHistoricalDataState(
-    historicalDataDay : historicalDataDay ?? this.historicalDataDay,
+  }) => WeekHistoricalDataState(
+    weekHistoricalDataDay : weekHistoricalDataDay ?? this.weekHistoricalDataDay,
     errorMessage: errorMessage ?? this.errorMessage,
     isLoading: isLoading ?? this.isLoading,
   );

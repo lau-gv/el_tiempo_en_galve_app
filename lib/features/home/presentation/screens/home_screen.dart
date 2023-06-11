@@ -1,3 +1,4 @@
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/useCases/weather_conditions_calculador.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/current_time_section/section_current_historical_time.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/weather_week.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final stationCurrentData = ref.watch(currentStationDataProvider);
+    final currentStationData = ref.watch(currentStationDataProvider);
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     final Size screenSize = MediaQuery.of(context).size;
@@ -38,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     Text("Galve", style: theme.textTheme.headlineLarge),
-                    Text("Lluvioso", style: theme.textTheme.headlineMedium),
+                    Text(getConditions(currentStationData), style: theme.textTheme.headlineMedium),
                     WidgetWeatherImpact(
                       height: screenSize.height / 4.7,
                       //height: 180,
@@ -62,5 +63,37 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 }
+/*
+enum WeatherCondition {
+  sunnyRainy,
+  sunny,
+  sunnyWithWind,
+  sunnyCloudyWithWind,
+  sunnyCloudy,
+  moonlitRainy,
+  moonlit,
+  moonlitWithWind,
+}*/
+String getConditions(CurrentStationDataState? currentStationData){
+  
+  if(currentStationData == null 
+  || currentStationData.currentStationData == null
+  || currentStationData.currentDate == null) return "";
+
+  Map<WeatherCondition, String> weatherconditionText = {
+    WeatherCondition.sunny : "Soleado",
+    WeatherCondition.dayRainy : "Lluvioso",
+    WeatherCondition.dayRainyWithWind : "Lluvioso",
+    WeatherCondition.sunnyWithWind : "Viento",
+    WeatherCondition.sunnyCloudyWithWind : "Viento",
+    WeatherCondition.sunnyCloudy : "Posiblemente nublado",
+    WeatherCondition.nigthRainy : "Lluvioso",
+    WeatherCondition.moonlit : "Noche",
+    WeatherCondition.moonlitWithWind : "Viento",
+  };
+  var weatherConditionCalculator = WeatherConditionCalculator(currentStationData.currentStationData!);
+  return weatherconditionText[weatherConditionCalculator.getWeatherCondition(currentStationData.currentDate!)] ?? "";
+}
+
 
 
