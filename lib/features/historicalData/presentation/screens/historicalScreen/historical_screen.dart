@@ -1,7 +1,6 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_month.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/month_day_data_provider.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/rain_month_section.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/temperature_month_section.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_agroup_month.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/monthWidget/month_widget_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/month_historical/month_historical_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,16 +20,13 @@ class HistoricalScreen extends ConsumerWidget {
     return BackgroundGradient(
       widget: monthDataProvider.isLoading 
       ? const Center(child: CircularProgressIndicator())
-      : HistoricalDataWidget(monthDataProvider: monthDataProvider,),
+      : HistoricalDataWidget(),
     );
   }
 }
 
 class HistoricalDataWidget extends StatelessWidget {
-  final MonthHistoricalDataState monthDataProvider;
-
   const HistoricalDataWidget({
-    required this.monthDataProvider,
     super.key,
   });
 
@@ -49,10 +45,11 @@ class HistoricalDataWidget extends StatelessWidget {
           ]
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [              
-            const SingleChildScrollView(child: _MonthHistoricalDataWidget(),),
-            SingleChildScrollView(child: YearHistoricalDataWidget(monthDataProvider: monthDataProvider),),
+            SingleChildScrollView(child: MonthHistoricalDataWidget(),),
+            SingleChildScrollView(child: MonthHistoricalDataWidget(),),
+            //SingleChildScrollView(child: YearHistoricalDataWidget(monthDataProvider: monthDataProvider),),
           ],
         ),
       ),
@@ -61,57 +58,11 @@ class HistoricalDataWidget extends StatelessWidget {
 }
 
 
-class YearHistoricalDataWidget extends StatelessWidget {
-  const YearHistoricalDataWidget({
-    required this.monthDataProvider,
-    super.key
-  });
-
-  final MonthHistoricalDataState monthDataProvider;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _CardHistoricalMonthData(historicalMonth: monthDataProvider.monthHistoricalDataDay!, 
-          childrens: rainMonthSection),
-          const SizedBox(height: 10),
-        _CardHistoricalMonthData(historicalMonth: monthDataProvider.monthHistoricalDataDay!, 
-          childrens: temperatureMonthSection),
-          const SizedBox(height: 10),
-      ]
-    );
-  }
-}
-
-class _MonthHistoricalDataWidget extends ConsumerWidget {
-  const _MonthHistoricalDataWidget({
-    super.key
-  });
-
-  @override
-  Widget build(BuildContext context, ref) {
-    
-    final monthDataProvider = ref.watch(monthHistoricalDataProvider);
-
-    return Column(
-      children: [
-        _CardHistoricalMonthData(historicalMonth: monthDataProvider.monthHistoricalDataDay!, 
-          childrens: rainMonthSection),
-          const SizedBox(height: 10),
-        _CardHistoricalMonthData(historicalMonth: monthDataProvider.monthHistoricalDataDay!, 
-          childrens: temperatureMonthSection),
-          const SizedBox(height: 10),
-      ]
-    );
-  }
-}
-
 
 class _CardHistoricalMonthData extends StatelessWidget {
 
-  final HistoricalMonth historicalMonth;
-  final List<Widget> Function(ThemeData, HistoricalMonth) childrens;
+  final HistoricalAgroupMonth historicalMonth;
+  final List<Widget> Function(ThemeData, HistoricalAgroupMonth) childrens;
   
   const _CardHistoricalMonthData({
     required this.historicalMonth,

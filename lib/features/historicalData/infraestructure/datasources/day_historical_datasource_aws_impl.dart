@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/datasources/day_historical_datasource.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_month.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_agroup_month.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/infraestructure/mappers/historical_data_day_mapper.dart';
 
 import '../../../../config/constants/enviroment.dart';
@@ -24,9 +24,9 @@ class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
   ));
 
   @override
-  Future<HistoricalMonth> getHistoricalDataDayOfAMonth(String stationId, int yyyymm) async {
+  Future<HistoricalAgroupMonth> getHistoricalDataDayOfAMonth(String stationId, int yyyymm) async {
     try {
-      HistoricalMonth historicalMonth = HistoricalMonth();
+      HistoricalAgroupMonth historicalMonth = HistoricalAgroupMonth();
       final response = await dio.get('$apiEndpoint/month?stationId=$stationId&datadate=$yyyymm');
     
       (response.data ?? []).forEach((historicalDataDay) => historicalMonth.addHistoricalDataDay(

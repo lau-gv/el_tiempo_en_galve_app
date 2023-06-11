@@ -34,7 +34,7 @@ class WeatherConditionCalculator {
       return WeatherCondition.dayRainyWithWind;
     } else if (_stationData.rainrateinmm > 0){
       return WeatherCondition.dayRainy;
-    } else if (_stationData.solarradiation < 300 && _stationData.windspeedkmh < 45 && _stationData.humidity > 80){
+    } else if (_stationData.solarradiation < 300 && _stationData.windspeedkmh > 45 && _stationData.humidity > 80){
       return WeatherCondition.sunnyCloudyWithWind;
     } else if (_stationData.solarradiation < 300 && _stationData.humidity > 80){
       return WeatherCondition.sunnyCloudy;

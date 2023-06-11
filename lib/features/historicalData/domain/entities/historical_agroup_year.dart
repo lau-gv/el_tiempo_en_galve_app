@@ -1,14 +1,14 @@
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/max_min_day.dart';
 
-class HistoricalMonth{
+class HistoricalAgroupYear{
   late List<HistoricalDataDay> _historicalDataDays;
   late double _totalRain;
   late MaxMinDay _maxRain;
   late MaxMinDay _maxTemp;
   late MaxMinDay _minTemp;
 
-  HistoricalMonth() {
+  HistoricalAgroupYear() {
     _historicalDataDays = [];
     _totalRain = 0.0;
     _maxRain = MaxMinDay(value: 0.0, day: '');

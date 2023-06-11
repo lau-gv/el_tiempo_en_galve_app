@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomDropdownButtonFormField<T> extends StatelessWidget {
 
-  final String textLabel;
+  final String? textLabel;
   final Function(T)? onChanged;
   final List<DropdownMenuItem<T>> items;
   final T selectedValue;
@@ -10,7 +10,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
   
   const CustomDropdownButtonFormField({
     super.key, 
-    required this.textLabel, 
+    this.textLabel, 
     required this.onChanged, 
     required this.items,
     required this.selectedValue,
@@ -23,8 +23,8 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
     return SizedBox(
       height: 75,
       child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                  label: Text("Tipo de estacion"),
+                decoration: InputDecoration(
+                  label: Text(textLabel ?? ""),
                 ),
                 items: items,
                 value: selectedValue,
