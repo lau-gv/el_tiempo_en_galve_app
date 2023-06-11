@@ -37,19 +37,29 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
   flutter_riverpod: ^2.3.6
   flutter_secure_storage: ^8.0.0
   formz: ^0.6.0
   go_router: ^7.0.1
   shared_preferences: ^2.1.1
-  syncfusion_flutter_charts: ^21.2.9
-  syncfusion_flutter_sliders: ^21.2.9
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo/otrologo.jpg"
+  min_sdk_android: 21 
+
+flutter_native_splash:
+  color: "#0F0E1E"
+  image: "assets/images/logo/otrologo.jpg"
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
