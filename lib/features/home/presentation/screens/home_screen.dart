@@ -1,5 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/useCases/weather_conditions_calculador.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/current_time_section/section_current_historical_time.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/weather_week.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/widget_weather_impact.dart';
@@ -31,6 +32,13 @@ class HomeScreen extends ConsumerWidget {
         drawer: SideMenu(scaffoldKey: scaffoldKey),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(onPressed: (){
+              ref.read(currentStationDataProvider.notifier).getCurrentStationData();
+              ref.read(currentStationDataProvider.notifier);
+              ref.read(todayHistoricalDataDayProvider.notifier).getHistoricalDataDay();
+            }, icon: Icon(Icons.refresh_sharp)),
+          ],
         ),
         body: SingleChildScrollView(
           child: Center(

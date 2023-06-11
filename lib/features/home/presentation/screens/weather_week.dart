@@ -137,7 +137,7 @@ List<CardWeekDay> returnCardWeekDayList(
 //¿Esto debería llevarmelo al estado?
 void addOrUpdatecurrentDay(List<HistoricalDataDay> lastWeekHistoricalDataDay, HistoricalDataDay? todayHistoricalDataday){
   if(todayHistoricalDataday == null) return;
-  print(lastWeekHistoricalDataDay.length);
+
   if(lastWeekHistoricalDataDay.length > 6) {
     lastWeekHistoricalDataDay.removeLast();
     lastWeekHistoricalDataDay.add(todayHistoricalDataday);

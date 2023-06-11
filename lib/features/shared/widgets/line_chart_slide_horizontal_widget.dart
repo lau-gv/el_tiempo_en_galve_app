@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-//En pendientes:
+//Aquí gracias. Esto es de esta persona, yo solo lo he modificado un poquito.
 //https://github.com/imaNNeo/fl_chart/issues/71#issuecomment-1414267612
 
-class LineChartZommableWidget extends StatelessWidget {
+class LineChartSlideHorizontalWidget extends StatelessWidget {
 
   final List<ChartData> chartData;
   final List<ChartData>? chartData2;
@@ -19,7 +19,7 @@ class LineChartZommableWidget extends StatelessWidget {
 
 
   
-  const LineChartZommableWidget({
+  const LineChartSlideHorizontalWidget({
     required this.chartData,
     this.chartData2,
     required this.chartDataColor,
@@ -115,7 +115,6 @@ Color chartDataColor, Color? chartData2Color) {
 }
 
 Widget defaultGetTitle(double value, TitleMeta meta) {
-  print(value);
   return SideTitleWidget(
     axisSide: meta.axisSide,
     child: Text(
@@ -130,7 +129,7 @@ class ChartData {
   final double y;
 }
 class ZoomableChart extends StatefulWidget {
-  ZoomableChart({
+  const ZoomableChart({
     Key? key,
     required this.maxX,
     required this.minX,
@@ -179,8 +178,6 @@ class _ZoomableChartState extends State<ZoomableChart> {
       onHorizontalDragUpdate: (details) {
         var horizontalDistance = details.primaryDelta ?? 0;
         if (horizontalDistance == 0) return;
-        print("distanciaHorizontal");
-        print(horizontalDistance);
         var lastMinMaxDistance = max(lastMaxXValue - lastMinXValue, 0.0);
 
         setState(() {
@@ -195,36 +192,6 @@ class _ZoomableChartState extends State<ZoomableChart> {
             maxX = initialMaxX;
             minX = maxX - lastMinMaxDistance;
           }
-          print("$minX, $maxX");
-        });
-      },
-      onScaleStart: (details) {
-        lastMinXValue = minX;
-        lastMaxXValue = maxX;
-      },
-      onScaleUpdate: (details) {
-        var horizontalScale = details.horizontalScale;
-        if (horizontalScale == 0) return;
-        print(horizontalScale);
-        var lastMinMaxDistance = max(lastMaxXValue - lastMinXValue, 0);
-        var newMinMaxDistance = max(lastMinMaxDistance / horizontalScale, 10);
-        var distanceDifference = newMinMaxDistance - lastMinMaxDistance;
-        print("$lastMinMaxDistance, $newMinMaxDistance, $distanceDifference");
-        setState(() {
-          final newMinX = max(
-            lastMinXValue - distanceDifference,
-            0.0,
-          );
-          final newMaxX = min(
-            lastMaxXValue + distanceDifference,
-            initialMaxX,
-          );
-
-          if (newMaxX - newMinX > 2) {
-            minX = newMinX;
-            maxX = newMaxX;
-          }
-          print("$minX, $maxX");
         });
       },
       child: widget.builder(minX, maxX),

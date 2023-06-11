@@ -26,7 +26,7 @@ class HistoricalDataDayNotifier extends StateNotifier<TodayHistoricalDataState> 
     required this.historicalDataDayRepository
   }): super( TodayHistoricalDataState()){
     //Así ejecutamos na mas instanciarse esto.
-    _getHistoricalDataDay();
+    getHistoricalDataDay();
     startRepeatingFunction();
   }
 
@@ -34,11 +34,11 @@ class HistoricalDataDayNotifier extends StateNotifier<TodayHistoricalDataState> 
     const Duration interval = Duration(minutes: 5);
      Timer.periodic(interval, (Timer timer) {
     // Llama a tu función aquí
-      _getHistoricalDataDay();
+      getHistoricalDataDay();
     });
   }
 
-  Future _getHistoricalDataDay() async{
+  Future getHistoricalDataDay() async{
     try{
       state = state.copyWith(isLoading: true);
       HistoricalDataDay historicalDataDay = await historicalDataDayRepository.getTodayHistorical(Enviroment.stationId, _getToday());  

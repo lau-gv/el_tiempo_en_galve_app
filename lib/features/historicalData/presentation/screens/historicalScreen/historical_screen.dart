@@ -1,6 +1,7 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_agroup_month.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/monthWidget/month_widget_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/yearWidget/year_widget_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/month_historical/month_historical_data_widget.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/year_historical/year_historical_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,11 +17,12 @@ class HistoricalScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     
     final monthDataProvider = ref.watch(monthHistoricalDataProvider);
+    final yearDataProvider = ref.watch(yearHistoricalDataProvider);
 
     return BackgroundGradient(
-      widget: monthDataProvider.isLoading 
+      widget: monthDataProvider.isLoading || yearDataProvider.isLoading
       ? const Center(child: CircularProgressIndicator())
-      : HistoricalDataWidget(),
+      : const HistoricalDataWidget(),
     );
   }
 }
@@ -48,7 +50,7 @@ class HistoricalDataWidget extends StatelessWidget {
         body: const TabBarView(
           children: [              
             SingleChildScrollView(child: MonthHistoricalDataWidget(),),
-            SingleChildScrollView(child: MonthHistoricalDataWidget(),),
+            SingleChildScrollView(child: YearHistoricalDataWidget(),),
             //SingleChildScrollView(child: YearHistoricalDataWidget(monthDataProvider: monthDataProvider),),
           ],
         ),
@@ -58,32 +60,4 @@ class HistoricalDataWidget extends StatelessWidget {
 }
 
 
-
-class _CardHistoricalMonthData extends StatelessWidget {
-
-  final HistoricalAgroupMonth historicalMonth;
-  final List<Widget> Function(ThemeData, HistoricalAgroupMonth) childrens;
-  
-  const _CardHistoricalMonthData({
-    required this.historicalMonth,
-    required this.childrens
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    final theme = Theme.of(context);
-    return Card(
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-           ...childrens(theme, historicalMonth)
-          ],
-        ),
-      )
-    );
-  }
-}
 

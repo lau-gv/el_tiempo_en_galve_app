@@ -137,18 +137,16 @@ List<Widget> dataWidgets(MonthWidgetState monthDataProvider){
   ];
 }
 
-class NothingToShow extends StatefulWidget {
+class NothingToShow extends StatelessWidget {
   const NothingToShow({super.key});
 
   @override
-  State<NothingToShow> createState() => _NothingToShowState();
-}
-
-class _NothingToShowState extends State<NothingToShow> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("No hay datos para el mes seleccionado"),
+    return const SizedBox(
+      width: double.infinity,
+      height: 30,
+      child: Card(
+        child: Center(child: Text("No hay datos para el mes seleccionado"))),
     );
   }
 }

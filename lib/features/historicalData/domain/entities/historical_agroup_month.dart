@@ -11,9 +11,9 @@ class HistoricalAgroupMonth{
   HistoricalAgroupMonth() {
     _historicalDataDays = [];
     _totalRain = 0.0;
-    _maxRain = MaxMinDay(value: 0.0, day: '');
-    _maxTemp = MaxMinDay(value: -800, day: '');
-    _minTemp = MaxMinDay(value: 100, day: '');
+    _maxRain = MaxMinDay(value: 0.0, date: '');
+    _maxTemp = MaxMinDay(value: -800, date: '');
+    _minTemp = MaxMinDay(value: 100, date: '');
   }
   
   List<HistoricalDataDay> get historicalDataDays => _historicalDataDays;
@@ -32,21 +32,21 @@ class HistoricalAgroupMonth{
 
   void _setMaxRain(double rain, String day){
     if (_maxRain.value < rain){
-      _maxRain = MaxMinDay(value: rain, day: day);
+      _maxRain = MaxMinDay(value: rain, date: day);
     }
   }
   void _setMaxTemp(double temp, String day){
     if (_maxTemp.value < temp){
-      _maxTemp = MaxMinDay(value: temp, day: day);
+      _maxTemp = MaxMinDay(value: temp, date: day);
     }
   }
   void _setMinTemp(double temp, String day){
     if(temp < _minTemp.value){
-      _minTemp = MaxMinDay(value: temp, day: day);
+      _minTemp = MaxMinDay(value: temp, date: day);
     }
   }
 
   void _updateTotalRain(double rainDay){
-    this._totalRain += rainDay;
+    _totalRain += rainDay;
   }
 }

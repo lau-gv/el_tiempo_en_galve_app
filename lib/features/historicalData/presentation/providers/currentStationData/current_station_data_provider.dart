@@ -22,7 +22,7 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
     required this.currentStationDataRepository
   }): super( CurrentStationDataState()){
     //Así ejecutamos na mas instanciarse esto.
-    _getCurrentStationData();
+    getCurrentStationData();
     _startRepeatingGetStationData();
     _startRepeatingUpdateTime();
   }
@@ -30,19 +30,18 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
   void _startRepeatingGetStationData() async {
     const Duration interval = Duration(minutes: 5);
      Timer.periodic(interval, (Timer timer) {
-    // Llama a tu función aquí
-      _getCurrentStationData();
+        updateDateTime();
+
     });
   }
   void _startRepeatingUpdateTime() {
     const Duration interval = Duration(minutes: 1);
      Timer.periodic(interval, (Timer timer) {
-    // Llama a tu función aquí
-      state = state.copyWith(currentDate: DateTime.now(), currentDateString: _getDateTime());
+        updateDateTime();
     });
   }
 
-  Future _getCurrentStationData() async{
+  Future getCurrentStationData() async{
     try{
       state = state.copyWith(isLoading: true);
       CurrentStationData currentStationData = await currentStationDataRepository.getCurrentStationData(Enviroment.stationId);  
@@ -57,6 +56,9 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
     } catch (e){
       state = state.copyWith(errorMessage: '$e', isLoading: false);
     }
+  }
+  void updateDateTime(){
+      state = state.copyWith(currentDate: DateTime.now(), currentDateString: _getDateTime());
   }
 
   String _getDateTime(){

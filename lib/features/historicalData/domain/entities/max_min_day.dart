@@ -1,15 +1,15 @@
 class MaxMinDay{
   final double _value;
-  final String _day;
+  final String _date;
 
   MaxMinDay({
     required double value,
-    required String day,
+    required String date,
   }): 
-    _day = day,
+    _date = date,
     _value = value;
 
   double get value => _value;
-  String get day => _day;
+  String get day => _date;
     
 }

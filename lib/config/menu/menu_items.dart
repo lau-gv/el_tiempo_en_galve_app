@@ -29,11 +29,11 @@ const appMenuItems = <MenuItem>[
     icon: Icons.add_link_rounded
   ),
 
-  MenuItem(
+  /*MenuItem(
     title: 'Datos de hoy', 
     link: '/detail-current-data', 
     icon: Icons.credit_card
-  ),
+  ),*/
 
   MenuItem(
     title: 'Historico de datos', 

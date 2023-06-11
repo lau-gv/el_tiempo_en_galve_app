@@ -1,6 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_agroup_month.dart';
-import 'package:el_tiempo_en_galve_app/features/shared/widgets/line_chart_zommable_widget.dart';
+import 'package:el_tiempo_en_galve_app/features/shared/widgets/line_chart_slide_horizontal_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ List<Widget> temperatureMonthSection(ThemeData theme, HistoricalAgroupMonth hist
         const SizedBox(height: 20,),
       ],
     ),
-    LineChartZommableWidget(
+    LineChartSlideHorizontalWidget(
       chartData: historicalDataDayList.map((e) => ChartData(e.day.toDouble(), e.maxTemperature.toDouble())).toList(),
       chartData2: historicalDataDayList.map((e) => ChartData(e.day.toDouble(), e.minTemperature.toDouble())).toList(),
       chartDataColor: Colors.red,
