@@ -124,7 +124,7 @@ List<CardWeekDay> returnCardWeekDayList(
       cardWeekDay.add(
       CardWeekDay(
         dayName: getDayOfWeek(element.year, element.month, element.day),
-        dateNumber: "${element.month}/${element.day}",
+        dateNumber: "${element.day}/${element.month}",
         imageUrl: determineIcon(element),
         totalRain: "${element.acumulateDailyraininmm > 0 ? element.acumulateDailyraininmm : ""}",
         maxT: "${element.maxTemperature}º",

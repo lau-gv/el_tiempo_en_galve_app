@@ -7,7 +7,8 @@ import '../../../historicalData/presentation/providers/currentStationData/curren
 import '../../../historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
 
 class WidgetWeatherImpact extends StatelessWidget {
-  const WidgetWeatherImpact({super.key, 
+  const WidgetWeatherImpact({
+    super.key,
     required this.height,
   });
 
@@ -15,23 +16,18 @@ class WidgetWeatherImpact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final rectangleSize = height;
     return Stack(
       children: [
-        Container(     
+        Container(
           height: rectangleSize,
-          constraints: const BoxConstraints(
-            minHeight: 170,
-            maxHeight: 200
-          ),
+          constraints: const BoxConstraints(minHeight: 170, maxHeight: 200),
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
           ),
           child: CustomPaint(
-            painter: TrapezoidPainter(),
-            child: const CardTimeChildrens()),
+              painter: TrapezoidPainter(), child: const CardTimeChildrens()),
         ),
       ],
     );
@@ -44,20 +40,23 @@ class WidgetWeatherImpact extends StatelessWidget {
 class TrapezoidPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-
     final gradient = LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                DarkTheme.cardTimeTop,
-                DarkTheme.cardTimeMiddle,
-                DarkTheme.cardTimeDown
-              ],
-              stops: const [0.0, 0.35, 1]
-            );
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          DarkTheme.cardTimeTop,
+          DarkTheme.cardTimeMiddle,
+          DarkTheme.cardTimeDown
+        ],
+        stops: const [
+          0.0,
+          0.35,
+          1
+        ]);
 
     final paint = Paint()
-      ..shader = gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..shader =
+          gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill;
 
     const roundnessFactor = 30.0;
@@ -69,11 +68,14 @@ class TrapezoidPainter extends CustomPainter {
     path.quadraticBezierTo(
         size.width, size.height, size.width, size.height - roundnessFactor);
     path.lineTo(size.width, size.height * (1 - 0.35));
-    path.quadraticBezierTo(size.width, size.height * (1 - 0.45) - (roundnessFactor) / 1.2, size.width - roundnessFactor, size.height * (1 - 0.45) - roundnessFactor);
-    path.lineTo(0 + roundnessFactor, 0);
     path.quadraticBezierTo(
-        0, 0, 0, roundnessFactor);
-      // Invertir coordenadas Y*/
+        size.width,
+        size.height * (1 - 0.45) - (roundnessFactor) / 1.2,
+        size.width - roundnessFactor,
+        size.height * (1 - 0.45) - roundnessFactor);
+    path.lineTo(0 + roundnessFactor, 0);
+    path.quadraticBezierTo(0, 0, 0, roundnessFactor);
+    // Invertir coordenadas Y*/
     canvas.drawPath(path, paint);
   }
 
@@ -81,33 +83,32 @@ class TrapezoidPainter extends CustomPainter {
   bool shouldRepaint(TrapezoidPainter oldDelegate) => false;
 }
 
-
-
 class CardTimeChildrens extends ConsumerWidget {
   const CardTimeChildrens({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef  ref) {
-
+  Widget build(BuildContext context, WidgetRef ref) {
     final stationCurrentData = ref.watch(currentStationDataProvider);
     final getHistoricalDataDay = ref.watch(todayHistoricalDataDayProvider);
     final theme = Theme.of(context);
 
-    final actualTemp = stationCurrentData.currentStationData != null 
-                      ? stationCurrentData.currentStationData!.temperature.toString() : "";
+    final actualTemp = stationCurrentData.currentStationData != null
+        ? stationCurrentData.currentStationData!.temperature.toString()
+        : "";
     final date = stationCurrentData.currentDateString;
     final maxTemp = getHistoricalDataDay.historicalDataDay != null
-                    ? getHistoricalDataDay.historicalDataDay!.maxTemperature
-                    : "";
+        ? getHistoricalDataDay.historicalDataDay!.maxTemperature
+        : "";
     final minTemp = getHistoricalDataDay.historicalDataDay != null
-                    ? getHistoricalDataDay.historicalDataDay!.minTemperature
-                    : "";
+        ? getHistoricalDataDay.historicalDataDay!.minTemperature
+        : "";
     final totalRain = getHistoricalDataDay.historicalDataDay != null
-                    ? getHistoricalDataDay.historicalDataDay!.acumulateDailyraininmm : "";
+        ? getHistoricalDataDay.historicalDataDay!.acumulateDailyraininmm
+        : "";
 
-    return Row(              
+    return Row(
       children: [
         Expanded(
           flex: 13,
@@ -119,49 +120,65 @@ class CardTimeChildrens extends ConsumerWidget {
               children: [
                 AutoSizeText(
                   "$actualTempºC",
-                  style: theme.textTheme.displayLarge, textScaleFactor: 1,
-                  maxLines: 1,),
-                const SizedBox(height: 2,),
-                AutoSizeText("Hoy: $date",
-                  style: theme.textTheme.bodyMedium, maxLines: 1,),
-                AutoSizeText("Max $maxTempºC Min: $minTempºC", style: theme.textTheme.bodyMedium, maxLines: 1,),
-                AutoSizeText("Total lluvia: ${totalRain}L", style: theme.textTheme.bodyMedium, maxLines: 1,)
+                  style: theme.textTheme.displayLarge,
+                  textScaleFactor: 1,
+                  maxLines: 1,
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                AutoSizeText(
+                  "Hoy: $date",
+                  style: theme.textTheme.bodyMedium,
+                  maxLines: 1,
+                ),
+                AutoSizeText(
+                  "Max $maxTempºC Min: $minTempºC",
+                  style: theme.textTheme.bodyMedium,
+                  maxLines: 1,
+                ),
+                AutoSizeText(
+                  "Total lluvia: $totalRain mm",
+                  style: theme.textTheme.bodyMedium,
+                  maxLines: 1,
+                )
               ],
             ),
           ),
         ),
-        
         Expanded(
-          flex: 12,
-          child: Transform.translate(
-            offset: const Offset(9, -25),
-            child: Image(
-              image: AssetImage(getIconFromConditions(stationCurrentData)),
-              fit: BoxFit.contain,
-            ),
-          ))
+            flex: 12,
+            child: Transform.translate(
+              offset: const Offset(9, -25),
+              child: Image(
+                image: AssetImage(getIconFromConditions(stationCurrentData)),
+                fit: BoxFit.contain,
+              ),
+            ))
       ],
     );
   }
 }
 
-String getIconFromConditions(CurrentStationDataState? currentStationData){
-  
-  if(currentStationData == null 
-  || currentStationData.currentStationData == null
-  || currentStationData.currentDate == null) return "assets/images/sun.png";
+String getIconFromConditions(CurrentStationDataState? currentStationData) {
+  if (currentStationData == null ||
+      currentStationData.currentStationData == null ||
+      currentStationData.currentDate == null) return "assets/images/sun.png";
 
   Map<WeatherCondition, String> weatherconditionText = {
-    WeatherCondition.sunny : "assets/images/sun.png",
-    WeatherCondition.dayRainy : "assets/images/suncloudrain.png",
-    WeatherCondition.dayRainyWithWind : "assets/images/suncloudrainwind.png",
-    WeatherCondition.sunnyWithWind : "assets/images/sunwind.png",
-    WeatherCondition.sunnyCloudyWithWind : "assets/images/suncloudwind.png",
-    WeatherCondition.sunnyCloudy : "assets/images/suncloud.png",
-    WeatherCondition.nigthRainy : "assets/images/moonraining.png",
-    WeatherCondition.moonlit : "assets/images/moon.png",
-    WeatherCondition.moonlitWithWind : "assets/images/moonwind.png",
+    WeatherCondition.sunny: "assets/images/sun.png",
+    WeatherCondition.dayRainy: "assets/images/suncloudrain.png",
+    WeatherCondition.dayRainyWithWind: "assets/images/suncloudrainwind.png",
+    WeatherCondition.sunnyWithWind: "assets/images/sunwind.png",
+    WeatherCondition.sunnyCloudyWithWind: "assets/images/suncloudwind.png",
+    WeatherCondition.sunnyCloudy: "assets/images/suncloud.png",
+    WeatherCondition.nigthRainy: "assets/images/moonraining.png",
+    WeatherCondition.moonlit: "assets/images/moon.png",
+    WeatherCondition.moonlitWithWind: "assets/images/moonwind.png",
   };
-  var weatherConditionCalculator = WeatherConditionCalculator(currentStationData.currentStationData!);
-  return weatherconditionText[weatherConditionCalculator.getWeatherCondition(currentStationData.currentDate!)] ?? "";
+  var weatherConditionCalculator =
+      WeatherConditionCalculator(currentStationData.currentStationData!);
+  return weatherconditionText[weatherConditionCalculator
+          .getWeatherCondition(currentStationData.currentDate!)] ??
+      "";
 }

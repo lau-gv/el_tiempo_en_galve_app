@@ -30,7 +30,7 @@ List<Widget> rainMonthSection(ThemeData theme, HistoricalAgroupMonth historicalM
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Acumulada del mes: ${historicalMonth.totalRain}L "),
+        Text("Acumulada del mes: ${historicalMonth.totalRain} mm"),
         Text("Máxima del mes: ${historicalMonth.maxRain.value}ºC  -Dia: ${historicalMonth.maxTemp.day}"),
         const SizedBox(height: 20,),
       ],
