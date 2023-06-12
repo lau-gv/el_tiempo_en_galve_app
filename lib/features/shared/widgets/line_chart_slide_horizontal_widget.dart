@@ -59,7 +59,6 @@ class LineChartSlideHorizontalWidget extends StatelessWidget {
                   lineBarsData: [
                     ...buildLineBarsData(chartData, chartData2, chartDataColor, chartData2Color)
                   ],
-                  minY: 1,
                   borderData: FlBorderData(
                     show: true,
                   ),

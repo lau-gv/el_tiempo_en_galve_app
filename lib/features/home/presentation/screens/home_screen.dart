@@ -37,7 +37,7 @@ class HomeScreen extends ConsumerWidget {
               ref.read(currentStationDataProvider.notifier).getCurrentStationData();
               ref.read(currentStationDataProvider.notifier);
               ref.read(todayHistoricalDataDayProvider.notifier).getHistoricalDataDay();
-            }, icon: Icon(Icons.refresh_sharp)),
+            }, icon: const Icon(Icons.refresh_sharp)),
           ],
         ),
         body: SingleChildScrollView(
