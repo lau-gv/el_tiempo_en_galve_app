@@ -57,7 +57,7 @@ List<Widget> rainYearSection(ThemeData theme, HistoricalAgroupYear historicalAgr
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Acumulada del año: ${historicalAgroupYear.totalRain} mm "),
-        Text("Máxima del año: ${historicalAgroupYear.maxRain.value}ºC  -Mes: ${historicalAgroupYear.maxTemp.day}"),
+        Text("Máxima del año: ${historicalAgroupYear.maxRain.value}mm/h  -Mes: ${historicalAgroupYear.maxTemp.day}"),
         const SizedBox(height: 20,),
       ],
     ),

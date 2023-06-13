@@ -12,11 +12,38 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
     String formattedValueString = value.toStringAsFixed(1);
     double? formattedValue = double.tryParse(formattedValueString); // Formatea el valor a 1 decimal
     if (formattedValue != null && formattedValue % 1 == 0) {
+      int month = formattedValue.toInt();
+      String monthString = "";
+
+      if(month == 1){
+        monthString = "ENE";
+      }else if(month == 2){
+        monthString = "FEB";
+      }else if(month == 3){
+        monthString = "MAR";
+      }else if(month == 4){
+        monthString = "ABR";
+      }else if(month == 5){
+        monthString = "MAY";
+      }else if(month == 6){
+        monthString = "JUN";
+      }else if(month == 7){
+        monthString = "JUL";
+      }else if(month == 8){
+        monthString = "AGO";
+      }else if(month == 9){
+        monthString = "SEP";
+      }else if(month == 10){
+        monthString = "OCT";
+      }else if(month == 11){
+        monthString = "NOV";
+      }else{
+        monthString = "DIC";
+      }
+
       return SideTitleWidget(
         axisSide: meta.axisSide,
-        child: Text(formattedValueString.substring(
-          0, formattedValueString.length -2
-        )),
+        child: Text(monthString),
       );
     } else {
       return Container(); // No muestra ningún widget si el valor no es un entero
