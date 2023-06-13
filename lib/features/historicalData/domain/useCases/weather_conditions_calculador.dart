@@ -26,7 +26,7 @@ class WeatherConditionCalculator {
   }
 
   bool isDay(DateTime dateTime){
-      return dateTime.hour < 21 && dateTime.hour > 6;
+      return (dateTime.hour < 21 && dateTime.hour > 6 || _stationData.solarradiation == 0);
   }
 
   WeatherCondition getDayWeatherCondition() {
@@ -36,7 +36,7 @@ class WeatherConditionCalculator {
       return WeatherCondition.dayRainy;
     } else if (_stationData.solarradiation < 300 && _stationData.windspeedkmh > 45 && _stationData.humidity > 80){
       return WeatherCondition.sunnyCloudyWithWind;
-    } else if (_stationData.solarradiation < 300 && _stationData.humidity > 80){
+    } else if (_stationData.solarradiation < 300 && _stationData.humidity > 80 || _stationData.solarradiation < 150){
       return WeatherCondition.sunnyCloudy;
     } else if (_stationData.windspeedkmh > 45) {
       return WeatherCondition.sunnyWithWind;
