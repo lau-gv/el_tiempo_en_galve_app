@@ -88,7 +88,7 @@ class MinHistoricalTodayData extends ConsumerWidget {
       children: [
         DataItemUnit(
           icon: MyFlutterApp.rain,
-          title: "EVENTO LLUVIA",
+          title: "INT. LLUVIA",
           subtitle: "${historicalDadatay != null ? historicalDadatay.minRainrateinmm : ""} mm/h",
         ),
         DataItemUnit(
