@@ -23,12 +23,12 @@ class MaxHistoricalTodayData extends ConsumerWidget {
       children: [
         DataItemUnit(
           icon: MyFlutterApp.rain,
-          title: "TOTALLLUVIA",
+          title: "TOTAL LLUVIA",
           subtitle: "${historicalDadatay != null ? historicalDadatay.acumulateDailyraininmm : ""} mm",
         ),
         DataItemUnit(
           icon: MyFlutterApp.rain,
-          title: "TASA LLUVIA",
+          title: "INT. LLUVIA",
           subtitle: "${historicalDadatay != null ? historicalDadatay.maxRainrateinmm : ""} mm/h",
         ),
         DataItemUnit(

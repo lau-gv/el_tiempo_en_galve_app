@@ -26,7 +26,7 @@ class WeatherConditionCalculator {
   }
 
   bool isDay(DateTime dateTime){
-      return (dateTime.hour < 21 && dateTime.hour > 6 || _stationData.solarradiation == 0);
+      return (dateTime.hour < 21 && dateTime.hour > 6 || _stationData.solarradiation > 0);
   }
 
   WeatherCondition getDayWeatherCondition() {
