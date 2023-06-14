@@ -34,7 +34,7 @@ List<Widget> rainMonthSection(
       children: [
         Text("Acumulada del mes: ${historicalMonth.totalRain} mm"),
         Text(
-            "El mes mas lluvioso: ${historicalMonth.maxRain.value}ºC  -Dia: ${historicalMonth.maxTemp.day}"),
+            "El dia mas lluvioso: ${historicalMonth.maxRain.value}mm  -Dia: ${historicalMonth.maxTemp.day}"),
         const SizedBox(
           height: 20,
         ),
