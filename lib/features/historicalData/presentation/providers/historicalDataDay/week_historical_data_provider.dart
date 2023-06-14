@@ -49,7 +49,7 @@ class WeekHistoricalDataDayNotifier extends StateNotifier<WeekHistoricalDataStat
     return int.parse("${now.year}$month$day");
   }
     int _getStartDay(){
-    DateTime now = DateTime.now().subtract(const Duration(days: 7));
+    DateTime now = DateTime.now().subtract(const Duration(days: 6));
     String day = now.day < 10 ? "0${now.day}" : "${now.day}";
     String month = now.month < 10 ? "0${now.month}" : "${now.month}";
     return int.parse("${now.year}$month$day");
