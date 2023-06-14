@@ -144,7 +144,7 @@ class NothingToShow extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SizedBox(
       width: double.infinity,
-      height: 30,
+      height: 50,
       child: Card(
         child: Center(child: Text("No hay datos para el mes seleccionado"))),
     );
