@@ -11,11 +11,10 @@ import '../../../auth/infraestructure/errors/auth_errors.dart';
 class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
 
   late final Dio dio;
-  final String accessToken;
 
   final String apiEndpoint = "/dayHistorical";
 
-  DayHistoricalDatasourceAwsImpl({required this.accessToken})
+  DayHistoricalDatasourceAwsImpl()
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.historicalDataApi,
     headers: {

@@ -9,7 +9,15 @@ class SplashScreen extends StatelessWidget {
     
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(strokeWidth: 2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            
+            CircularProgressIndicator(strokeWidth: 2),
+            Text("Estamos cargando los datos")
+          ],
+        ),
       ),
     );
   }

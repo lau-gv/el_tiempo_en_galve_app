@@ -20,11 +20,11 @@ const appMenuItems = <MenuItem>[
     icon: Icons.home_outlined,
   ),
 
-  MenuItem(
+  /*MenuItem(
     title: 'Mis estaciones',  
     link: '/stations', 
     icon: Icons.add_link_rounded
-  ),
+  ),*/
 
   /*MenuItem(
     title: 'Datos de hoy', 

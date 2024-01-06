@@ -8,11 +8,9 @@ import '../../../auth/infraestructure/errors/auth_errors.dart';
 
 class MonthHistoricalDatasourceAwsImpl implements MonthHistoricalDataSource {
   late final Dio dio;
-  final String accessToken;
-
   final String apiEndpoint = "/monthHistorical";
 
-  MonthHistoricalDatasourceAwsImpl({required this.accessToken})
+  MonthHistoricalDatasourceAwsImpl()
       : dio = Dio(BaseOptions(
             baseUrl: Enviroment.historicalDataApi,
             headers: {

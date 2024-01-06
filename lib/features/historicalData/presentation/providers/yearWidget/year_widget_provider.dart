@@ -2,7 +2,7 @@ import 'package:el_tiempo_en_galve_app/config/constants/enviroment.dart';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_agroup_year.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/month_historical_repository.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/yearWidget/day_historical_repository_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/yearWidget/month_historical_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 

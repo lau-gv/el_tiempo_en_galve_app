@@ -10,11 +10,10 @@ import '../../../auth/infraestructure/errors/auth_errors.dart';
 class CurrentStationDataDatasourceAwsImpl implements CurrentStationDataDatasource {
   
   late final Dio dio;
-  final String accessToken;
 
   final String apiEndpoint = "/currentData";
 
-  CurrentStationDataDatasourceAwsImpl({required this.accessToken})
+  CurrentStationDataDatasourceAwsImpl()
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.historicalDataApi,
     headers: {

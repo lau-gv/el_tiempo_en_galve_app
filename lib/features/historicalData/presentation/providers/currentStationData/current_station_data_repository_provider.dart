@@ -7,11 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final currentStationDataRepositoryProvider = Provider<CurrentStationDataRepository>((ref){
 
-  final accessToken = ref.watch(authProvider).user?.token ?? "";
+  //final accessToken = ref.watch(authProvider).user?.token ?? "";
 
   return CurrentStationDataRepositoryImpl(
     currentStationDataDataSource : CurrentStationDataDatasourceAwsImpl(
-      accessToken: accessToken
+      //accessToken: accessToken
     )
   );
 });
