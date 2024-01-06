@@ -50,7 +50,6 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
     }
   }
 
-
   return [
     Text("Temperatura", style: theme.textTheme.titleLarge),
     const SizedBox(height: 10,),
@@ -68,7 +67,7 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
       chartDataColor: Colors.red,
       chartData2Color: Colors.blue,
       bottomTitleWidget: bottomTitleWidgets,
-      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble() + 2,
+      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble() + 1,
       maxXShow: historicalDataMonthList.length > 10 
         ? historicalDataMonthList[10].month.toDouble() 
         : historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble(),
