@@ -9,7 +9,7 @@ class MaxMinDay{
     _date = date,
     _value = value;
 
-  double get value => _value;
+  double get value => double.parse(_value.toStringAsFixed(2));
   String get day => _date;
     
 }

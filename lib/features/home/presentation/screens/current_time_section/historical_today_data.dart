@@ -27,6 +27,11 @@ class MaxHistoricalTodayData extends ConsumerWidget {
           subtitle: "${historicalDadatay != null ? historicalDadatay.acumulateDailyraininmm : ""} mm",
         ),
         DataItemUnit(
+          icon: MyFlutterApp.temperature,
+          title: "TEMP",
+          subtitle: "${historicalDadatay != null ? historicalDadatay.maxTemperature : ""} ºC",
+        ),
+        DataItemUnit(
           icon: MyFlutterApp.rain,
           title: "INT. LLUVIA",
           subtitle: "${historicalDadatay != null ? historicalDadatay.maxRainrateinmm : ""} mm/h",
@@ -51,16 +56,10 @@ class MaxHistoricalTodayData extends ConsumerWidget {
           title: "EVENTO VIENTO",
           subtitle: "${historicalDadatay != null ? historicalDadatay.maxdailygust: ""} km/h",
         ),
-
         DataItemUnit(
           icon: MyFlutterApp.uvindex,
           title: "UV",
           subtitle: "${historicalDadatay != null ? historicalDadatay.maxUv : ""}",
-        ),
-        DataItemUnit(
-          icon: MyFlutterApp.temperature,
-          title: "TEMP",
-          subtitle: "${historicalDadatay != null ? historicalDadatay.maxTemperature : ""} ºC",
         ),
         DataItemUnit(
           icon: MyFlutterApp.pressure,
@@ -92,6 +91,11 @@ class MinHistoricalTodayData extends ConsumerWidget {
           subtitle: "${historicalDadatay != null ? historicalDadatay.minRainrateinmm : ""} mm/h",
         ),
         DataItemUnit(
+          icon: MyFlutterApp.temperature,
+          title: "TEMP",
+          subtitle: "${historicalDadatay != null ? historicalDadatay.minTemperature : ""} ºC",
+        ),
+        DataItemUnit(
           icon: MyFlutterApp.humidity,
           title: "HUMEDAD",
           subtitle: "${historicalDadatay != null ? historicalDadatay.minHumidity : ""}%",
@@ -116,11 +120,6 @@ class MinHistoricalTodayData extends ConsumerWidget {
           icon: MyFlutterApp.uvindex,
           title: "UV",
           subtitle: "${historicalDadatay != null ? historicalDadatay.minUv : ""}",
-        ),
-        DataItemUnit(
-          icon: MyFlutterApp.temperature,
-          title: "TEMP",
-          subtitle: "${historicalDadatay != null ? historicalDadatay.minTemperature : ""} ºC",
         ),
         DataItemUnit(
           icon: MyFlutterApp.pressure,

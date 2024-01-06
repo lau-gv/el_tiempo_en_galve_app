@@ -17,7 +17,7 @@ class HistoricalAgroupYear{
   }
   
   List<HistoricalDataMonth> get historicalDataMonth => _historicalDataMonth;
-  double get totalRain => _totalRain;
+  double get totalRain => double.parse(_totalRain.toStringAsFixed(2));
   MaxMinDay get maxRain => _maxRain;
   MaxMinDay get maxTemp => _maxTemp;
   MaxMinDay get minTemp => _minTemp;

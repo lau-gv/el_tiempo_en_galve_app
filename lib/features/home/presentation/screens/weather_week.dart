@@ -158,7 +158,6 @@ String determineIcon(HistoricalDataDay historicalDataDay){
   return icon;
 }
 
-
 String getDayOfWeek(int year, int month, int day) {
   DateTime date = DateTime(year, month, day);
   const List<String> daysOfWeek = [

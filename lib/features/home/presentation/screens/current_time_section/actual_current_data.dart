@@ -28,6 +28,11 @@ class ActualCurrentData extends ConsumerWidget {
           subtitle: "${stationCurrentData != null ? stationCurrentData.rainrateinmm : ""} mm/h",
         ),
         DataItemUnit(
+          icon: MyFlutterApp.temperature,
+          title: "TEMP",
+          subtitle: "${stationCurrentData != null ? stationCurrentData.temperature : ""} ºC",
+        ),
+        DataItemUnit(
           icon: MyFlutterApp.humidity,
           title: "HUMEDAD",
           subtitle: "${stationCurrentData != null ? stationCurrentData.humidity : ""}%",
@@ -51,11 +56,6 @@ class ActualCurrentData extends ConsumerWidget {
           icon: MyFlutterApp.uvindex,
           title: "UV",
           subtitle: "${stationCurrentData != null ? stationCurrentData.uv : ""}",
-        ),
-        DataItemUnit(
-          icon: MyFlutterApp.temperature,
-          title: "TEMP",
-          subtitle: "${stationCurrentData != null ? stationCurrentData.temperature : ""} ºC",
         ),
         DataItemUnit(
           icon: MyFlutterApp.pressure,
