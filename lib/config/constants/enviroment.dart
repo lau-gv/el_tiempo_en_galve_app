@@ -12,4 +12,5 @@ class Enviroment {
   static String historicalDataApi = dotenv.env['HISTORICAL_DATA_API'] ?? 'Historical data api not configured';
   //¡¡YA LO SÉ. YA LO SÉ :(!!!!!
   static String stationId = dotenv.env['STATION_ID'] ?? 'stationApiNotConfigure';
+  static String historicalDataApikey = dotenv.env['HISTORICAL_DATA_API_KEY'] ?? 'historical data api not configure';
 }

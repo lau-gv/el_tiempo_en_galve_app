@@ -18,7 +18,8 @@ class CurrentStationDataDatasourceAwsImpl implements CurrentStationDataDatasourc
   : dio = Dio(BaseOptions(
     baseUrl: Enviroment.historicalDataApi,
     headers: {
-      'Authorization' : accessToken
+      //'Authorization' : accessToken
+      'x-api-key': Enviroment.historicalDataApikey
     }
   ));
 

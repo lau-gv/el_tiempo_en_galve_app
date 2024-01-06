@@ -15,7 +15,10 @@ class MonthHistoricalDatasourceAwsImpl implements MonthHistoricalDataSource {
   MonthHistoricalDatasourceAwsImpl({required this.accessToken})
       : dio = Dio(BaseOptions(
             baseUrl: Enviroment.historicalDataApi,
-            headers: {'Authorization': accessToken}));
+            headers: {
+              //'Authorization': accessToken
+              'x-api-key': Enviroment.historicalDataApikey
+            }));
 
   @override
   Future<HistoricalAgroupYear> getHistoricalMonthOfAYear(String stationId, int yyyy) async{
