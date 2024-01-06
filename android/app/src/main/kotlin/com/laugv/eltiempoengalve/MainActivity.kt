@@ -1,4 +1,4 @@
-package com.example.el_tiempo_en_galve_app
+package com.laugv.eltiempoengalve
 
 import io.flutter.embedding.android.FlutterActivity
 
