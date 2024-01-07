@@ -1,4 +1,4 @@
-class CurrentStationData{
+class StationData{
 
   final String _stationId; 
   final int _datadatetime; 
@@ -25,7 +25,7 @@ class CurrentStationData{
   final double _indoortempf; 
   final int _indoorhumidity;
 
-  CurrentStationData({
+  StationData({
     stationId,
     datadatetime,
     temperature,

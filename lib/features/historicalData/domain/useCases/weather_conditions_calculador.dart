@@ -1,4 +1,4 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 
 enum WeatherCondition {
   dayRainy,
@@ -13,7 +13,7 @@ enum WeatherCondition {
 }
 
 class WeatherConditionCalculator {
-  final CurrentStationData _stationData;
+  final StationData _stationData;
 
   WeatherConditionCalculator(this._stationData);
 

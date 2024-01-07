@@ -1,9 +1,9 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 
 class CurrentStationDataAWSMapper{
 
-static CurrentStationData fromJson(Map<String, dynamic> json) {
-  CurrentStationData currentStationData = CurrentStationData(
+static StationData fromJson(Map<String, dynamic> json) {
+  StationData currentStationData = StationData(
   stationId: json["stationId"].toString(),
   datadatetime: json["datadatetime"].toInt(),
   temperature: json["temperature"].toDouble(),

@@ -14,6 +14,7 @@ import '../../../../auth/infraestructure/errors/auth_errors.dart';
 //Y ahora el provider
 final todayHistoricalDataDayProvider = StateNotifierProvider<HistoricalDataDayNotifier, TodayHistoricalDataState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
+  //Pero ya no porque lo hemos quitado. Habría que refactorizar
   final historicalDataDayRepository = ref.watch(dayHistoricalRepositoryProvider);
   return HistoricalDataDayNotifier(historicalDataDayRepository: historicalDataDayRepository);
 });

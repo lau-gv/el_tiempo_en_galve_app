@@ -1,6 +1,6 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 
 
 abstract class CurrentStationDataDatasource {
-  Future<CurrentStationData> getCurrentStationData(String stationId);
+  Future<StationData> getCurrentStationData(String stationId);
 }

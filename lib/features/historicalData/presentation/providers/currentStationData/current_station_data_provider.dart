@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/current_station_data.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/current_station_data_repository.dart';
 
@@ -30,12 +30,12 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
   void _startRepeatingGetStationData() async {
     const Duration interval = Duration(minutes: 5);
      Timer.periodic(interval, (Timer timer) {
-        updateDateTime();
+        getCurrentStationData();
 
     });
   }
   void _startRepeatingUpdateTime() {
-    const Duration interval = Duration(minutes: 1);
+    const Duration interval = Duration(seconds: 30);
      Timer.periodic(interval, (Timer timer) {
         updateDateTime();
     });
@@ -44,7 +44,7 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
   Future getCurrentStationData() async{
     try{
       state = state.copyWith(isLoading: true);
-      CurrentStationData currentStationData = await currentStationDataRepository.getCurrentStationData(Enviroment.stationId);  
+      StationData currentStationData = await currentStationDataRepository.getCurrentStationData(Enviroment.stationId);  
       state = state.copyWith(
         currentStationData: currentStationData, 
         currentDate: DateTime.now(), 
@@ -73,7 +73,7 @@ class CurrentStationDataNotifier extends StateNotifier<CurrentStationDataState> 
 
 //El estado.
 class CurrentStationDataState{
-  final CurrentStationData? currentStationData;
+  final StationData? currentStationData;
   final String errorMessage;
   final String currentDateString;
   final DateTime? currentDate;
@@ -89,7 +89,7 @@ class CurrentStationDataState{
   });
 
   CurrentStationDataState copyWith({
-    CurrentStationData? currentStationData,
+    StationData? currentStationData,
     String? errorMessage,
     String? currentDateString,
     DateTime? currentDate,

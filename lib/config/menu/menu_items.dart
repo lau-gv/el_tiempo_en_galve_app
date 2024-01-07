@@ -26,16 +26,16 @@ const appMenuItems = <MenuItem>[
     icon: Icons.add_link_rounded
   ),*/
 
-  /*MenuItem(
+  MenuItem(
     title: 'Datos de hoy', 
     link: '/detail-current-data', 
-    icon: Icons.credit_card
-  ),*/
+    icon: Icons.water_drop
+  ),
 
   MenuItem(
     title: 'Historico de datos', 
     link: '/historical-data', 
-    icon: Icons.refresh_rounded
+    icon: Icons.history_rounded
   ),
 ];
 
