@@ -28,11 +28,11 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
      //print(jwt);
      User user = UserSessionMapper.cognitoSessionToEntity(session!, email, password);
      //print(user.password);
-    final token = session.idToken.jwtToken;
-    final first500Chars = token?.substring(0, 500);
-    final remainingChars = token?.substring(500);
-    print(first500Chars);
-    print(remainingChars);
+    //final token = session.idToken.jwtToken;
+    //final first500Chars = token?.substring(0, 500);
+    //final remainingChars = token?.substring(500);
+    //print(first500Chars);
+    //print(remainingChars);
      return user;
 
  
@@ -74,8 +74,6 @@ class AuthDataSourceCognitoImpl  extends AuthDataSource {
     throw Exception();
   }
 }
-
-
 
   @override
   Future<void> register(String username, String email, String password) async{

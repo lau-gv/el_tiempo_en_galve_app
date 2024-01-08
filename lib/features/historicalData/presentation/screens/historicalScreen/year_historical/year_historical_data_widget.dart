@@ -62,7 +62,7 @@ List<DropdownMenuItem<int>> getYears() {
           value: type,
           child: Text(
             type.toString(),
-            textScaleFactor: 1,
+            textScaler: const TextScaler.linear(1),
             style: const TextStyle(fontSize: 14),
           )))
       .toList();

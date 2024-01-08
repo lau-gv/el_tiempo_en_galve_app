@@ -82,7 +82,7 @@ List<DropdownMenuItem<MonthEnum>> getMonths() {
           value: type,
           child: Text(
             type.name,
-            textScaleFactor: 1,
+            textScaler: const TextScaler.linear(1),
             style: const TextStyle(fontSize: 14),
           )))
       .toList();
@@ -96,7 +96,7 @@ List<DropdownMenuItem<int>> getYears() {
           value: type,
           child: Text(
             type.toString(),
-            textScaleFactor: 1,
+            textScaler: const TextScaler.linear(1),
             style: const TextStyle(fontSize: 14),
           )))
       .toList();

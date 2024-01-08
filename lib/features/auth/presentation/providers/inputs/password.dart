@@ -21,7 +21,7 @@ static final RegExp passwordRegExp = RegExp(
   const Password.pure() : super.pure('');
 
   // Call super.dirty to represent a modified form input.
-  const Password.dirty( String value ) : super.dirty(value);
+  const Password.dirty( super.value ) : super.dirty();
 
 
   String? get errorMessage {

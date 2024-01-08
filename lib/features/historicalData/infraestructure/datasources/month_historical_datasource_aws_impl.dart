@@ -31,6 +31,7 @@ class MonthHistoricalDatasourceAwsImpl implements MonthHistoricalDataSource {
               HistoricalDataMonthAWSMapper.fromJson(historicalDataMonth)));
 
       return historicalYear;
+    // ignore: deprecated_member_use
     } on DioError catch (e) {
       throw CustomError(message: e.response != null ? e.response!.data : "");
     } catch (e) {

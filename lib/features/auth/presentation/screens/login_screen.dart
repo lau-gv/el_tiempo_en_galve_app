@@ -9,7 +9,7 @@ import '../providers/auth_providers.dart';
 class LoginScreen extends ConsumerWidget {
   static const name = 'login_screen';
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

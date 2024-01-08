@@ -58,7 +58,7 @@ class SideMenuState extends ConsumerState<SideMenu> {
           padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
           child: Divider(),
         ),
-        /* Demomento quitamos el login. Pero la vo original lo tenía...
+        /* De momento quitamos el login. Pero la vo original lo tenía...
         const Padding(
           padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
           child: Text('Otras opciones'),

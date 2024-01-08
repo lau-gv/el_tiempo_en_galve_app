@@ -28,14 +28,12 @@ class LineChartZommableWidgetZoom extends StatelessWidget {
     required this.minX,
     required this.maxXShow,
     this.bottomTitleWidget,
-    Key? key,
-    })
-      : super(key: key);
+    super.key,
+    });
 
 
   @override
   Widget build(BuildContext context) {
-
 
     return SizedBox(
       height: 350,
@@ -131,12 +129,12 @@ class ChartData {
 }
 class ZoomableChart extends StatefulWidget {
   const ZoomableChart({
-    Key? key,
+    super.key,
     required this.maxX,
     required this.minX,
     required this.maxXShow,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final double maxX;
   final double minX;

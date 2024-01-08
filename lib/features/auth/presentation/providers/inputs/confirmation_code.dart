@@ -18,7 +18,7 @@ Contiene al menos 1 carácter especial del siguiente conjunto o un carácter de 
   const ConfirmationCode.pure() : super.pure('');
 
   // Call super.dirty to represent a modified form input.
-  const ConfirmationCode.dirty( String value ) : super.dirty(value);
+  const ConfirmationCode.dirty( super.value ) : super.dirty();
 
 
   String? get errorMessage {

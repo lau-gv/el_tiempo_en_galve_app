@@ -34,6 +34,7 @@ class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
 
       return historicalMonth;
 
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.response != null ? e.response!.data : "");
     } catch (e){
@@ -51,6 +52,7 @@ class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
         HistoricalDataDayAWSMapper.fromJson(historicalDataDay)));
 
       return historicalDataDays;
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.response != null ? e.response!.data : "");
     } catch (e){
@@ -64,6 +66,7 @@ class DayHistoricalDatasourceAwsImpl implements DayHistoricalDataSource {
     try {
       final response = await dio.get('$apiEndpoint/day?stationId=$stationId&datadate=$yyyymmdd');
       return HistoricalDataDayAWSMapper.fromJson(response.data);
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){

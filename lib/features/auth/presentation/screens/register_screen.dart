@@ -12,7 +12,7 @@ import '../providers/register_form_provider.dart';
 class RegisterScreen extends ConsumerWidget {
   static const name = 'register_screen';
 
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

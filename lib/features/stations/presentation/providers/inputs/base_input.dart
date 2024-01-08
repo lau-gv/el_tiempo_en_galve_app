@@ -6,7 +6,7 @@ class BaseInput extends FormzInput<String, BaseInputError> {
 
 
   const BaseInput.pure() : super.pure('');
-  const BaseInput.dirty( String value ) : super.dirty(value);
+  const BaseInput.dirty( super.value ) : super.dirty();
 
 
 

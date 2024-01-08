@@ -28,6 +28,7 @@ class CurrentStationDataDatasourceAwsImpl implements StationDataDatasource {
       final response = await dio.get('$apiEndpoint/between?stationId=$stationId&startDayTime=$yyyymmddhhmmssStart&endDayTime=$yyyymmddhhmmssEnd');
       return CurrentStationDataAWSMapper.fromJson(response.data);
 
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       //En realidad esto no es necesario xD pero es que lo dejo así pq sí.
       throw CustomError(message: e.message != null ? e.message! : "");

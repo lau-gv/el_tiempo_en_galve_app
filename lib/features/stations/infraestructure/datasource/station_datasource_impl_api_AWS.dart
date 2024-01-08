@@ -35,6 +35,7 @@ class StationDatasourceImplApiAws implements StationDatasource {
       )));
       
       return stations;
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
@@ -53,6 +54,7 @@ class StationDatasourceImplApiAws implements StationDatasource {
         headers: {'Content-Type': 'application/json'},
       ));
       succesfullElimination = true;
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
@@ -74,6 +76,7 @@ class StationDatasourceImplApiAws implements StationDatasource {
       
       final weatherStationDTO = WeatherStationDTO.fromJson(response.data);
       return StationMapper.weatherStationDTOToEntity(weatherStationDTO);
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
@@ -95,6 +98,7 @@ class StationDatasourceImplApiAws implements StationDatasource {
       
       final weatherStationDTO = WeatherStationDTO.fromJson(response.data);
       return StationMapper.weatherStationDTOToEntity(weatherStationDTO);
+    // ignore: deprecated_member_use
     }on DioError catch (e) {
       throw CustomError(message: e.message != null ? e.message! : "");
     } catch (e){
