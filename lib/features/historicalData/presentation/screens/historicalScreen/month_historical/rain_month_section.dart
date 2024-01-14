@@ -4,10 +4,9 @@ import 'package:el_tiempo_en_galve_app/features/shared/widgets/line_chart_slide_
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-List<Widget> rainMonthSection(
-    ThemeData theme, HistoricalAgroupMonth historicalMonth) {
-  List<HistoricalDataDay> historicalDataDayList =
-      historicalMonth.historicalDataDays;
+List<Widget> rainMonthSection(ThemeData theme, HistoricalAgroupMonth historicalMonth) {
+
+  List<HistoricalDataDay> historicalDataDayList = historicalMonth.historicalDataDays;
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     String formattedValueString = value.toStringAsFixed(1);
@@ -49,8 +48,7 @@ List<Widget> rainMonthSection(
       bottomTitleWidget: bottomTitleWidgets,
       maxX: historicalDataDayList[historicalDataDayList.length - 1]
               .day
-              .toDouble() +
-          2,
+              .toDouble(),
       maxXShow: historicalDataDayList.length > 10
           ? historicalDataDayList[10].day.toDouble()
           : historicalDataDayList[historicalDataDayList.length - 1]

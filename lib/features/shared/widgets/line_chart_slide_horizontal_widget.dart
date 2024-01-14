@@ -35,7 +35,6 @@ class LineChartSlideHorizontalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return SizedBox(
       height: 350,
       child: AspectRatio(
@@ -46,14 +45,12 @@ class LineChartSlideHorizontalWidget extends StatelessWidget {
             maxX: maxX,
             minX:  minX,
             maxXShow: maxXShow,
-            
             builder: (minX, maxX) {
               return LineChart(
                 LineChartData(
                   clipData: const FlClipData.all(),
                   minX: minX,
                   maxX: maxX,
-                  
                   lineTouchData: const LineTouchData(enabled:true),
                   lineBarsData: [
                     ...buildLineBarsData(chartData, chartData2, chartDataColor, chartData2Color)
@@ -65,9 +62,16 @@ class LineChartSlideHorizontalWidget extends StatelessWidget {
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 30,
+                        reservedSize: 50,
                         getTitlesWidget: (value, meta) => 
                         bottomTitleWidget != null ? bottomTitleWidget!(value, meta) : defaultGetTitle(value, meta),
+                      )                    
+                    ),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 50,
+                        getTitlesWidget: (value, meta) => defaultGetTitle(value, meta),
                       )                    
                     ),
                     topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false, reservedSize: 30)),
@@ -113,9 +117,11 @@ Color chartDataColor, Color? chartData2Color) {
 }
 
 Widget defaultGetTitle(double value, TitleMeta meta) {
+
   return SideTitleWidget(
     axisSide: meta.axisSide,
     child: Text(
+      //meta.formattedValue,
       meta.formattedValue,
     ),
   );

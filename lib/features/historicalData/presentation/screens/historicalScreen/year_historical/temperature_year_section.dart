@@ -15,6 +15,9 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
       int month = formattedValue.toInt();
       String monthString = "";
 
+      if(month == 0){
+        monthString = "";
+      }
       if(month == 1){
         monthString = "ENE";
       }else if(month == 2){
@@ -41,9 +44,12 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
         monthString = "DIC";
       }
 
-      return SideTitleWidget(
-        axisSide: meta.axisSide,
-        child: Text(monthString),
+      return Transform.rotate(
+        angle: -0.85,
+        child: SideTitleWidget(
+          axisSide: meta.axisSide,
+          child: Text(monthString),
+        ),
       );
     } else {
       return Container(); // No muestra ningún widget si el valor no es un entero
@@ -67,7 +73,7 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
       chartDataColor: Colors.red,
       chartData2Color: Colors.blue,
       bottomTitleWidget: bottomTitleWidgets,
-      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble() + 2,
+      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble(),
       maxXShow: historicalDataMonthList.length > 10 
         ? historicalDataMonthList[10].month.toDouble() 
         : historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble(),

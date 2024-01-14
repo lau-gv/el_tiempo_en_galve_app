@@ -97,4 +97,17 @@ class StationData{
   double? get windchillC => _windchillC;
   double get indoortempf => _indoortempf;
   int get indoorhumidity => _indoorhumidity;
+
+  double getHoras(){
+    int horas = (_datadatetime % 1000000) ~/ 10000;
+    int minutos = (_datadatetime % 10000) ~/ 100;
+
+    return (horas) + (minutos / 60.0);
+  }
+  String getHHMMString(){
+    int horas = (_datadatetime % 1000000) ~/ 10000;
+    int minutos = (_datadatetime % 10000) ~/ 100;
+
+    return '${horas.toString().padLeft(2, '0')}:${minutos.toString().padLeft(2, '0')}';
+  }
 }

@@ -40,7 +40,7 @@ List<Widget> temperatureMonthSection(ThemeData theme, HistoricalAgroupMonth hist
       chartDataColor: Colors.red,
       chartData2Color: Colors.blue,
       bottomTitleWidget: bottomTitleWidgets,
-      maxX: historicalDataDayList[historicalDataDayList.length -1].day.toDouble() + 2,
+      maxX: historicalDataDayList[historicalDataDayList.length -1].day.toDouble(),
       maxXShow: historicalDataDayList.length > 10 
         ? historicalDataDayList[10].day.toDouble() 
         : historicalDataDayList[historicalDataDayList.length -1].day.toDouble(),

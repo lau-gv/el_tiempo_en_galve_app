@@ -40,9 +40,12 @@ List<Widget> rainYearSection(ThemeData theme, HistoricalAgroupYear historicalAgr
         monthString = "DIC";
       }
 
-      return SideTitleWidget(
-        axisSide: meta.axisSide,
-        child: Text(monthString),
+      return Transform.rotate(
+        angle: -0.75,
+        child: SideTitleWidget(
+          axisSide: meta.axisSide,
+          child: Text(monthString),
+        ),
       );
     } else {
       return Container(); // No muestra ningún widget si el valor no es un entero
@@ -65,7 +68,7 @@ List<Widget> rainYearSection(ThemeData theme, HistoricalAgroupYear historicalAgr
       chartData: historicalDataMonthList.map((e) => ChartData(e.month.toDouble(), e.acumulateDailyraininmm.toDouble())).toList(),
       chartDataColor: Colors.blue,
       bottomTitleWidget: bottomTitleWidgets,
-      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble() + 2,
+      maxX: historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble(),
       maxXShow: historicalDataMonthList.length > 10 
         ? historicalDataMonthList[10].month.toDouble() 
         : historicalDataMonthList[historicalDataMonthList.length -1].month.toDouble(),
