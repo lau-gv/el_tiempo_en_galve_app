@@ -22,7 +22,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final currentStationData = ref.watch(currentStationDataProvider);
-    final allStationData = ref.watch(allTodayStationDataRepositoryProvider);
+    ref.watch(allTodayStationDataRepositoryProvider);
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     final Size screenSize = MediaQuery.of(context).size;
