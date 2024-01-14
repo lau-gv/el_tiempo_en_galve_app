@@ -37,7 +37,7 @@ class AllTodayStationDataNotifier extends StateNotifier<AllTodayStationDataState
       getAllStationDataBetween();
     });
   }
-
+  
   Future getAllStationDataBetween() async{
 
     try{

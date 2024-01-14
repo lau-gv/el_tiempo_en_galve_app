@@ -21,7 +21,7 @@ class DetailCurrentData extends ConsumerWidget {
 
     final stationCurrentDataProvider = ref.watch(currentStationDataProvider);
     final allStationDataProvider = ref.watch(allTodayStationDataRepositoryProvider);
-    final todayMaxMinData = ref.watch(todayHistoricalDataDayProvider).historicalDataDay;
+    //final todayMaxMinData = ref.watch(todayHistoricalDataDayProvider).historicalDataDay;
     final stationCurrentData = stationCurrentDataProvider.currentStationData;
     final alltodayStationCurrentData = allStationDataProvider.stationDataList;
     

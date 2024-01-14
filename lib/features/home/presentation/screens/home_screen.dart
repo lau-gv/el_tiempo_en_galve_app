@@ -1,5 +1,6 @@
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/useCases/weather_conditions_calculador.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
+import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/all_today_station_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/current_time_section/section_current_historical_time.dart';
 import 'package:el_tiempo_en_galve_app/features/home/presentation/screens/weather_week.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final currentStationData = ref.watch(currentStationDataProvider);
+    final allStationData = ref.watch(allTodayStationDataRepositoryProvider);
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     final Size screenSize = MediaQuery.of(context).size;
@@ -35,8 +37,8 @@ class HomeScreen extends ConsumerWidget {
           actions: [
             IconButton(onPressed: (){
               ref.read(currentStationDataProvider.notifier).getCurrentStationData();
-              ref.read(currentStationDataProvider.notifier);
               ref.read(todayHistoricalDataDayProvider.notifier).getHistoricalDataDay();
+              ref.read(allTodayStationDataRepositoryProvider.notifier).getAllStationDataBetween();
             }, icon: const Icon(Icons.refresh_sharp)),
           ],
         ),
@@ -71,17 +73,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 }
-/*
-enum WeatherCondition {
-  sunnyRainy,
-  sunny,
-  sunnyWithWind,
-  sunnyCloudyWithWind,
-  sunnyCloudy,
-  moonlitRainy,
-  moonlit,
-  moonlitWithWind,
-}*/
+
 String getConditions(CurrentStationDataState? currentStationData){
   
   if(currentStationData == null 

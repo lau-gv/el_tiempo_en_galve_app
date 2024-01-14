@@ -21,7 +21,6 @@ class WeatherWeek extends ConsumerWidget {
 
     final List<CardWeekDay> cardWeekDay = returnCardWeekDayList(lastWeekHistoricalDataDay, todayHistoricalDataday);
 
-
     return Column(
       children: [
         const Text("ACUMULADO DE LA SEMANA"),
