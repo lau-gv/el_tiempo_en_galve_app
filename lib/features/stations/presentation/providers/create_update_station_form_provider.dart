@@ -101,7 +101,7 @@ class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
       state.stationType,
       state.stationName.value,
       state.stationLocalization.value,
-      state.stationMac != null ? state.stationMac!.value : null,
+      state.stationMac?.value,
       null,
       null,
       null,

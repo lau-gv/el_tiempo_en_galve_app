@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 
 class HourChartSlidelineWidget extends StatelessWidget {
@@ -59,7 +58,6 @@ Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
                   lineTouchData: LineTouchData(
                     touchTooltipData: LineTouchTooltipData(
                       maxContentWidth: 100,
-                      tooltipBgColor: Colors.black,
                       getTooltipItems: (touchedSpots) {
                         return touchedSpots.map((LineBarSpot touchedSpot) {
                           final textStyle = TextStyle(

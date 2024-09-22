@@ -1,8 +1,6 @@
-import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/all_today_station_data_provider.dart';
-import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/today_data_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/detailCurrentData/temperature_day_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

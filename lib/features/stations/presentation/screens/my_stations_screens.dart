@@ -97,9 +97,8 @@ class _SuperiorCardStation extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(station.name, style: theme.textTheme.headlineSmall),
-              ButtonBar(
+              OverflowBar(
                 alignment: MainAxisAlignment.end,
-                buttonPadding: const EdgeInsets.all(0),
                 children: [
                   IconButton(
                       onPressed: () {

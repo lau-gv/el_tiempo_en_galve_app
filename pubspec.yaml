@@ -1,5 +1,5 @@
 name: el_tiempo_en_galve_app
-description: A new Flutter project.
+description: Proyecto el tiempo en galve
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,26 +28,26 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  amazon_cognito_identity_dart_2: ^3.3.0
+  amazon_cognito_identity_dart_2: ^3.6.5
   auto_size_text: ^3.0.0
-  crypto: ^3.0.3
-  cupertino_icons: ^1.0.2
-  dio: ^5.1.2
-  fl_chart: ^0.66.0
+  crypto: ^3.0.5
+  cupertino_icons: ^1.0.8
+  dio: ^5.7.0
+  fl_chart: ^0.69.0
   flutter:
     sdk: flutter
-  flutter_dotenv: ^5.0.2
-  flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.3.1
-  flutter_riverpod: ^2.3.6
-  flutter_secure_storage: ^9.0.0
-  formz: ^0.6.0
-  go_router: ^13.0.1
-  shared_preferences: ^2.1.1
+  flutter_dotenv: ^5.1.0
+  flutter_launcher_icons: ^0.14.0
+  flutter_native_splash: ^2.4.1
+  flutter_riverpod: ^2.5.1
+  flutter_secure_storage: ^9.2.2
+  formz: ^0.7.0
+  go_router: ^14.2.7
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
-  change_app_package_name: ^1.1.0
-  flutter_lints: ^3.0.1
+  change_app_package_name: ^1.4.0
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
 
@@ -55,7 +55,7 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/logo/station_image_background.png"
-  min_sdk_android: 21
+  min_sdk_android: 24
 
 flutter_native_splash:
   color: "#0F0E1E"

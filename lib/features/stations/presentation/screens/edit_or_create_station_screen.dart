@@ -66,7 +66,7 @@ class EditOrCreateStationScreen extends ConsumerWidget {
                   selectedValue: createOrEditFormState.stationType),
                 if(createOrEditFormState.stationType == StationType.ecowitt) CustomInputText(
                   textLabel: "MAC",
-                  initialValue: createOrEditFormState.stationMac != null ? createOrEditFormState.stationMac!.value : null,
+                  initialValue: createOrEditFormState.stationMac?.value,
                   onChanged: stationFormNotifier.onMacChange,
                   errorMessage: createOrEditFormState.stationMac != null 
                     ? createOrEditFormState.stationMac!.errorMessage
