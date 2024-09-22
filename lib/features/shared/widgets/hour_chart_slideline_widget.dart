@@ -6,7 +6,15 @@ class HourChartSlidelineWidget extends StatelessWidget {
   final List<FlSpot> spots;
   final double minY;
   final double maxY;
-  const HourChartSlidelineWidget({super.key, required this.spots, required this.minY, required this.maxY});
+  final Color lineColor;
+
+  const HourChartSlidelineWidget({
+    super.key,
+    required this.spots,
+    required this.minY,
+    required this.maxY,
+    this.lineColor = Colors.blue, // Valor por defecto aquí
+  });
 
 Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
   final hoursToShow = [0, 4, 8, 12, 16, 20, 23];
@@ -80,9 +88,9 @@ Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
                   ),
                   lineBarsData: [
                     LineChartBarData(
-                      color: Colors.red.shade600,
+                      color: lineColor,
                       spots: spots,
-                      isCurved: true,
+                      isCurved: false,
                       isStrokeCapRound: true,
                       barWidth: 2,
                       belowBarData: BarAreaData(

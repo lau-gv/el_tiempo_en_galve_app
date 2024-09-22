@@ -53,7 +53,8 @@ List<Widget> temperatureDaySection(ThemeData theme, List<StationData> stationdat
     HourChartSlidelineWidget(
       spots: stationdata.map((e) => FlSpot(e.getHoras().toDouble(), e.temperature.toDouble())).toList(),
       maxY: stationDataMaxTemp?.temperature ?? 0,
-      minY: stationDataMinTemp?.temperature ?? 0
+      minY: stationDataMinTemp?.temperature ?? 0,
+      lineColor: Colors.red,
     )
   ];
 }
