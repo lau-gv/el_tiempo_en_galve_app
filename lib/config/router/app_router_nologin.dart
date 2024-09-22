@@ -14,20 +14,19 @@ final appRouterNoLogin = GoRouter(
         path: '/splash',
         builder: (context, state) => const SplashScreen(),      
       ),  
-
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
     ),
-      GoRoute(
-        path: '/detail-current-data',
-        name: DetailCurrentData.name,
-        builder: (context, state) => const DetailCurrentData(),      
-      ),
-      GoRoute(
-        path: '/historical-data',
-        name: HistoricalScreen.name,
-        builder: (context, state) => const HistoricalScreen(),      
-      ),    
+    GoRoute(
+      path: '/detail-current-data',
+      name: DetailCurrentData.name,
+      builder: (context, state) => const DetailCurrentData(),      
+    ),
+    GoRoute(
+      path: '/historical-data',
+      name: HistoricalScreen.name,
+      builder: (context, state) => const HistoricalScreen(),      
+    ),    
   ],
 );

@@ -136,6 +136,7 @@ Future<dynamic> _deleteStation(BuildContext context, WidgetRef ref) {
                 .read(stationsProvider.notifier)
                 .deleteStation(station)
               .whenComplete(() => 
+                // ignore: use_build_context_synchronously
                 context.pop()
               );
             },
