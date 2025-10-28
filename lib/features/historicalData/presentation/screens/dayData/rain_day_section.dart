@@ -21,7 +21,7 @@ List<Widget> rainDaySection(ThemeData theme, List<StationData> stationdata) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Total max lluvia: ${stationDailyRainin?.temperature ?? 0} mm a las ${stationDailyRainin?.getHHMMString() ?? ""} h" ),
+        Text("Total max lluvia: ${stationDailyRainin?.dailyraininmm ?? 0} mm a las ${stationDailyRainin?.getHHMMString() ?? ""} h" ),
         const SizedBox(height: 20,),
       ],
     ),
