@@ -1,9 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:el_tiempo_en_galve_app/config/constants/enviroment.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/historical_data_day.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/day_historical_repository.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/day_historical_repository_provider.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 
 import '../../../../auth/infraestructure/errors/auth_errors.dart';

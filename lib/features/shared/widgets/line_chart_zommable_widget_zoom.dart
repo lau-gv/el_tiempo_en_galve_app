@@ -7,7 +7,6 @@ import 'package:fl_chart/fl_chart.dart';
 //https://github.com/imaNNeo/fl_chart/issues/71#issuecomment-1414267612
 
 class LineChartZommableWidgetZoom extends StatelessWidget {
-
   final List<ChartData> chartData;
   final List<ChartData>? chartData2;
   final Color chartDataColor;
@@ -115,7 +114,7 @@ Color chartDataColor, Color? chartData2Color) {
 Widget defaultGetTitle(double value, TitleMeta meta) {
 
   return SideTitleWidget(
-    axisSide: meta.axisSide,
+    meta: meta,
     child: Text(
       meta.formattedValue,
     ),

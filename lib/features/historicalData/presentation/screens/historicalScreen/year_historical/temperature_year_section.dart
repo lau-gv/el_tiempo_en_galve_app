@@ -47,7 +47,7 @@ List<Widget> temperatureYearSection(ThemeData theme, HistoricalAgroupYear histor
       return Transform.rotate(
         angle: -0.85,
         child: SideTitleWidget(
-          axisSide: meta.axisSide,
+          meta: meta,
           child: Text(monthString),
         ),
       );

@@ -17,58 +17,56 @@ class MonthHistoricalDataWidget extends ConsumerWidget {
 
     return Column(children: [
       const SizedBox(height: 10),
-      Row(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("Para el mes:  "),
-          ),
-          SizedBox(
-            width: 115,
-            child: DropdownButtonFormField(
-              items: getMonths(),
-              value: monthDataProvider.monthEnum,
-              onChanged: (value) {
-                if (value != null) monthDataNotifier.onMonthChange(value);
-              },
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 6),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Wrap(
+          spacing: 20,
+          runSpacing: 15,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  const Text("Para el mes:  "),
+                  Expanded(
+                    child: DropdownButtonFormField(
+                      items: getMonths(),
+                      initialValue: monthDataProvider.monthEnum,
+                      onChanged: (value) {
+                        if (value != null) monthDataNotifier.onMonthChange(value);
+                      },
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 6),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            const Text("y el año:  "),
+            SizedBox(
+              width: 100,
+              child: DropdownButtonFormField(
+                items: getYears(),
+                initialValue: monthDataProvider.year,
+                onChanged: (value) {
+                  if (value != null) monthDataNotifier.onYearChange(value);
+                },
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 9),
+                ),
+              ),
+            ),
+            FilledButton(
+                onPressed: () async {
+                  await ref
+                      .read(monthHistoricalDataProvider.notifier)
+                      .onSearch();
+                },
+                child: const Text("Cambiar mes"))
+          ],
+        ),
       ),
       const SizedBox(height: 10),
-      Row(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("y el año:  "),
-          ),
-          SizedBox(
-            width: 115,
-            child: DropdownButtonFormField(
-              items: getYears(),
-              value: monthDataProvider.year,
-              onChanged: (value) {
-                if (value != null) monthDataNotifier.onYearChange(value);
-              },
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 9),
-              ),
-            ),
-          ),
-          const SizedBox(width: 20),
-          const SizedBox(width: 20),
-          FilledButton(
-              onPressed: () async {
-                await ref
-                    .read(monthHistoricalDataProvider.notifier)
-                    .onSearch();
-              },
-              child: const Text("Cambiar mes"))
-        ],
-      ),
       if (monthDataProvider.visibleHistoricalMonth!.historicalDataDays.isEmpty) const NothingToShow() 
       else ...dataWidgets(monthDataProvider),
 

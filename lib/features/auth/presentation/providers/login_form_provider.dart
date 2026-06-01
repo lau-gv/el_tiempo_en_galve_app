@@ -1,5 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/auth_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:formz/formz.dart';
 import 'inputs/inputs.dart';
 
@@ -26,19 +26,19 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
   //La creación del estado inicial debe ser síncrona.
   LoginFormNotifier({required this.loginUserCallback}) : super(LoginFormState());
 
-  onEmailChange(String value) {
+  void onEmailChange(String value) {
     final newEmail = Email.dirty(value);
     state = state.copyWith(
         email: newEmail, isValid: Formz.validate([newEmail, state.password]));
   }
 
-  onPasswordChanged(String value) {
+  void onPasswordChanged(String value) {
     final newPassword = Password.dirty(value);
     state = state.copyWith(
         password: newPassword, isValid: Formz.validate([newPassword, state.email]));
   }
 
-  onFormSubmit() async {
+  Future<void> onFormSubmit() async {
     _touchEveryField();
     state = state.copyWith(isPosting: true);
     if( !state.isValid ) return;
@@ -47,7 +47,7 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
     state = state.copyWith(isPosting: false);
   }
 
-  _touchEveryField(){
+  void _touchEveryField(){
     final email = Email.dirty(state.email.value);
     final password = Password.dirty(state.password.value);
 

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth_errors.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/currentStationData/current_station_data_repository_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 import 'package:el_tiempo_en_galve_app/config/config.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/current_station_data_repository.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 //Y ahora el provider
 final currentStationDataProvider = StateNotifierProvider<CurrentStationDataNotifier, CurrentStationDataState>((ref) {

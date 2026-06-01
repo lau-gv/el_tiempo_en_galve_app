@@ -14,7 +14,7 @@ List<Widget> rainMonthSection(ThemeData theme, HistoricalAgroupMonth historicalM
         double.tryParse(formattedValueString); // Formatea el valor a 1 decimal
     if (formattedValue != null && formattedValue % 1 == 0) {
       return SideTitleWidget(
-        axisSide: meta.axisSide,
+        meta: meta,
         child: Text(
             formattedValueString.substring(0, formattedValueString.length - 2)),
       );

@@ -4,7 +4,7 @@
 // 3 - StatenotifierProvider - consume afuera.
 //Autodispose es para que cuando ya no se use este churro, se elimine.
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:formz/formz.dart';
 
 import 'inputs/inputs.dart';
@@ -23,7 +23,7 @@ class ConfirmationCodeFormNotifier extends StateNotifier<ConfirmFormState> {
   //La creación del estado inicial debe ser síncrona.
   ConfirmationCodeFormNotifier({required this.confirmUserCallback}) : super(ConfirmFormState());
 
-  onConfirmationCodeChange(String value) {
+  void onConfirmationCodeChange(String value) {
     final newCode = ConfirmationCode.dirty(value);
     state = state.copyWith(
       confirmationCode: newCode,
@@ -31,7 +31,7 @@ class ConfirmationCodeFormNotifier extends StateNotifier<ConfirmFormState> {
     );
   }
   
-  onFormSubmit() async{
+  Future<void> onFormSubmit() async{
     _touchEveryField();
     state = state.copyWith(isPosting: true);
     if( !state.isValid ) return;
@@ -45,7 +45,7 @@ class ConfirmationCodeFormNotifier extends StateNotifier<ConfirmFormState> {
     state = state.copyWith(isPosting: false);
   }
 
-  _touchEveryField(){
+  void _touchEveryField(){
     final confirmationCode = ConfirmationCode.dirty(state.confirmationCode.value);
 
     state = state.copyWith(

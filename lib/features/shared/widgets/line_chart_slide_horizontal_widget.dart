@@ -119,7 +119,7 @@ Color chartDataColor, Color? chartData2Color) {
 Widget defaultGetTitle(double value, TitleMeta meta) {
 
   return SideTitleWidget(
-    axisSide: meta.axisSide,
+    meta: meta,
     child: Text(
       //meta.formattedValue,
       meta.formattedValue,

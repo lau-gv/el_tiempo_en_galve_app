@@ -27,7 +27,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
                   label: Text(textLabel ?? ""),
                 ),
                 items: items,
-                value: selectedValue,
+                initialValue: selectedValue,
                 onChanged: (value) {   
                   if (value !=null)  onChanged!(value);               
                 },),

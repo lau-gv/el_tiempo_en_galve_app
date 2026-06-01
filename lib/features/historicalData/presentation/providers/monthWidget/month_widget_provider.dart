@@ -5,6 +5,7 @@ import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/m
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/day_historical_repository.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/day_historical_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 
 
@@ -25,16 +26,17 @@ class MonthHistoricalDataNotifier extends StateNotifier<MonthWidgetState> {
     //Así ejecutamos na mas instanciarse esto.  
   }  
 
-  onMonthChange(MonthEnum monthEnum){
+  void onMonthChange(MonthEnum monthEnum){
     state = state.copyWith(
       monthEnum: monthEnum
     );
   }
-  onYearChange(int year){
+  void onYearChange(int year){
     state = state.copyWith(
       year: year
     );
   }
+
   Future onSearch()async {
     _getNewHistoricalDataDay(_getDataDate());
   }

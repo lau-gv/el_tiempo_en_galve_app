@@ -1,11 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:formz/formz.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/useCases/create_station_manager.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/inputs/base_input.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/stations_provider.dart';
-
-
 
 final createStationFormProvider = StateNotifierProvider.autoDispose<StationFormNotifier, CreateOrEditStationFormState>((ref) {
   //Recordar a nuestro provider que está escucharndo al token!!!
@@ -44,14 +42,14 @@ class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
     )       
   );
 
-  changeStationTypeSelected(StationType stationTypeChange){
+  void changeStationTypeSelected(StationType stationTypeChange){
     
     stationTypeChange == StationType.ecowitt 
     ? state = state.copyWith(stationType: stationTypeChange, stationMac: state.stationMac ?? const BaseInput.pure())
     : state = state.copyWith(stationType: stationTypeChange, stationMac: null);
   }
   
-  onNameChange(String value){
+  void onNameChange(String value){
     
     final newName = BaseInput.dirty(value);
     state = state.copyWith(
@@ -62,7 +60,8 @@ class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
         ])
     );
   }
-  onLocationChange(String value){
+
+  void onLocationChange(String value){
     final newLocation = BaseInput.dirty(value);
     state = state.copyWith(
       stationLocalization: newLocation, isValid: Formz.validate([
@@ -72,7 +71,8 @@ class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
         ])
     );
   }
-  onMacChange(String value){
+
+  void onMacChange(String value){
     if(state.stationType != StationType.ecowitt) return;
     final newMac = BaseInput.dirty(value);
     state = state.copyWith(
@@ -121,7 +121,7 @@ class StationFormNotifier extends StateNotifier<CreateOrEditStationFormState> {
   
 
   
-  _touchEveryField(){
+  void _touchEveryField(){
     final name = BaseInput.dirty(state.stationName.value);
     final localization = BaseInput.dirty(state.stationLocalization.value);
     final mac = state.stationMac == null ? null : BaseInput.dirty(state.stationMac!.value);

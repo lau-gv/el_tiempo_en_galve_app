@@ -5,7 +5,7 @@ import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositori
 class MonthHistoricalRepositoryImpl implements MonthHistoricalRepository {
   final MonthHistoricalDataSource _historicalDataSource;
 
-  MonthHistoricalRepositoryImpl({historicalDataSource})
+  MonthHistoricalRepositoryImpl({dynamic historicalDataSource})
       : _historicalDataSource = historicalDataSource;
 
   @override

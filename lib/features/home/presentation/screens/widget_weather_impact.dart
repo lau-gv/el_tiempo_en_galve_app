@@ -163,7 +163,9 @@ class CardTimeChildrens extends ConsumerWidget {
 String getIconFromConditions(CurrentStationDataState? currentStationData) {
   if (currentStationData == null ||
       currentStationData.currentStationData == null ||
-      currentStationData.currentDate == null) return "assets/images/sun.png";
+      currentStationData.currentDate == null) {
+    return "assets/images/sun.png";
+  }
 
   Map<WeatherCondition, String> weatherconditionText = {
     WeatherCondition.sunny: "assets/images/sun.png",

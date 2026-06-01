@@ -42,32 +42,34 @@ class HomeScreen extends ConsumerWidget {
             }, icon: const Icon(Icons.refresh_sharp)),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 2),
-                child: Column(
-                  children: [
-                    Text("Galve", style: theme.textTheme.headlineLarge),
-                    Text(getConditions(currentStationData), style: theme.textTheme.headlineMedium),
-                    WidgetWeatherImpact(
-                      height: screenSize.height / 4.7,
-                      //height: 180,
-                    ),
-                    const SizedBox(height: 10),
-                    SectionCurrentHistoricalTime(
-                      height: screenSize.height / 3.8
-                      //height: 200
-                    ),
-                    const SizedBox(height: 10),
-                    WeatherWeek(
-                      maxHeigth: screenSize.height / 4.5,
-                      //maxHeigth: 230,
-                    )
-                  ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+                  child: Column(
+                    children: [
+                      Text("Galve", style: theme.textTheme.headlineLarge),
+                      Text(getConditions(currentStationData), style: theme.textTheme.headlineMedium),
+                      WidgetWeatherImpact(
+                        height: screenSize.height / 4.7,
+                        //height: 180,
+                      ),
+                      const SizedBox(height: 10),
+                      SectionCurrentHistoricalTime(
+                        height: screenSize.height / 3.8
+                        //height: 200
+                      ),
+                      const SizedBox(height: 10),
+                      WeatherWeek(
+                        maxHeigth: screenSize.height / 4.5,
+                        //maxHeigth: 230,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
+          ),
         ),
       ),
     );
@@ -78,7 +80,9 @@ String getConditions(CurrentStationDataState? currentStationData){
   
   if(currentStationData == null 
   || currentStationData.currentStationData == null
-  || currentStationData.currentDate == null) return "";
+  || currentStationData.currentDate == null) {
+    return "";
+  }
 
   Map<WeatherCondition, String> weatherconditionText = {
     WeatherCondition.sunny : "Soleado",

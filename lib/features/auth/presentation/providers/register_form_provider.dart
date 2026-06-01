@@ -1,5 +1,5 @@
 import 'package:el_tiempo_en_galve_app/features/auth/presentation/providers/register_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:formz/formz.dart';
 import 'inputs/inputs.dart';
 
@@ -20,30 +20,31 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
   //La creación del estado inicial debe ser síncrona.
   RegisterFormNotifier({required this.registerUserCallback}) : super(RegisterFormState());
 
-  onUsernameChange(String value) {
+  void onUsernameChange(String value) {
     final newUsername = Username.dirty(value);
     state = state.copyWith(
         username: newUsername, isValid: Formz.validate([newUsername, state.email, state.password, state.repeatedPassword]));
   }
 
-  onEmailChange(String value) {
+  void onEmailChange(String value) {
     final newEmail = Email.dirty(value);
     state = state.copyWith(
         email: newEmail, isValid: Formz.validate([newEmail, state.username, state.password, state.repeatedPassword]));
   }
 
-  onPasswordChanged(String value) {
+  void onPasswordChanged(String value) {
     final newPassword = Password.dirty(value);
     state = state.copyWith(
         password: newPassword, isValid: Formz.validate([newPassword, state.username, state.email, state.repeatedPassword]));
   }
-  onRepeatedPasswordChanged(String value) {
+
+  void onRepeatedPasswordChanged(String value) {
     final newPassword = Password.dirty(value);
     state = state.copyWith(
         repeatedPassword: newPassword, isValid: Formz.validate([newPassword, state.username, state.email, state.password]));
   }
 
-  onFormSubmit() async{
+  Future<void> onFormSubmit() async{
     _touchEveryField();
     state = state.copyWith(isPosting: true, isValidUser: false);
     if( !state.isValid ) return;
@@ -57,7 +58,7 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
     state = state.copyWith(isPosting: false);
   }
 
-  _touchEveryField(){
+  void _touchEveryField(){
     final username = Username.dirty(state.username.value);
     final email = Email.dirty(state.email.value);
     final password = Password.dirty(state.password.value);
@@ -73,7 +74,7 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
     );
   }
 
-  _areEqualsPasswords(){
+  bool _areEqualsPasswords(){
     final String password = state.password.value;
     final String repeatedPassword = state.repeatedPassword.value;
     return password == repeatedPassword;

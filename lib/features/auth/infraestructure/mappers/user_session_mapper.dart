@@ -4,7 +4,7 @@ import 'package:el_tiempo_en_galve_app/features/auth/domain/domain.dart';
 
 class UserSessionMapper {
 
-  static cognitoSessionToEntity(CognitoUserSession session, String email, String password) => User(
+  static User cognitoSessionToEntity(CognitoUserSession session, String email, String password) => User(
       id: session.getIdToken().getSub() ?? "",
       email: email,
       username: decodePayload(session.getIdToken().getJwtToken()!)['cognito:username'],
@@ -13,7 +13,7 @@ class UserSessionMapper {
 
       
 
-  static  dynamic decodePayload(jwtToken) {
+  static dynamic decodePayload(jwtToken) {
     var payload = jwtToken!.split('.')[1];
     if (payload.length % 4 > 0) {
       payload =

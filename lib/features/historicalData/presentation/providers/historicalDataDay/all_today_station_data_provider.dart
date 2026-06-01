@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/station_data.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/infraestructure/datasources/station_historical_data_datasource_aws_impl.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/infraestructure/repositories/station_historical_data_repository_impl.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:el_tiempo_en_galve_app/config/constants/enviroment.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 
 

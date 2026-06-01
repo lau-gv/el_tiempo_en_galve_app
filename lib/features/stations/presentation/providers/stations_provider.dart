@@ -2,7 +2,7 @@ import 'package:el_tiempo_en_galve_app/features/auth/infraestructure/errors/auth
 import 'package:el_tiempo_en_galve_app/features/stations/domain/entities/weather_station.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/domain/repositories/station_repository.dart';
 import 'package:el_tiempo_en_galve_app/features/stations/presentation/providers/station_repository_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 
 //Recordar.
@@ -95,7 +95,7 @@ class StationsNotifier extends StateNotifier<StationsState> {
   }
   
   //No es el mismo objeto, hemos creado uno nuevo.
-  _editStation(WeatherStation station){
+  void _editStation(WeatherStation station){
     state = state.copyWith(
         stations: state.stations.map(
           (element) => ( element.id == station.id ) ? station : element,
@@ -103,12 +103,12 @@ class StationsNotifier extends StateNotifier<StationsState> {
     );
   }
 
-  _addStation(WeatherStation station){
+  void _addStation(WeatherStation station){
     final List<WeatherStation> stations = state.stations;
     stations.add(station);
     state = state.copyWith(stations: stations);
   }
-  _removeStation(WeatherStation station){
+  void _removeStation(WeatherStation station){
     final List<WeatherStation> stations = state.stations;
     stations.remove(station);
     state = state.copyWith(stations: stations);

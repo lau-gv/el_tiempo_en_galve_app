@@ -29,7 +29,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
   final formattedTime = '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
 
   return SideTitleWidget(
-    axisSide: meta.axisSide,
+    meta: meta,
     space: 10,
     child: Transform.rotate(
       angle: -0.85,
@@ -41,7 +41,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
   Widget leftTitleWidgets(double value, TitleMeta meta, double chartWidth) {
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 16,
       child: Text(meta.formattedValue),
     );

@@ -43,7 +43,7 @@ List<Widget> rainYearSection(ThemeData theme, HistoricalAgroupYear historicalAgr
       return Transform.rotate(
         angle: -0.75,
         child: SideTitleWidget(
-          axisSide: meta.axisSide,
+          meta: meta,
           child: Text(monthString),
         ),
       );

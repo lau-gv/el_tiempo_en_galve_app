@@ -47,12 +47,14 @@ class HistoricalDataWidget extends StatelessWidget {
           ]
           ),
         ),
-        body: const TabBarView(
-          children: [              
-            SingleChildScrollView(child: MonthHistoricalDataWidget(),),
-            SingleChildScrollView(child: YearHistoricalDataWidget(),),
-            //SingleChildScrollView(child: YearHistoricalDataWidget(monthDataProvider: monthDataProvider),),
-          ],
+        body: SafeArea(
+          child: const TabBarView(
+            children: [
+              SingleChildScrollView(child: MonthHistoricalDataWidget(),),
+              SingleChildScrollView(child: YearHistoricalDataWidget(),),
+              //SingleChildScrollView(child: YearHistoricalDataWidget(monthDataProvider: monthDataProvider),),
+            ],
+          ),
         ),
       ),
     );

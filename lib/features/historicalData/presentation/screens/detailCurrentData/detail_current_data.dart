@@ -29,16 +29,18 @@ class DetailCurrentData extends ConsumerWidget {
         appBar: AppBar(
           title: const Text("Condiciones hoy"),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10,),
-              //...temperatureDaySection(Theme.of(context), alltodayStationCurrentData ?? []),
-              _CardHistoricalDayData(
-                stationDataList: alltodayStationCurrentData ?? [], 
-                stationCurrentData: stationCurrentData,
-                )
-            ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 10,),
+                //...temperatureDaySection(Theme.of(context), alltodayStationCurrentData ?? []),
+                _CardHistoricalDayData(
+                  stationDataList: alltodayStationCurrentData ?? [],
+                  stationCurrentData: stationCurrentData,
+                  )
+              ],
+            ),
           ),
         ),
       ),

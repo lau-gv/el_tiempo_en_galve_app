@@ -17,35 +17,34 @@ class YearHistoricalDataWidget extends ConsumerWidget {
     return Column(children: [
       const SizedBox(height: 10),
       const SizedBox(height: 10),
-      Wrap(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("Para el año:  "),
-          ),
-          SizedBox(
-            width: 85,
-            child: DropdownButtonFormField(
-              items: getYears(),
-              value: yearDataProvider.year,
-              onChanged: (value) {
-                if (value != null) yearDataNotifier.onYearChange(value);
-              },
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 9),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Wrap(
+          spacing: 8,
+          children: [
+            const Text("Para el año:  "),
+            SizedBox(
+              width: 120,
+              child: DropdownButtonFormField(
+                items: getYears(),
+                initialValue: yearDataProvider.year,
+                onChanged: (value) {
+                  if (value != null) yearDataNotifier.onYearChange(value);
+                },
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 9),
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 20),
-          const SizedBox(width: 20),
-          FilledButton(
-              onPressed: () async {
-                await ref
-                    .read(yearHistoricalDataProvider.notifier)
-                    .onSearch();
-              },
-              child: const Text("Cambiar año"))
-        ],
+            FilledButton(
+                onPressed: () async {
+                  await ref
+                      .read(yearHistoricalDataProvider.notifier)
+                      .onSearch();
+                },
+                child: const Text("Cambiar año"))
+          ],
+        ),
       ),
       if (yearDataProvider.historicalYears.isEmpty) const NothingToShow() 
       else ...dataWidgets(yearDataProvider),
