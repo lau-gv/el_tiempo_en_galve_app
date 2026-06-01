@@ -4,7 +4,6 @@ import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/h
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/entities/month_enum.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/domain/repositories/day_historical_repository.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/historicalDataDay/day_historical_repository_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 
