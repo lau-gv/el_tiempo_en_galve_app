@@ -22,17 +22,22 @@ class MonthHistoricalDataWidget extends ConsumerWidget {
         child: Wrap(
           spacing: 20,
           runSpacing: 15,
+          alignment: WrapAlignment.center,
           children: [
-            Expanded(
+            SizedBox(
+              width: 280,
               child: Row(
                 children: [
-                  const Text("Para el mes:  "),
+                  const Text("Para el mes: "),
+                  const SizedBox(width: 8),
                   Expanded(
-                    child: DropdownButtonFormField(
+                    child: DropdownButtonFormField<MonthEnum>(
                       items: getMonths(),
                       initialValue: monthDataProvider.monthEnum,
                       onChanged: (value) {
-                        if (value != null) monthDataNotifier.onMonthChange(value);
+                        if (value != null) {
+                          monthDataNotifier.onMonthChange(value);
+                        }
                       },
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.only(left: 6),
@@ -42,27 +47,38 @@ class MonthHistoricalDataWidget extends ConsumerWidget {
                 ],
               ),
             ),
-            const Text("y el año:  "),
-            SizedBox(
-              width: 100,
-              child: DropdownButtonFormField(
-                items: getYears(),
-                initialValue: monthDataProvider.year,
-                onChanged: (value) {
-                  if (value != null) monthDataNotifier.onYearChange(value);
-                },
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 9),
+
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("y el año: "),
+                const SizedBox(width: 8),
+                SizedBox(
+                  width: 100,
+                  child: DropdownButtonFormField<int>(
+                    items: getYears(),
+                    initialValue: monthDataProvider.year,
+                    onChanged: (value) {
+                      if (value != null) {
+                        monthDataNotifier.onYearChange(value);
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 9),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
+
             FilledButton(
-                onPressed: () async {
-                  await ref
-                      .read(monthHistoricalDataProvider.notifier)
-                      .onSearch();
-                },
-                child: const Text("Cambiar mes"))
+              onPressed: () async {
+                await ref
+                    .read(monthHistoricalDataProvider.notifier)
+                    .onSearch();
+              },
+              child: const Text("Cambiar mes"),
+            ),
           ],
         ),
       ),

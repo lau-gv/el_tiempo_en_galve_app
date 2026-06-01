@@ -1,3 +1,4 @@
+import 'package:el_tiempo_en_galve_app/config/services/native_loading_ad_widget.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/monthWidget/month_widget_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/providers/yearWidget/year_widget_provider.dart';
 import 'package:el_tiempo_en_galve_app/features/historicalData/presentation/screens/historicalScreen/month_historical/month_historical_data_widget.dart';
@@ -21,7 +22,10 @@ class HistoricalScreen extends ConsumerWidget {
 
     return BackgroundGradient(
       widget: monthDataProvider.isLoading || yearDataProvider.isLoading
-      ? const Center(child: CircularProgressIndicator())
+      ? const NativeLoadingAdWidget(
+        title: "Estamos cargando los datos históricos",
+        message: "La publicidad nos permite mantener la app gratuita.",
+      )
       : const HistoricalDataWidget(),
     );
   }
